@@ -38,15 +38,15 @@ def build_legacy_output(orders, customers, products):
     products_for_join = products[["product_id", "category"]]
     df = orders.merge(customers, on="customer_id").merge(products_for_join, on="product_id")
     df["report_month"] = pd.to_datetime(df["order_date"]).dt.strftime("%Y-%m")
-    summary = (
-        df.groupby(["report_month", "region", "category"])
-        .apply(lambda g: pd.Series({
-            "total_quantity": g["quantity"].sum(),
-            "total_revenue": (g["quantity"] * g["unit_price"]).sum(),
-        }), include_groups=False)
-        .reset_index()
+    keys = ["report_month", "region", "category"]
+    qty = df.groupby(keys)["quantity"].sum().rename("total_quantity")
+    revenue = (
+        (df["quantity"] * df["unit_price"])
+        .groupby([df[k] for k in keys])
+        .sum()
+        .rename("total_revenue")
     )
-    return summary
+    return pd.concat([qty, revenue], axis=1).reset_index()
 
 
 def build_fabric_output(orders, customers, products):

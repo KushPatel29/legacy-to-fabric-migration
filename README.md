@@ -1,6 +1,10 @@
 # Legacy-to-Fabric Migration
 
 [![CI](https://github.com/KushPatel29/legacy-to-fabric-migration/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/legacy-to-fabric-migration/actions/workflows/ci.yml)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
+![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
+![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
 report into a Fabric notebook with incremental Delta MERGE loads —
