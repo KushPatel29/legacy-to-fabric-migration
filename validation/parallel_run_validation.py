@@ -35,6 +35,46 @@ def row_checksum(df: pd.DataFrame) -> str:
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
+def validate(legacy: pd.DataFrame, fabric: pd.DataFrame) -> dict:
+    """Run all checks and return a structured result — used by main() for
+    the console report, by the pytest suite, and by CI, so all three agree
+    on what GO means by construction."""
+    result = {
+        "row_count_match": len(legacy) == len(fabric),
+        "control_totals": {},
+        "only_in_legacy": 0,
+        "only_in_fabric": 0,
+        "value_mismatches": 0,
+        "checksum_match": False,
+    }
+
+    for col in VALUE_COLS:
+        diff = abs(legacy[col].sum() - fabric[col].sum())
+        result["control_totals"][col] = diff < 0.01
+
+    merged = legacy.merge(fabric, on=KEY_COLS, suffixes=("_legacy", "_fabric"),
+                          how="outer", indicator=True)
+    result["only_in_legacy"] = int((merged["_merge"] == "left_only").sum())
+    result["only_in_fabric"] = int((merged["_merge"] == "right_only").sum())
+
+    both = merged[merged["_merge"] == "both"]
+    result["value_mismatches"] = int((
+        (both["total_quantity_legacy"] != both["total_quantity_fabric"])
+        | ((both["total_revenue_legacy"] - both["total_revenue_fabric"]).abs() > 0.01)
+    ).sum())
+
+    result["checksum_match"] = row_checksum(legacy) == row_checksum(fabric)
+    result["verdict"] = "GO" if (
+        result["row_count_match"]
+        and all(result["control_totals"].values())
+        and result["only_in_legacy"] == 0
+        and result["only_in_fabric"] == 0
+        and result["value_mismatches"] == 0
+        and result["checksum_match"]
+    ) else "NO-GO"
+    return result
+
+
 def main():
     legacy = pd.read_csv(DIR / "legacy_output.csv")
     fabric = pd.read_csv(DIR / "fabric_output.csv")
@@ -84,15 +124,13 @@ def main():
     print(f"[3] Fabric checksum:  {fabric_checksum[:16]}...")
     print(f"[3] Checksum match -> {'PASS' if checksum_match else 'FAIL'}")
 
-    # ---- Verdict ----
-    all_pass = (
-        row_count_match and control_ok and len(only_in_legacy) == 0
-        and len(only_in_fabric) == 0 and len(value_mismatches) == 0 and checksum_match
-    )
+    # ---- Verdict (single source of truth: validate()) ----
+    verdict = validate(legacy, fabric)["verdict"]
     print("\n" + "=" * 60)
-    print(f"CUTOVER VERDICT: {'GO — safe to retire legacy pipeline' if all_pass else 'NO-GO — investigate discrepancies above'}")
+    print(f"CUTOVER VERDICT: {'GO — safe to retire legacy pipeline' if verdict == 'GO' else 'NO-GO — investigate discrepancies above'}")
     print("=" * 60)
+    return 0 if verdict == "GO" else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

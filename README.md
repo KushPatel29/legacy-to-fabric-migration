@@ -1,10 +1,14 @@
 # Legacy-to-Fabric Migration
 
+[![CI](https://github.com/KushPatel29/legacy-to-fabric-migration/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/legacy-to-fabric-migration/actions/workflows/ci.yml)
+
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
 report into a Fabric notebook with incremental Delta MERGE loads —
 including a runnable parallel-run validation step that proves the
 refactored pipeline produces identical output before the legacy pipeline
-is retired.
+is retired. CI executes the full parallel run on every push and fails the
+build on a NO-GO verdict, plus negative tests that corrupt the output in
+realistic ways and assert the validator catches every one.
 
 Most portfolios show either "legacy SQL Server BI" or "modern Fabric" skills.
 This project shows both, side by side, plus the part that's usually skipped
@@ -44,7 +48,9 @@ legacy/ssis/          SSIS package spec (build in SSDT — see the doc for why)
 legacy/ssrs/          SSRS paginated report spec (build in Report Builder)
 fabric/notebooks/     the Fabric/PySpark refactor
 validation/           parallel-run validation: row counts, control totals, checksum
+tests/                pytest suite incl. negative tests (corrupted-output detection)
 docs/                 cutover runbook
+.github/workflows/    CI — full parallel run + validation tests on every push
 ```
 
 ## How to reproduce
@@ -75,6 +81,34 @@ prints a GO/NO-GO verdict. See [`docs/cutover_runbook.md`](docs/cutover_runbook.
 for how this fits into an actual cutover, including a real bug this
 validation script hit during development (a dtype-formatting false
 positive) and how it was fixed.
+
+## Testing & CI
+
+The validation framework itself is tested — including **negative tests**
+that deliberately corrupt the fabric output (dropped row, shifted value,
+offsetting errors that cancel in the control total, phantom extra key) and
+assert the validator returns NO-GO for each. A validation framework you've
+never seen fail is indistinguishable from one that doesn't work.
+
+```bash
+pip install pytest
+pytest tests/ -v    # 6 tests: clean-run GO + 4 corruption classes caught + dtype regression
+```
+
+CI runs the entire parallel run from scratch on every push and fails the
+build on a NO-GO verdict.
+
+## Where this applies beyond SSIS/SSRS
+
+The migration is Microsoft-stack, but the parallel-run validation pattern
+is engine-agnostic — the validator diffs two CSVs and doesn't care what
+produced them. The same framework de-risks any re-platforming where the
+new system must reproduce the old system's numbers:
+
+- Informatica / DataStage / Talend → any cloud data platform
+- On-prem data warehouse → Snowflake / Databricks / BigQuery migrations
+- Stored-procedure logic → dbt model conversions
+- Excel/Access "shadow IT" reporting → governed BI replacement
 
 ## Notes on the synthetic data
 

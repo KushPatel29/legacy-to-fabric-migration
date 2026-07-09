@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  parallel-run-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r data_generator/requirements.txt
+          pip install pytest
+
+      - name: Generate fresh source data
+        run: python data_generator/generate_source_data.py
+
+      - name: Build both pipeline outputs (legacy-mirror + fabric-mirror)
+        run: python validation/build_local_reference_outputs.py
+
+      - name: Run parallel-run validation (fails job on NO-GO)
+        run: python validation/parallel_run_validation.py
+
+      - name: Run validation framework tests (incl. corruption negative tests)
+        run: pytest tests/ -v
