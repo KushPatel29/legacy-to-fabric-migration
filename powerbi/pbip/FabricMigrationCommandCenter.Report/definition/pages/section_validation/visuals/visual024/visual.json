@@ -1,0 +1,130 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual024",
+  "position": {
+    "x": 20,
+    "y": 440,
+    "z": 24000,
+    "height": 260,
+    "width": 940,
+    "tabOrder": 24000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "migration_artifacts"
+                    }
+                  },
+                  "Property": "artifact_name"
+                }
+              },
+              "queryRef": "migration_artifacts.artifact_name",
+              "nativeQueryRef": "artifact_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "migration_artifacts"
+                    }
+                  },
+                  "Property": "wave"
+                }
+              },
+              "queryRef": "migration_artifacts.wave",
+              "nativeQueryRef": "wave"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "validation_runs"
+                    }
+                  },
+                  "Property": "attempt"
+                }
+              },
+              "queryRef": "validation_runs.attempt",
+              "nativeQueryRef": "attempt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "validation_runs"
+                    }
+                  },
+                  "Property": "run_date"
+                }
+              },
+              "queryRef": "validation_runs.run_date",
+              "nativeQueryRef": "run_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "validation_runs"
+                    }
+                  },
+                  "Property": "verdict"
+                }
+              },
+              "queryRef": "validation_runs.verdict",
+              "nativeQueryRef": "verdict"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "validation_runs"
+                    }
+                  },
+                  "Property": "mismatch_reason"
+                }
+              },
+              "queryRef": "validation_runs.mismatch_reason",
+              "nativeQueryRef": "mismatch_reason"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Validation Log'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

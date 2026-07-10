@@ -1,0 +1,137 @@
+table migration_artifacts
+	lineageTag: 5b75fe77-9245-409c-92d2-651af7e48bdc
+
+	column artifact_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e3995e83-f238-4e71-b0fb-246022d03d11
+		summarizeBy: none
+		sourceColumn: artifact_id
+
+	column artifact_name
+		dataType: string
+		lineageTag: 973635d6-c784-42a8-b619-faf8257fbe8f
+		summarizeBy: none
+		sourceColumn: artifact_name
+
+	column source_type
+		dataType: string
+		lineageTag: 2877ae50-40f5-4c62-bf38-82152034f6b9
+		summarizeBy: none
+		sourceColumn: source_type
+
+	column domain
+		dataType: string
+		lineageTag: 56280698-d79c-47de-a01c-51d437da0928
+		summarizeBy: none
+		sourceColumn: domain
+
+	column complexity
+		dataType: string
+		lineageTag: 7ebd4261-2c81-4c7f-bb3d-b6a55b8e7483
+		summarizeBy: none
+		sourceColumn: complexity
+
+	column criticality
+		dataType: string
+		lineageTag: 5c7dae6d-0556-496d-8d3f-e2a00e970ed5
+		summarizeBy: none
+		sourceColumn: criticality
+
+	column lines_of_code
+		dataType: int64
+		formatString: #,0
+		lineageTag: ea5a5e9b-8afb-4b2a-92f2-f8fda9adfc59
+		summarizeBy: none
+		sourceColumn: lines_of_code
+
+	column dependency_count
+		dataType: int64
+		formatString: 0
+		lineageTag: db5cd300-9794-4dd5-9413-011cdff55434
+		summarizeBy: none
+		sourceColumn: dependency_count
+
+	column wave
+		dataType: string
+		lineageTag: c9ccc3f6-f062-41bd-8e73-fc0e89b917b4
+		summarizeBy: none
+		sourceColumn: wave
+
+	column wave_quarter
+		dataType: string
+		lineageTag: bd45ac10-2e71-432d-b236-0447945a2a33
+		summarizeBy: none
+		sourceColumn: wave_quarter
+
+	column target_platform
+		dataType: string
+		lineageTag: 02d1e405-bfa6-49c5-b2c0-ff32855cf94d
+		summarizeBy: none
+		sourceColumn: target_platform
+
+	column status
+		dataType: string
+		lineageTag: 6c7b9b80-3180-4961-a316-c10b038612cd
+		summarizeBy: none
+		sourceColumn: status
+
+	column planned_cutover
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 1cc260e6-3c9f-4cae-862a-a6978eeb1ba5
+		summarizeBy: none
+		sourceColumn: planned_cutover
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column actual_cutover
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: da431401-ef2f-4367-95ad-532338d1a16d
+		summarizeBy: none
+		sourceColumn: actual_cutover
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column effort_planned_days
+		dataType: double
+		lineageTag: 40ff346c-2864-4059-933c-318ff385da3a
+		summarizeBy: sum
+		sourceColumn: effort_planned_days
+
+	column effort_actual_days
+		dataType: double
+		lineageTag: 23fb4292-29c4-47dc-832e-eff604428eb9
+		summarizeBy: sum
+		sourceColumn: effort_actual_days
+
+	column blocker_reason
+		dataType: string
+		lineageTag: 5af4c619-890c-465f-90a5-bb6cf0fdb3b1
+		summarizeBy: none
+		sourceColumn: blocker_reason
+
+	column cutover_month
+		dataType: string
+		lineageTag: a143f7db-437c-43fd-a8ca-15d7c26c7f77
+		summarizeBy: none
+		sourceColumn: cutover_month
+
+	partition migration_artifacts = m
+		mode: import
+		source =
+				let
+				    // Inventory + plan merged here (both loaded directly, not by referencing
+				    // sibling queries) so the query never trips the privacy firewall.
+				    InvRaw = Csv.Document(File.Contents(DataPath & "\data\migration\migration_inventory.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    InvPromoted = Table.PromoteHeaders(InvRaw, [PromoteAllScalars = true]),
+				    Inv = Table.TransformColumnTypes(InvPromoted, {{"artifact_id", Int64.Type}, {"artifact_name", type text}, {"source_type", type text}, {"domain", type text}, {"complexity", type text}, {"criticality", type text}, {"lines_of_code", Int64.Type}, {"dependency_count", Int64.Type}}),
+				    PlanRaw = Csv.Document(File.Contents(DataPath & "\data\migration\migration_plan.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    PlanPromoted = Table.PromoteHeaders(PlanRaw, [PromoteAllScalars = true]),
+				    Plan = Table.TransformColumnTypes(PlanPromoted, {{"artifact_id", Int64.Type}, {"wave", type text}, {"wave_quarter", type text}, {"target_platform", type text}, {"status", type text}, {"planned_cutover", type date}, {"actual_cutover", type date}, {"effort_planned_days", type number}, {"effort_actual_days", type number}, {"blocker_reason", type text}}),
+				    Merged = Table.NestedJoin(Inv, {"artifact_id"}, Plan, {"artifact_id"}, "plan", JoinKind.Inner),
+				    Expanded = Table.ExpandTableColumn(Merged, "plan", {"wave", "wave_quarter", "target_platform", "status", "planned_cutover", "actual_cutover", "effort_planned_days", "effort_actual_days", "blocker_reason"}),
+				    AddedMonth = Table.AddColumn(Expanded, "cutover_month", each if [actual_cutover] = null then null else Date.ToText([actual_cutover], "yyyy-MM"), type text)
+				in
+				    AddedMonth

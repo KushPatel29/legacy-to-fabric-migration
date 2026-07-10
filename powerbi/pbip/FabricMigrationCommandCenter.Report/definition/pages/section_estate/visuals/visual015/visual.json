@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual015",
+  "position": {
+    "x": 660,
+    "y": 150,
+    "z": 15000,
+    "height": 270,
+    "width": 600,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "migration_artifacts"
+                    }
+                  },
+                  "Property": "domain"
+                }
+              },
+              "queryRef": "migration_artifacts.domain",
+              "nativeQueryRef": "domain"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "migration_artifacts"
+                    }
+                  },
+                  "Property": "complexity"
+                }
+              },
+              "queryRef": "migration_artifacts.complexity",
+              "nativeQueryRef": "complexity"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Artifacts"
+                }
+              },
+              "queryRef": "_Measures.Total Artifacts",
+              "nativeQueryRef": "Total Artifacts"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Complexity Mix by Business Domain'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

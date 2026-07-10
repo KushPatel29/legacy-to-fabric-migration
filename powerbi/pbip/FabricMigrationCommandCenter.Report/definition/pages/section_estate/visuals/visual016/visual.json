@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual016",
+  "position": {
+    "x": 20,
+    "y": 440,
+    "z": 16000,
+    "height": 260,
+    "width": 940,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "migration_artifacts"
+                    }
+                  },
+                  "Property": "wave"
+                }
+              },
+              "queryRef": "migration_artifacts.wave",
+              "nativeQueryRef": "wave"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Artifacts"
+                }
+              },
+              "queryRef": "_Measures.Total Artifacts",
+              "nativeQueryRef": "Total Artifacts"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Migrated Artifacts"
+                }
+              },
+              "queryRef": "_Measures.Migrated Artifacts",
+              "nativeQueryRef": "Migrated Artifacts"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Planned Effort (days)"
+                }
+              },
+              "queryRef": "_Measures.Planned Effort (days)",
+              "nativeQueryRef": "Planned Effort (days)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Actual Effort (days)"
+                }
+              },
+              "queryRef": "_Measures.Actual Effort (days)",
+              "nativeQueryRef": "Actual Effort (days)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Effort Variance %"
+                }
+              },
+              "queryRef": "_Measures.Effort Variance %",
+              "nativeQueryRef": "Effort Variance %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Wave Scorecard'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

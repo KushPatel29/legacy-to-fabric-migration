@@ -1,0 +1,79 @@
+table validation_runs
+	lineageTag: 3bbd74f8-9e40-449c-af45-748af542a5a2
+
+	column run_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 18761ffb-c28c-4ade-8047-fdab386ea4f8
+		summarizeBy: none
+		sourceColumn: run_id
+
+	column artifact_id
+		dataType: int64
+		formatString: 0
+		lineageTag: df8b2879-9143-4e88-aeb6-1681ec2d55f8
+		summarizeBy: none
+		sourceColumn: artifact_id
+
+	column run_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 0439c432-ddd6-46a0-858f-bc075d4a7d6e
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column run_month
+		dataType: string
+		lineageTag: 35026cae-d114-4096-9dd8-22bb637b0b83
+		summarizeBy: none
+		sourceColumn: run_month
+
+	column attempt
+		dataType: int64
+		formatString: 0
+		lineageTag: b4e869a7-354a-4b0a-b1c7-930369f95fa1
+		summarizeBy: none
+		sourceColumn: attempt
+
+	column row_count_match
+		dataType: boolean
+		lineageTag: 7891ba76-2371-44d0-a368-9b1277f590ec
+		summarizeBy: none
+		sourceColumn: row_count_match
+
+	column control_totals_match
+		dataType: boolean
+		lineageTag: 8c1c235e-09b7-498b-a664-661eadfda231
+		summarizeBy: none
+		sourceColumn: control_totals_match
+
+	column checksum_match
+		dataType: boolean
+		lineageTag: 7816bfae-bd08-44c0-893d-81499df6368f
+		summarizeBy: none
+		sourceColumn: checksum_match
+
+	column verdict
+		dataType: string
+		lineageTag: 1ca3a7ad-30c3-48f2-8571-b11a254340d2
+		summarizeBy: none
+		sourceColumn: verdict
+
+	column mismatch_reason
+		dataType: string
+		lineageTag: ade572e8-58a2-4aa0-a824-56a2c3134d2d
+		summarizeBy: none
+		sourceColumn: mismatch_reason
+
+	partition validation_runs = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\data\migration\parallel_run_results.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"run_id", Int64.Type}, {"artifact_id", Int64.Type}, {"run_date", type date}, {"attempt", Int64.Type}, {"row_count_match", type logical}, {"control_totals_match", type logical}, {"checksum_match", type logical}, {"verdict", type text}, {"mismatch_reason", type text}}),
+				    AddedMonth = Table.AddColumn(Typed, "run_month", each Date.ToText([run_date], "yyyy-MM"), type text)
+				in
+				    AddedMonth

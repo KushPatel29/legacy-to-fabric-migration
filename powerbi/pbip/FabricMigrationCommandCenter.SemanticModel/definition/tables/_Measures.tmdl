@@ -1,0 +1,86 @@
+table _Measures
+	lineageTag: 477ab2dd-d300-4e93-b4e5-25ae122bac3b
+
+	measure 'Total Artifacts' = COUNTROWS(migration_artifacts)
+		formatString: #,0
+		lineageTag: f32f1b3f-43b5-4f04-92ae-a99f9f650837
+
+	measure 'Migrated Artifacts' = CALCULATE(COUNTROWS(migration_artifacts), migration_artifacts[status] IN {"Cutover", "Retired"})
+		formatString: #,0
+		lineageTag: 8cb4fa23-8b65-4134-aa9c-ba8b43d3806b
+
+	measure '% Migrated' = DIVIDE([Migrated Artifacts], [Total Artifacts])
+		formatString: 0.0%
+		lineageTag: 9dbdd5f5-f0c9-4d60-93b4-6cbbda63204d
+
+	measure 'Blocked Artifacts' = CALCULATE(COUNTROWS(migration_artifacts), migration_artifacts[status] = "Blocked")
+		formatString: #,0
+		lineageTag: ce4ab325-ebf3-4f1a-a7e4-6c098aebe778
+
+	measure 'In-Flight Artifacts' = CALCULATE(COUNTROWS(migration_artifacts), migration_artifacts[status] IN {"In Progress", "Parallel Run"})
+		formatString: #,0
+		lineageTag: f2f6d40f-adc6-4516-8f5b-cced77c51560
+
+	measure 'Planned Effort (days)' = SUM(migration_artifacts[effort_planned_days])
+		formatString: #,0.0
+		lineageTag: 0499d6fe-41af-40ad-9ba6-188573c513c7
+
+	measure 'Actual Effort (days)' = SUM(migration_artifacts[effort_actual_days])
+		formatString: #,0.0
+		lineageTag: cb3823bc-72d1-4cc9-a404-dd923969b909
+
+	measure 'Effort Variance %' =
+			VAR Done =
+			    FILTER(migration_artifacts, migration_artifacts[status] IN {"Cutover", "Retired"})
+			RETURN
+			    DIVIDE(
+			        SUMX(Done, migration_artifacts[effort_actual_days] - migration_artifacts[effort_planned_days]),
+			        SUMX(Done, migration_artifacts[effort_planned_days])
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 67e05131-73ea-433c-983c-44fc73caa461
+
+	measure 'Validation Runs' = COUNTROWS(validation_runs)
+		formatString: #,0
+		lineageTag: a52b87ee-715b-4c33-9e10-07f0b4981637
+
+	measure 'GO Runs' = CALCULATE(COUNTROWS(validation_runs), validation_runs[verdict] = "GO")
+		formatString: #,0
+		lineageTag: 3e8454b0-c94e-4ae1-bf59-c65599f4abc9
+
+	measure 'NO-GO Runs' = CALCULATE(COUNTROWS(validation_runs), validation_runs[verdict] = "NO-GO")
+		formatString: #,0
+		lineageTag: 29b8af88-cf2f-477f-97d5-688a9ce99626
+
+	measure 'GO Rate' = DIVIDE([GO Runs], [Validation Runs])
+		formatString: 0.0%
+		lineageTag: 4a3e196d-22d6-42ad-962e-fc24e354bf69
+
+	measure 'Cumulative Cutovers' =
+			VAR MonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
+			RETURN
+			    COUNTROWS(
+			        FILTER(
+			            ALL(migration_artifacts),
+			            NOT ISBLANK(migration_artifacts[actual_cutover])
+			                && migration_artifacts[actual_cutover] <= MonthEnd
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 6c4847a4-5f83-4349-bc95-d9389c1ed82c
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 48b17572-72e1-4a45-91ba-0154fbd6e923
+		summarizeBy: none
+		sourceColumn: Value
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Value = Int64.Type], {})
+				in
+				    Source

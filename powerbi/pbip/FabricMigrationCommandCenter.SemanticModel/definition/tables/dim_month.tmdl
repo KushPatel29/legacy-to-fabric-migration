@@ -1,0 +1,31 @@
+table dim_month
+	lineageTag: 77cb48c3-4da5-413c-9fe2-d1db76807835
+
+	column month
+		dataType: string
+		sortByColumn: month_start
+		lineageTag: d0c88bd6-0f8c-4bc4-ac8b-cca957597368
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_start
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 96616a8e-19d1-40a1-bf23-a99bb68dbe95
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_month = m
+		mode: import
+		source =
+				let
+				    // Program calendar: fixed 18-month window covering all six waves.
+				    Months = List.Transform({0..17}, each Date.AddMonths(#date(2025, 7, 1), _)),
+				    ToTable = Table.FromList(Months, Splitter.SplitByNothing(), {"month_start"}),
+				    Typed = Table.TransformColumnTypes(ToTable, {{"month_start", type date}}),
+				    AddedLabel = Table.AddColumn(Typed, "month", each Date.ToText([month_start], "yyyy-MM"), type text),
+				    Reordered = Table.ReorderColumns(AddedLabel, {"month", "month_start"})
+				in
+				    Reordered

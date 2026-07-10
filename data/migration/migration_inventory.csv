@@ -1,0 +1,141 @@
+artifact_id,artifact_name,source_type,domain,complexity,criticality,lines_of_code,dependency_count
+1,Load_GLPosting_001,SSIS Package,Supply Chain,Medium,Tier 1,867,10
+2,Merge_PayrollExtract_002,SSIS Package,Operations,Medium,Tier 3,765,9
+3,Sync_OTIFDaily_003,SSIS Package,Finance,Low,Tier 2,243,1
+4,Load_InventorySnapshot_004,SSIS Package,HR,High,Tier 3,1536,8
+5,Merge_InventorySnapshot_005,SSIS Package,HR,Medium,Tier 1,830,4
+6,Extract_ARAging_006,SSIS Package,Supply Chain,Medium,Tier 3,478,7
+7,Extract_CustomerMaster_007,SSIS Package,Sales,Medium,Tier 3,1179,3
+8,Merge_MarginBridge_008,SSIS Package,Supply Chain,Medium,Tier 2,963,8
+9,Merge_ProductMaster_009,SSIS Package,Supply Chain,Low,Tier 2,268,5
+10,Stage_InventorySnapshot_010,SSIS Package,Marketing,Medium,Tier 2,582,11
+11,Stage_ShipmentManifest_011,SSIS Package,Supply Chain,High,Tier 1,1577,7
+12,Extract_ARAging_012,SSIS Package,Sales,Low,Tier 2,347,3
+13,Stage_GLPosting_013,SSIS Package,Supply Chain,Low,Tier 3,396,7
+14,Stage_CustomerMaster_014,SSIS Package,Finance,Low,Tier 3,258,4
+15,Extract_InventorySnapshot_015,SSIS Package,Sales,Low,Tier 1,240,2
+16,Load_OTIFDaily_016,SSIS Package,Finance,Medium,Tier 3,703,7
+17,Merge_InventorySnapshot_017,SSIS Package,Finance,Low,Tier 2,98,2
+18,Sync_CustomerMaster_018,SSIS Package,Finance,Low,Tier 3,254,2
+19,Extract_InventorySnapshot_019,SSIS Package,Marketing,Medium,Tier 3,447,5
+20,Load_VendorSpend_020,SSIS Package,Sales,Low,Tier 1,294,0
+21,Sync_CommissionCalc_021,SSIS Package,Sales,Low,Tier 1,231,4
+22,Extract_CommissionCalc_022,SSIS Package,Marketing,Low,Tier 3,221,2
+23,Load_CommissionCalc_023,SSIS Package,Finance,Medium,Tier 2,1093,6
+24,Extract_PayrollExtract_024,SSIS Package,Finance,Low,Tier 3,129,0
+25,Load_DemandForecast_025,SSIS Package,Supply Chain,Low,Tier 2,388,2
+26,Extract_FreightCost_026,SSIS Package,Sales,Medium,Tier 2,453,4
+27,Extract_FreightCost_027,SSIS Package,Supply Chain,Low,Tier 2,179,2
+28,Extract_BudgetVsActual_028,SSIS Package,Operations,Medium,Tier 3,595,5
+29,Extract_OTIFDaily_029,SSIS Package,Finance,Medium,Tier 1,441,3
+30,Load_MonthlySalesSummary_030,SSIS Package,Supply Chain,Medium,Tier 3,914,9
+31,Merge_CampaignSpend_031,SSIS Package,Sales,Low,Tier 2,206,6
+32,Extract_PriceList_032,SSIS Package,Finance,Low,Tier 2,353,8
+33,Load_CommissionCalc_033,SSIS Package,HR,Low,Tier 3,285,0
+34,Stage_MarginBridge_034,SSIS Package,HR,Medium,Tier 3,675,4
+35,Merge_CustomerMaster_035,SSIS Package,Sales,Medium,Tier 2,927,6
+36,Stage_VendorSpend_036,SSIS Package,Supply Chain,Low,Tier 1,384,1
+37,Stage_CustomerMaster_037,SSIS Package,Finance,Medium,Tier 1,957,5
+38,Sync_ProductMaster_038,SSIS Package,Sales,Low,Tier 3,260,0
+39,Merge_ShipmentManifest_039,SSIS Package,Operations,Medium,Tier 2,473,3
+40,Sync_PromoLift_040,SSIS Package,Sales,High,Tier 3,4626,11
+41,Sync_InventorySnapshot_041,SSIS Package,Finance,Medium,Tier 2,1134,4
+42,Stage_PayrollExtract_042,SSIS Package,Supply Chain,Medium,Tier 2,518,5
+43,Merge_HeadcountRoster_043,SSIS Package,Finance,Medium,Tier 3,595,4
+44,Merge_ExpiryRisk_044,SSIS Package,Sales,Medium,Tier 2,1082,11
+45,Merge_MonthlySalesSummary_045,SSIS Package,HR,Low,Tier 2,320,5
+46,Pack_InventorySnapshot_046,SSRS Report,Supply Chain,Medium,Tier 1,1139,6
+47,Pack_OTIFDaily_047,SSRS Report,Sales,Low,Tier 1,391,1
+48,Summary_GLPosting_048,SSRS Report,Finance,Low,Tier 2,359,2
+49,Scorecard_PriceList_049,SSRS Report,Sales,High,Tier 2,1995,7
+50,Scorecard_ProductMaster_050,SSRS Report,Marketing,Medium,Tier 2,579,7
+51,Statement_HeadcountRoster_051,SSRS Report,Finance,Medium,Tier 3,808,8
+52,Summary_OTIFDaily_052,SSRS Report,Operations,Low,Tier 2,265,3
+53,Pack_CampaignSpend_053,SSRS Report,HR,Medium,Tier 1,848,5
+54,Scorecard_VendorSpend_054,SSRS Report,HR,Low,Tier 2,264,4
+55,Rpt_VendorSpend_055,SSRS Report,Finance,Low,Tier 2,365,6
+56,Rpt_CommissionCalc_056,SSRS Report,Sales,Low,Tier 3,349,2
+57,Rpt_BudgetVsActual_057,SSRS Report,Finance,Medium,Tier 3,590,3
+58,Summary_ARAging_058,SSRS Report,Supply Chain,Medium,Tier 1,1025,9
+59,Pack_CommissionCalc_059,SSRS Report,Supply Chain,Low,Tier 2,311,3
+60,Scorecard_MonthlySalesSummary_060,SSRS Report,Supply Chain,Low,Tier 2,251,4
+61,Rpt_PriceList_061,SSRS Report,Supply Chain,Low,Tier 2,280,2
+62,Rpt_GLPosting_062,SSRS Report,Operations,Low,Tier 2,350,2
+63,Scorecard_VendorSpend_063,SSRS Report,Finance,High,Tier 3,1431,8
+64,Scorecard_GLPosting_064,SSRS Report,Sales,Low,Tier 2,279,0
+65,Scorecard_InventorySnapshot_065,SSRS Report,Sales,High,Tier 2,1279,11
+66,Scorecard_CustomerMaster_066,SSRS Report,Marketing,Medium,Tier 3,456,12
+67,Statement_ARAging_067,SSRS Report,Sales,Low,Tier 1,284,0
+68,Rpt_CampaignSpend_068,SSRS Report,Operations,Low,Tier 3,233,9
+69,Rpt_CampaignSpend_069,SSRS Report,Operations,Medium,Tier 3,887,8
+70,Summary_ShipmentManifest_070,SSRS Report,Supply Chain,Medium,Tier 1,701,9
+71,Scorecard_ARAging_071,SSRS Report,HR,High,Tier 1,1314,6
+72,Summary_ExpiryRisk_072,SSRS Report,Sales,Medium,Tier 2,896,3
+73,Pack_FreightCost_073,SSRS Report,Operations,Low,Tier 2,247,4
+74,Statement_GLPosting_074,SSRS Report,Supply Chain,High,Tier 2,1518,4
+75,Rpt_CommissionCalc_075,SSRS Report,Finance,Low,Tier 1,346,1
+76,Pack_MonthlySalesSummary_076,SSRS Report,Sales,Low,Tier 3,172,1
+77,Statement_BudgetVsActual_077,SSRS Report,HR,Low,Tier 2,288,6
+78,Pack_VendorSpend_078,SSRS Report,Sales,Medium,Tier 2,828,5
+79,Statement_OTIFDaily_079,SSRS Report,Finance,Medium,Tier 1,934,3
+80,Rpt_ShipmentManifest_080,SSRS Report,Sales,Low,Tier 2,326,3
+81,Statement_MonthlySalesSummary_081,SSRS Report,Sales,Medium,Tier 2,464,5
+82,Summary_PromoLift_082,SSRS Report,Marketing,Low,Tier 2,119,3
+83,Scorecard_ProductMaster_083,SSRS Report,Supply Chain,Medium,Tier 2,493,4
+84,usp_Refresh_PriceList_084,Stored Procedure ETL,Sales,Medium,Tier 1,672,1
+85,usp_Load_ExpiryRisk_085,Stored Procedure ETL,Finance,Low,Tier 2,387,1
+86,usp_Build_ARAging_086,Stored Procedure ETL,HR,Medium,Tier 2,601,10
+87,usp_Rebuild_FreightCost_087,Stored Procedure ETL,Sales,Low,Tier 2,207,8
+88,usp_Rebuild_PriceList_088,Stored Procedure ETL,Operations,Medium,Tier 1,745,3
+89,usp_Load_ShipmentManifest_089,Stored Procedure ETL,Finance,Medium,Tier 1,440,10
+90,usp_Load_GLPosting_090,Stored Procedure ETL,Supply Chain,High,Tier 2,3784,5
+91,usp_Build_CampaignSpend_091,Stored Procedure ETL,Supply Chain,Medium,Tier 2,764,5
+92,usp_Rebuild_PriceList_092,Stored Procedure ETL,Finance,Medium,Tier 1,556,0
+93,usp_Refresh_HeadcountRoster_093,Stored Procedure ETL,Operations,Medium,Tier 3,601,8
+94,usp_Rebuild_ARAging_094,Stored Procedure ETL,Sales,Medium,Tier 3,554,5
+95,usp_Build_HeadcountRoster_095,Stored Procedure ETL,Finance,Medium,Tier 2,1106,7
+96,usp_Load_InventorySnapshot_096,Stored Procedure ETL,Supply Chain,High,Tier 2,1453,6
+97,usp_Refresh_MonthlySalesSummary_097,Stored Procedure ETL,Finance,Low,Tier 2,308,9
+98,usp_Load_ShipmentManifest_098,Stored Procedure ETL,Operations,Low,Tier 2,260,7
+99,usp_Build_HeadcountRoster_099,Stored Procedure ETL,Finance,Medium,Tier 2,1141,8
+100,usp_Refresh_ARAging_100,Stored Procedure ETL,Sales,Low,Tier 2,146,3
+101,usp_Build_CommissionCalc_101,Stored Procedure ETL,Supply Chain,Medium,Tier 1,606,5
+102,usp_Load_VendorSpend_102,Stored Procedure ETL,Operations,Low,Tier 2,140,0
+103,usp_Refresh_PayrollExtract_103,Stored Procedure ETL,Sales,Medium,Tier 2,495,8
+104,usp_Rebuild_VendorSpend_104,Stored Procedure ETL,Marketing,Low,Tier 2,218,3
+105,usp_Refresh_DemandForecast_105,Stored Procedure ETL,Operations,Medium,Tier 2,1071,6
+106,usp_Rebuild_PayrollExtract_106,Stored Procedure ETL,Supply Chain,Low,Tier 2,235,4
+107,usp_Rebuild_PromoLift_107,Stored Procedure ETL,Sales,High,Tier 1,5239,11
+108,usp_Build_FreightCost_108,Stored Procedure ETL,HR,Medium,Tier 2,852,6
+109,usp_Load_PriceList_109,Stored Procedure ETL,Supply Chain,Low,Tier 2,231,4
+110,usp_Load_MonthlySalesSummary_110,Stored Procedure ETL,Sales,Medium,Tier 3,752,8
+111,usp_Rebuild_PriceList_111,Stored Procedure ETL,Operations,Medium,Tier 1,471,4
+112,usp_Load_ShipmentManifest_112,Stored Procedure ETL,Finance,Low,Tier 2,351,1
+113,usp_Rebuild_ProductMaster_113,Stored Procedure ETL,Finance,High,Tier 1,1638,4
+114,Weekly_CampaignSpend_114,SQL Agent Job,Finance,Low,Tier 2,337,5
+115,Weekly_GLPosting_115,SQL Agent Job,Finance,Medium,Tier 1,627,4
+116,Weekly_PromoLift_116,SQL Agent Job,HR,Low,Tier 2,370,1
+117,MonthEnd_ShipmentManifest_117,SQL Agent Job,Sales,Medium,Tier 3,990,6
+118,Nightly_ARAging_118,SQL Agent Job,Sales,Low,Tier 2,269,2
+119,MonthEnd_FreightCost_119,SQL Agent Job,Supply Chain,Medium,Tier 2,491,4
+120,Hourly_PriceList_120,SQL Agent Job,Supply Chain,Medium,Tier 2,935,1
+121,MonthEnd_ARAging_121,SQL Agent Job,Finance,Medium,Tier 3,860,6
+122,MonthEnd_CommissionCalc_122,SQL Agent Job,Finance,Medium,Tier 3,775,10
+123,Nightly_ARAging_123,SQL Agent Job,HR,Medium,Tier 3,729,7
+124,Nightly_ARAging_124,SQL Agent Job,Sales,Low,Tier 3,285,2
+125,Hourly_DemandForecast_125,SQL Agent Job,Sales,High,Tier 3,1419,9
+126,Weekly_MarginBridge_126,SQL Agent Job,Finance,Medium,Tier 2,565,7
+127,MonthEnd_DemandForecast_127,SQL Agent Job,Supply Chain,Medium,Tier 2,723,5
+128,Hourly_CampaignSpend_128,SQL Agent Job,Operations,Low,Tier 1,358,4
+129,Nightly_PayrollExtract_129,SQL Agent Job,Operations,Medium,Tier 2,595,8
+130,Weekly_ExpiryRisk_130,SQL Agent Job,Sales,Low,Tier 3,195,2
+131,Upload_OTIFDaily_131,Access/Excel Feed,Finance,Low,Tier 1,228,10
+132,Upload_MarginBridge_132,Access/Excel Feed,Supply Chain,Medium,Tier 2,1194,6
+133,Adhoc_CommissionCalc_133,Access/Excel Feed,Operations,Medium,Tier 2,1016,5
+134,Upload_GLPosting_134,Access/Excel Feed,Finance,Medium,Tier 3,442,13
+135,Bridge_PayrollExtract_135,Access/Excel Feed,Marketing,Medium,Tier 3,893,7
+136,Adhoc_ShipmentManifest_136,Access/Excel Feed,Finance,Medium,Tier 2,1001,13
+137,Manual_FreightCost_137,Access/Excel Feed,Sales,Medium,Tier 2,451,9
+138,Manual_HeadcountRoster_138,Access/Excel Feed,Finance,High,Tier 3,1218,8
+139,Bridge_FreightCost_139,Access/Excel Feed,Supply Chain,Medium,Tier 2,1039,5
+140,Manual_DemandForecast_140,Access/Excel Feed,Finance,Medium,Tier 2,410,8

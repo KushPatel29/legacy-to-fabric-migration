@@ -1,0 +1,12 @@
+relationship c1000001-0000-4000-8000-000000000001
+	fromColumn: validation_runs.artifact_id
+	toColumn: migration_artifacts.artifact_id
+
+relationship c1000001-0000-4000-8000-000000000002
+	isActive: false
+	fromColumn: migration_artifacts.cutover_month
+	toColumn: dim_month.month
+
+relationship c1000001-0000-4000-8000-000000000003
+	fromColumn: validation_runs.run_month
+	toColumn: dim_month.month
