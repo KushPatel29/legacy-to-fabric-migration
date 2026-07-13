@@ -69,6 +69,18 @@ table _Measures
 		formatString: #,0
 		lineageTag: 6c4847a4-5f83-4349-bc95-d9389c1ed82c
 
+	measure 'Planned Cumulative Cutovers' =
+			VAR MonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
+			RETURN
+			    COUNTROWS(
+			        FILTER(
+			            ALL(migration_artifacts),
+			            migration_artifacts[planned_cutover] <= MonthEnd
+			        )
+			    )
+		formatString: #,0
+		lineageTag: e559d2cb-d5aa-4fc9-b38d-6b88852b40e3
+
 	column Value
 		dataType: int64
 		isHidden
@@ -84,3 +96,4 @@ table _Measures
 				    Source = #table(type table [Value = Int64.Type], {})
 				in
 				    Source
+

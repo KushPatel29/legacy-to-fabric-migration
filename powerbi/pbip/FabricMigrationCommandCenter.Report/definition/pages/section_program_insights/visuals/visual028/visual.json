@@ -1,19 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "visual024",
+  "name": "visual028",
   "position": {
     "x": 20,
-    "y": 440,
-    "z": 24000,
-    "height": 260,
-    "width": 940,
-    "tabOrder": 24000
+    "y": 340,
+    "z": 28000,
+    "height": 360,
+    "width": 620,
+    "tabOrder": 28000
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "scatterChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -28,7 +28,11 @@
               },
               "queryRef": "migration_artifacts.artifact_name",
               "nativeQueryRef": "artifact_name"
-            },
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
             {
               "field": {
                 "Column": {
@@ -37,67 +41,47 @@
                       "Entity": "migration_artifacts"
                     }
                   },
-                  "Property": "wave"
+                  "Property": "complexity"
                 }
               },
-              "queryRef": "migration_artifacts.wave",
-              "nativeQueryRef": "wave"
-            },
+              "queryRef": "migration_artifacts.complexity",
+              "nativeQueryRef": "complexity"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "validation_runs"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "attempt"
+                  "Property": "Planned Effort (days)"
                 }
               },
-              "queryRef": "validation_runs.attempt",
-              "nativeQueryRef": "attempt"
-            },
+              "queryRef": "_Measures.Planned Effort (days)",
+              "nativeQueryRef": "Planned Effort (days)"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "validation_runs"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "run_date"
+                  "Property": "Actual Effort (days)"
                 }
               },
-              "queryRef": "validation_runs.run_date",
-              "nativeQueryRef": "run_date"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "validation_runs"
-                    }
-                  },
-                  "Property": "verdict"
-                }
-              },
-              "queryRef": "validation_runs.verdict",
-              "nativeQueryRef": "verdict"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "validation_runs"
-                    }
-                  },
-                  "Property": "mismatch_reason"
-                }
-              },
-              "queryRef": "validation_runs.mismatch_reason",
-              "nativeQueryRef": "mismatch_reason"
+              "queryRef": "_Measures.Actual Effort (days)",
+              "nativeQueryRef": "Actual Effort (days)"
             }
           ]
         }
@@ -111,7 +95,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Validation Log'"
+                  "Value": "'Estimation Accuracy: Planned vs Actual Effort'"
                 }
               }
             },

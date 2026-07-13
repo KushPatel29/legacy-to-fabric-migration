@@ -1,19 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "visual008",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual029",
   "position": {
     "x": 660,
-    "y": 450,
-    "z": 8000,
-    "height": 250,
-    "width": 290,
-    "tabOrder": 8000
+    "y": 340,
+    "z": 29000,
+    "height": 360,
+    "width": 600,
+    "tabOrder": 29000
   },
   "visual": {
-    "visualType": "slicer",
+    "visualType": "treemap",
     "query": {
       "queryState": {
-        "Values": {
+        "Group": {
           "projections": [
             {
               "field": {
@@ -27,13 +27,31 @@
                 }
               },
               "queryRef": "migration_artifacts.domain",
-              "nativeQueryRef": "domain",
-              "active": true
+              "nativeQueryRef": "domain"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Artifacts"
+                }
+              },
+              "queryRef": "_Measures.Total Artifacts",
+              "nativeQueryRef": "Total Artifacts"
             }
           ]
         }
       }
     },
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -41,7 +59,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Business Domain'"
+                  "Value": "'Estate Concentration by Domain'"
                 }
               }
             },
@@ -55,7 +73,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

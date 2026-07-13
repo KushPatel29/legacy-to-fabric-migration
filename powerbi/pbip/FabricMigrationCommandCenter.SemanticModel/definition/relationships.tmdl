@@ -10,3 +10,4 @@ relationship c1000001-0000-4000-8000-000000000002
 relationship c1000001-0000-4000-8000-000000000003
 	fromColumn: validation_runs.run_month
 	toColumn: dim_month.month
+

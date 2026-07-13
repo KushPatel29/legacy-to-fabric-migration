@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "visual007",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual026",
   "position": {
     "x": 20,
-    "y": 450,
-    "z": 7000,
-    "height": 250,
+    "y": 20,
+    "z": 26000,
+    "height": 300,
     "width": 620,
-    "tabOrder": 7000
+    "tabOrder": 26000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "funnel",
     "query": {
       "queryState": {
         "Category": {
@@ -23,12 +23,11 @@
                       "Entity": "migration_artifacts"
                     }
                   },
-                  "Property": "target_platform"
+                  "Property": "status"
                 }
               },
-              "queryRef": "migration_artifacts.target_platform",
-              "nativeQueryRef": "target_platform",
-              "active": true
+              "queryRef": "migration_artifacts.status",
+              "nativeQueryRef": "status"
             }
           ]
         },
@@ -52,6 +51,7 @@
         }
       }
     },
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -59,7 +59,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Landing Zone: Artifacts by Target Platform'"
+                  "Value": "'Migration Pipeline by Status'"
                 }
               }
             },
@@ -73,7 +73,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

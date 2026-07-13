@@ -3,7 +3,8 @@
   "pageOrder": [
     "section_command_center",
     "section_estate",
-    "section_validation"
+    "section_validation",
+    "section_program_insights"
   ],
   "activePageName": "section_command_center"
 }

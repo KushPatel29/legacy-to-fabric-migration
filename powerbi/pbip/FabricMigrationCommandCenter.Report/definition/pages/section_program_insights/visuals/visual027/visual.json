@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "visual007",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual027",
   "position": {
-    "x": 20,
-    "y": 450,
-    "z": 7000,
-    "height": 250,
-    "width": 620,
-    "tabOrder": 7000
+    "x": 660,
+    "y": 20,
+    "z": 27000,
+    "height": 300,
+    "width": 600,
+    "tabOrder": 27000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "donutChart",
     "query": {
       "queryState": {
         "Category": {
@@ -23,12 +23,11 @@
                       "Entity": "migration_artifacts"
                     }
                   },
-                  "Property": "target_platform"
+                  "Property": "criticality"
                 }
               },
-              "queryRef": "migration_artifacts.target_platform",
-              "nativeQueryRef": "target_platform",
-              "active": true
+              "queryRef": "migration_artifacts.criticality",
+              "nativeQueryRef": "criticality"
             }
           ]
         },
@@ -52,6 +51,7 @@
         }
       }
     },
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -59,7 +59,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Landing Zone: Artifacts by Target Platform'"
+                  "Value": "'Estate by Criticality'"
                 }
               }
             },
@@ -73,7 +73,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

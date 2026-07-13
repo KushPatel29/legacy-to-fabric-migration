@@ -135,3 +135,4 @@ table migration_artifacts
 				    AddedMonth = Table.AddColumn(Expanded, "cutover_month", each if [actual_cutover] = null then null else Date.ToText([actual_cutover], "yyyy-MM"), type text)
 				in
 				    AddedMonth
+

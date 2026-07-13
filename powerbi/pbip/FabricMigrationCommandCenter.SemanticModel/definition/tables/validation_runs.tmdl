@@ -77,3 +77,4 @@ table validation_runs
 				    AddedMonth = Table.AddColumn(Typed, "run_month", each Date.ToText([run_date], "yyyy-MM"), type text)
 				in
 				    AddedMonth
+
