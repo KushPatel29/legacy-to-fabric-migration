@@ -4,6 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-11%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -139,7 +140,8 @@ never seen fail is indistinguishable from one that doesn't work.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 6 tests: clean-run GO + 4 corruption classes caught + dtype regression
+pytest tests/ -v    # 11 tests: clean-run GO + 4 corruption classes caught + dtype
+                    # regression + 5 migration-program invariants
 ```
 
 CI runs the entire parallel run from scratch on every push and fails the
