@@ -40,6 +40,14 @@ def validate(legacy: pd.DataFrame, fabric: pd.DataFrame) -> dict:
     the console report, by the pytest suite, and by CI, so all three agree
     on what GO means by construction."""
     result = {
+        # Two empty outputs agree with each other perfectly, and that is the
+        # most dangerous way for this validator to pass. A broken source
+        # connection, a filter that excluded everything, an upstream load that
+        # failed silently — all of them produce nothing on BOTH sides, sail
+        # through every check below, and hand back GO for a cutover that would
+        # take the report to zero rows. The gate has to refuse to bless a
+        # parallel run that never actually ran.
+        "non_empty": len(legacy) > 0 and len(fabric) > 0,
         "row_count_match": len(legacy) == len(fabric),
         "control_totals": {},
         "only_in_legacy": 0,
@@ -65,7 +73,8 @@ def validate(legacy: pd.DataFrame, fabric: pd.DataFrame) -> dict:
 
     result["checksum_match"] = row_checksum(legacy) == row_checksum(fabric)
     result["verdict"] = "GO" if (
-        result["row_count_match"]
+        result["non_empty"]
+        and result["row_count_match"]
         and all(result["control_totals"].values())
         and result["only_in_legacy"] == 0
         and result["only_in_fabric"] == 0

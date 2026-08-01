@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-11%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-28%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -96,7 +96,7 @@ fabric/notebooks/     the Fabric/PySpark refactor
 validation/           parallel-run validation: row counts, control totals, checksum
 powerbi/              Migration Command Center PBIP (TMDL model + PBIR report)
 data/migration/       generated program dataset: inventory, wave plan, run results
-tests/                pytest suite incl. negative tests (corrupted-output detection)
+tests/                pytest suite: corruption detection + false-positive guards
 docs/                 cutover runbook
 .github/workflows/    CI — full parallel run + validation tests on every push
 ```
@@ -130,18 +130,52 @@ for how this fits into an actual cutover, including a real bug this
 validation script hit during development (a dtype-formatting false
 positive) and how it was fixed.
 
+## The bug the tests caught
+
+**Two empty outputs used to return GO.**
+
+If the source connection breaks, or a filter excludes everything, or an
+upstream load fails silently, both pipelines emit nothing. Row counts match
+at zero. Control totals match at zero. The checksums are identical. Every
+check passes, and the gate cheerfully reports that it is safe to retire the
+legacy pipeline — for a report that would go to zero rows the next morning.
+
+Nothing crashed. No existing test failed. The validator was simply never
+asked what it thought about a parallel run that never ran. It now carries an
+explicit `non_empty` check, and
+[`test_two_empty_outputs_are_not_a_go`](tests/test_validator_edge_cases.py)
+is the first test in the file.
+
+This is the whole argument for testing a validation framework against cases
+you invent rather than against the absence of complaints.
+
 ## Testing & CI
 
-The validation framework itself is tested — including **negative tests**
-that deliberately corrupt the fabric output (dropped row, shifted value,
-offsetting errors that cancel in the control total, phantom extra key) and
-assert the validator returns NO-GO for each. A validation framework you've
-never seen fail is indistinguishable from one that doesn't work.
+A cutover gate has two jobs, and most test suites only cover one.
+
+**It must fire on real differences.** Negative tests deliberately corrupt the
+fabric output — dropped row, shifted value, offsetting errors that cancel in
+the control total, phantom extra key, duplicate key, quantity drift that
+leaves revenue tying, a renamed region that orphans a row in both directions —
+and assert NO-GO for each.
+
+**It must not fire on differences that are not differences.** Spark makes no
+ordering promise, so the same data comes back shuffled every run; float
+arithmetic differs in the last place between engines; the same value
+round-trips as `int64` in one and `float64` in the other. A gate that fires on
+any of those gets switched off in week one. Each is a test.
+
+Writing those is also how I learned the gate is **cent-exact**, not merely
+within-a-cent: a $0.009 drift is under the stated tolerance but rounds to a
+different cent, so the checksum vetoes it. That is correct for money and I
+left it — a gate that shrugs at one cent on one row will shrug at it on a
+million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 11 tests: clean-run GO + 4 corruption classes caught + dtype
-                    # regression + 5 migration-program invariants
+pytest tests/ -v    # 28 tests: the clean GO, 8 corruption classes, 4 false-positive
+                    # guards, the empty-run gate, a conjunctive-verdict check per
+                    # rule, and 5 migration-program invariants
 ```
 
 CI runs the entire parallel run from scratch on every push and fails the
