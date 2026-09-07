@@ -1,37 +1,20 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "visual027",
+  "name": "visual090",
   "position": {
-    "x": 660,
-    "y": 20,
-    "z": 27000,
-    "height": 300,
-    "width": 600,
-    "tabOrder": 27000
+    "x": 640,
+    "y": 536,
+    "z": 1090,
+    "height": 164,
+    "width": 620,
+    "tabOrder": 1090
   },
   "visual": {
-    "visualType": "donutChart",
+    "visualType": "card",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "migration_artifacts"
-                    }
-                  },
-                  "Property": "criticality"
-                }
-              },
-              "queryRef": "migration_artifacts.criticality",
-              "nativeQueryRef": "criticality"
-            }
-          ]
-        },
-        "Y": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -41,17 +24,16 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Artifacts"
+                  "Property": "Migration Insight"
                 }
               },
-              "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              "queryRef": "_Measures.Migration Insight",
+              "nativeQueryRef": "Migration Insight"
             }
           ]
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -59,7 +41,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Estate by Criticality'"
+                  "Value": "'Where the programme stands'"
                 }
               }
             },
@@ -78,6 +60,26 @@
       "labels": [
         {
           "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "wordWrap": [
+        {
+          "properties": {
             "show": {
               "expr": {
                 "Literal": {
@@ -88,23 +90,10 @@
           }
         }
       ],
-      "categoryAxis": [
+      "categoryLabels": [
         {
           "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "valueAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"

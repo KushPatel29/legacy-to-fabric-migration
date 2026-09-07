@@ -81,6 +81,77 @@ table _Measures
 		formatString: #,0
 		lineageTag: e559d2cb-d5aa-4fc9-b38d-6b88852b40e3
 
+	measure 'Effort Status' =
+			VAR Gap = [Effort Variance %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(Gap), "No data",
+			        Gap <= 0, "Under plan",
+			        Gap <= 0.1, "Watch",
+			        "Over plan"
+			    )
+		lineageTag: d3b621f5-3851-517d-a1f9-3a8995532051
+		displayFolder: Verdict
+
+	measure 'Effort Colour' =
+			SWITCH(
+			    [Effort Status],
+			    "Under plan", "#3DD68C",
+			    "Watch", "#F5A524",
+			    "No data", "#454A82",
+			    "#FF5C7A"
+			)
+		lineageTag: 33e605c2-91c0-5fcf-abee-94cc566cc27f
+		displayFolder: Verdict
+
+	measure 'Migration Reference' = "of " & FORMAT([Total Artifacts], "#,0") & " artifacts   " & FORMAT([In-Flight Artifacts], "#,0") & " in flight, " & FORMAT([Blocked Artifacts], "#,0") & " blocked"
+		lineageTag: 028f0a0a-7512-564e-bf5a-d65a639c8074
+		displayFolder: Verdict
+
+	measure 'Effort Reference' = "Planned " & FORMAT([Planned Effort (days)], "#,0") & " d   actual " & FORMAT([Actual Effort (days)], "#,0") & " d"
+		lineageTag: 9eb760bf-eb4a-539b-b028-c69ef26405af
+		displayFolder: Verdict
+
+	measure 'GO Rate Reference' = "of " & FORMAT([Validation Runs], "#,0") & " runs   " & FORMAT([NO-GO Runs], "#,0") & " NO-GO"
+		lineageTag: 05b7df2a-235e-5341-a18d-1cace9e819db
+		displayFolder: Verdict
+
+	/// Highlights the largest value on the axis and recedes the rest.
+	/// The bare ALLSELECTED() is what makes this work inside a conditional
+	/// format: it restores the VISUAL's filter context, so VALUES() is the
+	/// axis rather than the single data point. Iterating the column alone
+	/// leaves the point's own filter in place and every bar matches itself;
+	/// iterating the table walks rows, which is not the axis unless the
+	/// dimension happens to have one row per value.
+	measure 'NO-GO Reason Colour' =
+			VAR Here = [NO-GO Runs]
+			VAR Extreme =
+			    CALCULATE(
+			        MAXX(VALUES(validation_runs[mismatch_reason]), [NO-GO Runs]),
+			        ALLSELECTED()
+			    )
+			RETURN
+			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+		lineageTag: 1cce3568-c04d-5710-a79e-811410f1e4b9
+		displayFolder: Verdict
+
+	/// Programme status in one sentence for the command centre.
+	measure 'Migration Insight' =
+			VAR Pct = [% Migrated]
+			VAR WorstReason =
+			    MAXX(TOPN(1, VALUES(validation_runs[mismatch_reason]), [NO-GO Runs], DESC), validation_runs[mismatch_reason])
+			VAR WorstRuns = CALCULATE([NO-GO Runs], validation_runs[mismatch_reason] = WorstReason)
+			RETURN
+			    FORMAT(Pct, "0.0%") & " of " & FORMAT([Total Artifacts], "#,0")
+			        & " artifacts migrated, " & FORMAT([Blocked Artifacts], "#,0") & " blocked. Effort is "
+			        & FORMAT(ABS([Effort Variance %]), "0.0%") & IF([Effort Variance %] > 0, " over", " under")
+			        & " plan. GO rate " & FORMAT([GO Rate], "0.0%") & ", and "
+			        & WorstReason & " accounts for the most NO-GO verdicts at "
+			        & FORMAT(WorstRuns, "#,0") & " runs."
+		lineageTag: 2d7d4582-253c-58b6-a3f0-17fea1881141
+		displayFolder: Verdict
+
 	column Value
 		dataType: int64
 		isHidden
