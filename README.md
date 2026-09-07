@@ -175,7 +175,9 @@ million — but it is now written down instead of being a surprise.
 pip install pytest
 pytest tests/ -v    # 62 tests: the clean GO, 8 corruption classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
-                    # rule, and 5 migration-program invariants
+                    # rule, 5 migration-program invariants, and the semantic-model
+                    # bindings (a column the model binds but never types arrives as
+                    # text, sorts alphabetically, and breaks any measure using it)
 ```
 
 CI runs the entire parallel run from scratch on every push and fails the
