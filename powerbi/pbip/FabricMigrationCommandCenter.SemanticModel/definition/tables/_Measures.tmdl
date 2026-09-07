@@ -30,12 +30,12 @@ table _Measures
 		lineageTag: cb3823bc-72d1-4cc9-a404-dd923969b909
 
 	measure 'Effort Variance %' =
-			VAR Done =
+			VAR vDone =
 			    FILTER(migration_artifacts, migration_artifacts[status] IN {"Cutover", "Retired"})
 			RETURN
 			    DIVIDE(
-			        SUMX(Done, migration_artifacts[effort_actual_days] - migration_artifacts[effort_planned_days]),
-			        SUMX(Done, migration_artifacts[effort_planned_days])
+			        SUMX(vDone, migration_artifacts[effort_actual_days] - migration_artifacts[effort_planned_days]),
+			        SUMX(vDone, migration_artifacts[effort_planned_days])
 			    )
 		formatString: +0.0%;-0.0%;0.0%
 		lineageTag: 67e05131-73ea-433c-983c-44fc73caa461
@@ -57,38 +57,38 @@ table _Measures
 		lineageTag: 4a3e196d-22d6-42ad-962e-fc24e354bf69
 
 	measure 'Cumulative Cutovers' =
-			VAR MonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
+			VAR vMonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
 			RETURN
 			    COUNTROWS(
 			        FILTER(
 			            ALL(migration_artifacts),
 			            NOT ISBLANK(migration_artifacts[actual_cutover])
-			                && migration_artifacts[actual_cutover] <= MonthEnd
+			                && migration_artifacts[actual_cutover] <= vMonthEnd
 			        )
 			    )
 		formatString: #,0
 		lineageTag: 6c4847a4-5f83-4349-bc95-d9389c1ed82c
 
 	measure 'Planned Cumulative Cutovers' =
-			VAR MonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
+			VAR vMonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
 			RETURN
 			    COUNTROWS(
 			        FILTER(
 			            ALL(migration_artifacts),
-			            migration_artifacts[planned_cutover] <= MonthEnd
+			            migration_artifacts[planned_cutover] <= vMonthEnd
 			        )
 			    )
 		formatString: #,0
 		lineageTag: e559d2cb-d5aa-4fc9-b38d-6b88852b40e3
 
 	measure 'Effort Status' =
-			VAR Gap = [Effort Variance %]
+			VAR vGap = [Effort Variance %]
 			RETURN
 			    SWITCH(
 			        TRUE(),
-			        ISBLANK(Gap), "No data",
-			        Gap <= 0, "Under plan",
-			        Gap <= 0.1, "Watch",
+			        ISBLANK(vGap), "No data",
+			        vGap <= 0, "Under plan",
+			        vGap <= 0.1, "Watch",
 			        "Over plan"
 			    )
 		lineageTag: d3b621f5-3851-517d-a1f9-3a8995532051
@@ -125,30 +125,30 @@ table _Measures
 	/// iterating the table walks rows, which is not the axis unless the
 	/// dimension happens to have one row per value.
 	measure 'NO-GO Reason Colour' =
-			VAR Here = [NO-GO Runs]
-			VAR Extreme =
+			VAR vHere = [NO-GO Runs]
+			VAR vExtreme =
 			    CALCULATE(
 			        MAXX(VALUES(validation_runs[mismatch_reason]), [NO-GO Runs]),
 			        ALLSELECTED()
 			    )
 			RETURN
-			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+			    IF(vHere = vExtreme, "#FF5C7A", "#454A82")
 		lineageTag: 1cce3568-c04d-5710-a79e-811410f1e4b9
 		displayFolder: Verdict
 
 	/// Programme status in one sentence for the command centre.
 	measure 'Migration Insight' =
-			VAR Pct = [% Migrated]
-			VAR WorstReason =
+			VAR vPct = [% Migrated]
+			VAR vWorstReason =
 			    MAXX(TOPN(1, VALUES(validation_runs[mismatch_reason]), [NO-GO Runs], DESC), validation_runs[mismatch_reason])
-			VAR WorstRuns = CALCULATE([NO-GO Runs], validation_runs[mismatch_reason] = WorstReason)
+			VAR vWorstRuns = CALCULATE([NO-GO Runs], validation_runs[mismatch_reason] = vWorstReason)
 			RETURN
-			    FORMAT(Pct, "0.0%") & " of " & FORMAT([Total Artifacts], "#,0")
+			    FORMAT(vPct, "0.0%") & " of " & FORMAT([Total Artifacts], "#,0")
 			        & " artifacts migrated, " & FORMAT([Blocked Artifacts], "#,0") & " blocked. Effort is "
 			        & FORMAT(ABS([Effort Variance %]), "0.0%") & IF([Effort Variance %] > 0, " over", " under")
 			        & " plan. GO rate " & FORMAT([GO Rate], "0.0%") & ", and "
-			        & WorstReason & " accounts for the most NO-GO verdicts at "
-			        & FORMAT(WorstRuns, "#,0") & " runs."
+			        & vWorstReason & " accounts for the most NO-GO verdicts at "
+			        & FORMAT(vWorstRuns, "#,0") & " runs."
 		lineageTag: 2d7d4582-253c-58b6-a3f0-17fea1881141
 		displayFolder: Verdict
 
