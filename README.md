@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-95%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-101%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -173,7 +173,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 95 tests: the clean GO, 8 corruption classes, 4 false-positive
+pytest tests/ -v    # 101 tests: the clean GO, 8 corruption classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
                     # rule, 5 migration-program invariants, the semantic-model
                     # bindings (a column the model binds but never types arrives as
