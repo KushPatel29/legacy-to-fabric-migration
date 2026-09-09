@@ -128,6 +128,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Matrix titled Wave Scorecard. Plots Total Artifacts, Migrated Artifacts, Planned Effort (days), Actual Effort (days) and Effort Variance % by wave.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true

@@ -72,6 +72,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Funnel chart titled Migration Pipeline by Status. Plots Total Artifacts by status.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

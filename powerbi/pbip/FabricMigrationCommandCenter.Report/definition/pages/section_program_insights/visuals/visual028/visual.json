@@ -108,6 +108,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Scatter chart titled Estimation Accuracy: Planned vs Actual Effort. Plots Actual Effort (days) and Planned Effort (days) by artifact name and complexity.'"
+                }
+              }
+            }
+          }
+        }
       ]
     }
   }

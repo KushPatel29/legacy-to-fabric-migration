@@ -72,6 +72,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Treemap titled Estate Concentration by Domain. Plots Total Artifacts by domain.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

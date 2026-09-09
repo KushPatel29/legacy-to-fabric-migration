@@ -124,6 +124,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table titled Validation Log. Shows artifact name, wave, attempt, run date, verdict and mismatch reason.'"
+                }
+              }
+            }
+          }
+        }
       ]
     }
   }

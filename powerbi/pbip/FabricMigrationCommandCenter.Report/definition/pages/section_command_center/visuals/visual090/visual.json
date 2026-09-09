@@ -54,6 +54,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Card titled Where the programme stands. Shows Migration Insight.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

@@ -72,6 +72,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Donut chart titled Estate by Criticality. Plots Total Artifacts by criticality.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {
