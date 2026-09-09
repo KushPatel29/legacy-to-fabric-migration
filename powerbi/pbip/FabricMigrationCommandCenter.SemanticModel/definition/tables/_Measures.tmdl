@@ -56,12 +56,21 @@ table _Measures
 		formatString: 0.0%
 		lineageTag: 4a3e196d-22d6-42ad-962e-fc24e354bf69
 
+	/// Running total of artifacts cut over on or before the month on the axis.
+	/// ALL(migration_artifacts) used to sit where REMOVEFILTERS(dim_month) sits
+	/// now. It cleared the date the running total re-establishes, but it also
+	/// cleared the Domain and Source Type slicers standing beside this chart:
+	/// filtering to Finance moved every other visual on the page and left this
+	/// line at the whole-estate total. Only the date and the cutover column are
+	/// released here, so the slicers still reach the running total.
 	measure 'Cumulative Cutovers' =
 			VAR vMonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
 			RETURN
-			    COUNTROWS(
+			    CALCULATE(
+			        COUNTROWS(migration_artifacts),
+			        REMOVEFILTERS(dim_month),
 			        FILTER(
-			            ALL(migration_artifacts),
+			            ALL(migration_artifacts[actual_cutover]),
 			            NOT ISBLANK(migration_artifacts[actual_cutover])
 			                && migration_artifacts[actual_cutover] <= vMonthEnd
 			        )
@@ -69,12 +78,17 @@ table _Measures
 		formatString: #,0
 		lineageTag: 6c4847a4-5f83-4349-bc95-d9389c1ed82c
 
+	/// The plan line, released the same way as the actual line so the two stay
+	/// comparable under a slicer: filter to one domain and both curves are that
+	/// domain's, not one domain against the whole programme's plan.
 	measure 'Planned Cumulative Cutovers' =
 			VAR vMonthEnd = EOMONTH(MAX(dim_month[month_start]), 0)
 			RETURN
-			    COUNTROWS(
+			    CALCULATE(
+			        COUNTROWS(migration_artifacts),
+			        REMOVEFILTERS(dim_month),
 			        FILTER(
-			            ALL(migration_artifacts),
+			            ALL(migration_artifacts[planned_cutover]),
 			            migration_artifacts[planned_cutover] <= vMonthEnd
 			        )
 			    )
