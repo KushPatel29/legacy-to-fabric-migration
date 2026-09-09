@@ -1,11 +1,12 @@
 """The test-count badge is a claim, so it gets checked like every other one.
 
-This repository published `tests-88 passing` while the suite collected 94. No
-guard existed here, so the badge only moved when someone remembered to move it,
-and it had not been remembered for a while. Elsewhere in the portfolio the same
-drift ran the other way and lasted longer: a guard that counted `^def test_`
-pinned one badge at 182 while the suite ran 345, and because correcting the
-README by hand failed CI, the wrong number outlived several rounds of new tests.
+Five repositories in this portfolio published a `tests-N passing` badge with
+nothing holding it to a test run, and a badge only moves when someone remembers
+to move it. Elsewhere the same drift ran the other way and lasted longer: a
+guard that counted `^def test_` pinned one badge at 182 while the suite ran 345,
+and because correcting the README by hand then failed CI, the wrong number
+outlived several rounds of new tests. Count what pytest collects, or do not
+claim a count.
 
 Collection runs in a subprocess rather than off the current session, so the
 answer does not depend on whether someone invoked the whole suite or one file.
@@ -20,9 +21,12 @@ README = ROOT / "README.md"
 
 
 def test_the_badge_matches_what_pytest_collects():
-    badge = re.search(r"tests-(\d+)%20passing", README.read_text(encoding="utf-8"))
+    # shields.io percent-encodes the thousands separator: 1,098 is written
+    # tests-1%2C098%20passing. Strip the encoding, not the digits - a regex that
+    # grabs runs of digits also finds the "20" in %20passing.
+    badge = re.search(r"tests-([\d,]|%2C)+%20passing", README.read_text(encoding="utf-8"))
     assert badge, "README no longer carries a test-count badge"
-    claimed = int(badge.group(1))
+    claimed = int(re.sub(r"%2C|,", "", badge.group(0)[len("tests-"):-len("%20passing")]))
 
     proc = subprocess.run(
         [sys.executable, "-m", "pytest", "--collect-only", "-q",
