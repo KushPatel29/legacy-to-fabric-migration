@@ -19,6 +19,22 @@ Most portfolios show either "legacy SQL Server BI" or "modern Fabric" skills.
 This project shows both, side by side, plus the part that's usually skipped
 entirely: how you'd actually prove the migration is safe to cut over.
 
+## Business analysis and change delivery
+
+The technical build is paired with a
+[`business-analysis delivery pack`](docs/business-analysis/README.md) for the
+synthetic 140-artifact programme. It includes a project charter, stakeholder
+map and RACI, current- and future-state process maps, a requirements register
+with acceptance criteria, a RAID register, an executive status report, and a
+change and adoption plan. A separate
+[`Microsoft Modern Workplace blueprint`](docs/business-analysis/MODERN_WORKPLACE_BLUEPRINT.md)
+shows how Teams, SharePoint, and Power Automate could govern those records and
+approvals; it is explicitly a design artifact, not a production deployment
+claim. The design-only
+[`GIS integration requirements`](docs/business-analysis/GIS_INTEGRATION_REQUIREMENTS.md)
+add spatial data ownership, coordinate-system decisions, governed asset joins,
+exception controls, security, and UAT scenarios.
+
 ## Migration Command Center (Power BI)
 
 The single-pipeline migration below is the *proof of technique*. This
