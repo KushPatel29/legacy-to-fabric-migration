@@ -1,0 +1,66 @@
+{
+  "type": "FeatureCollection",
+  "name": "synthetic_municipal_assets",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "F-001",
+      "properties": {"asset_id": "A-1001", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-115.060, 49.510]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-002",
+      "properties": {"asset_id": "A-1002", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-115.025, 49.535]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-003",
+      "properties": {"asset_id": "A-1003", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-114.985, 49.485]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-004",
+      "properties": {"asset_id": "A-1004", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-115.005, 49.565]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-005A",
+      "properties": {"asset_id": "A-1005", "gis_status": "planned"},
+      "geometry": {"type": "Point", "coordinates": [-114.955, 49.525]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-005B",
+      "properties": {"asset_id": "A-1005", "gis_status": "planned"},
+      "geometry": {"type": "Point", "coordinates": [-114.952, 49.527]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-007",
+      "properties": {"asset_id": "A-1007", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [220.000, 49.480]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-008",
+      "properties": {"asset_id": "A-1008", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-115.095, 49.455]}
+    },
+    {
+      "type": "Feature",
+      "id": "F-999",
+      "properties": {"asset_id": "A-9999", "gis_status": "in_service"},
+      "geometry": {"type": "Point", "coordinates": [-114.925, 49.555]}
+    }
+  ]
+}

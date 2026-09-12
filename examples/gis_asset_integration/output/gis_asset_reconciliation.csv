@@ -1,0 +1,10 @@
+record_type,asset_id,asset_name,asset_class,service_owner,register_status,gis_status,feature_count,verdict,reasons
+asset,A-1001,North Pump Station,facility,Public Works,in_service,in_service,1,APPROVED,
+asset,A-1002,Valley Pressure Valve,water,Utilities,in_service,in_service,1,APPROVED,
+asset,A-1003,Cedar Storm Inlet,stormwater,Public Works,in_service,in_service,1,APPROVED,
+asset,A-1004,Civic Hall,facility,Facilities,planned,in_service,1,BLOCKED,status_mismatch
+asset,A-1005,Ridge Culvert,drainage,Public Works,planned,,2,BLOCKED,duplicate_gis_link
+asset,A-1006,Fleet Yard,facility,Fleet,retired,,0,BLOCKED,missing_gis_feature
+asset,A-1007,River Monitoring Station,environment,Environment,in_service,in_service,1,BLOCKED,invalid_geometry
+asset,A-1008,South Trailhead,parks,Parks,in_service,in_service,1,APPROVED,
+orphan_gis_feature,A-9999,,,Data Steward,,in_service,1,BLOCKED,orphan_gis_feature

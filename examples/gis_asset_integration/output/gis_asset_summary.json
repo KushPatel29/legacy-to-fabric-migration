@@ -1,0 +1,16 @@
+{
+  "analysis_basis": "asset_key_geometry_and_status_acceptance_gate",
+  "coordinate_system": "OGC:CRS84 (WGS 84 longitude/latitude)",
+  "register_assets": 8,
+  "gis_features": 9,
+  "approved_features": 4,
+  "blocked_records": 5,
+  "exceptions": {
+    "missing_asset_features": 1,
+    "orphan_features": 1,
+    "duplicate_asset_links": 1,
+    "invalid_geometry_features": 1,
+    "status_mismatches": 1
+  },
+  "data_note": "All records and coordinates are synthetic and are not City of Fernie data."
+}

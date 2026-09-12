@@ -33,6 +33,9 @@ jobs:
       - name: Run parallel-run validation (fails job on NO-GO)
         run: python validation/parallel_run_validation.py
 
+      - name: Reconcile GIS assets and publish the accepted feature layer
+        run: python examples/gis_asset_integration/reconcile_gis_assets.py
+
       - name: Run validation framework tests (incl. corruption negative tests)
         run: pytest tests/ -v
 

@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-203%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-211%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -32,8 +32,34 @@ shows how Teams, SharePoint, and Power Automate could govern those records and
 approvals; it is explicitly a design artifact, not a production deployment
 claim. The design-only
 [`GIS integration requirements`](docs/business-analysis/GIS_INTEGRATION_REQUIREMENTS.md)
-add spatial data ownership, coordinate-system decisions, governed asset joins,
-exception controls, security, and UAT scenarios.
+are backed by a runnable, synthetic acceptance gate that tests spatial data
+ownership, coordinate-system decisions, governed asset joins, exception
+controls, and release criteria.
+
+## GIS asset integration proof
+
+This is the implementation behind the requirements: an eight-record asset
+register is reconciled to a nine-feature WGS 84 layer. A feature is published
+only when its business key is unique, its point geometry is valid, and its
+lifecycle status agrees with the governed register. Missing, orphaned,
+duplicate, invalid, and status-drift examples are deliberately present so CI
+can prove that every failure route is visible.
+
+![Synthetic municipal asset points on a longitude-latitude grid, with approved assets in cyan, blocked exceptions in amber, an orphan GIS feature in red, and an acceptance ledger listing five exception classes.](docs/business-analysis/gis-asset-reconciliation.png)
+
+The evidence is reviewable end to end:
+
+- [`asset register`](examples/gis_asset_integration/asset_register.csv) and
+  [`source GIS layer`](examples/gis_asset_integration/gis_features.geojson)
+- [`reconciliation logic`](examples/gis_asset_integration/reconcile_gis_assets.py)
+  and [`test contracts`](tests/test_gis_asset_integration.py)
+- [`exception register`](examples/gis_asset_integration/output/gis_asset_reconciliation.csv),
+  [`acceptance summary`](examples/gis_asset_integration/output/gis_asset_summary.json),
+  and [`approved GeoJSON`](examples/gis_asset_integration/output/approved_asset_layer.geojson)
+
+All names, asset records, and coordinates are synthetic. This demonstrates a
+transferable integration and control pattern; it does not claim City of Fernie
+systems access or municipal project experience.
 
 ## Migration Command Center (Power BI)
 
@@ -110,6 +136,8 @@ legacy/ssis/          SSIS package spec (build in SSDT — see the doc for why)
 legacy/ssrs/          SSRS paginated report spec (build in Report Builder)
 fabric/notebooks/     the Fabric/PySpark refactor
 validation/           parallel-run validation: row counts, control totals, checksum
+examples/gis_asset_integration/
+                      asset-register/GIS reconciliation + approved GeoJSON layer
 powerbi/              Migration Command Center PBIP (TMDL model + PBIR report)
 data/migration/       generated program dataset: inventory, wave plan, run results
 tests/                pytest suite: corruption detection + false-positive guards
@@ -189,7 +217,8 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 142 tests: the clean GO, 8 corruption classes, 4 false-positive
+pytest tests/ -v    # 211 tests: the clean GO, GIS acceptance controls, 8 corruption
+                    # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
                     # rule, 5 migration-program invariants, the semantic-model
                     # bindings (a column the model binds but never types arrives as

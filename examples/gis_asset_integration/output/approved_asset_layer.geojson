@@ -1,0 +1,92 @@
+{
+  "type": "FeatureCollection",
+  "name": "approved_synthetic_municipal_assets",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "F-001",
+      "properties": {
+        "asset_id": "A-1001",
+        "gis_status": "in_service",
+        "asset_name": "North Pump Station",
+        "asset_class": "facility",
+        "service_owner": "Public Works",
+        "cost_centre": "PW-410",
+        "validation_status": "approved"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.06,
+          49.51
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "F-002",
+      "properties": {
+        "asset_id": "A-1002",
+        "gis_status": "in_service",
+        "asset_name": "Valley Pressure Valve",
+        "asset_class": "water",
+        "service_owner": "Utilities",
+        "cost_centre": "UT-210",
+        "validation_status": "approved"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.025,
+          49.535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "F-003",
+      "properties": {
+        "asset_id": "A-1003",
+        "gis_status": "in_service",
+        "asset_name": "Cedar Storm Inlet",
+        "asset_class": "stormwater",
+        "service_owner": "Public Works",
+        "cost_centre": "PW-330",
+        "validation_status": "approved"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.985,
+          49.485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "F-008",
+      "properties": {
+        "asset_id": "A-1008",
+        "gis_status": "in_service",
+        "asset_name": "South Trailhead",
+        "asset_class": "parks",
+        "service_owner": "Parks",
+        "cost_centre": "PK-110",
+        "validation_status": "approved"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.095,
+          49.455
+        ]
+      }
+    }
+  ]
+}

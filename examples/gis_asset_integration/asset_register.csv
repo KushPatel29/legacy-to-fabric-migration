@@ -1,0 +1,9 @@
+asset_id,asset_name,asset_class,status,service_owner,cost_centre
+A-1001,North Pump Station,facility,in_service,Public Works,PW-410
+A-1002,Valley Pressure Valve,water,in_service,Utilities,UT-210
+A-1003,Cedar Storm Inlet,stormwater,in_service,Public Works,PW-330
+A-1004,Civic Hall,facility,planned,Facilities,FA-100
+A-1005,Ridge Culvert,drainage,planned,Public Works,PW-330
+A-1006,Fleet Yard,facility,retired,Fleet,FL-120
+A-1007,River Monitoring Station,environment,in_service,Environment,EN-510
+A-1008,South Trailhead,parks,in_service,Parks,PK-110
