@@ -23,6 +23,8 @@ and cutover runbook remain the implemented parts of the repository.
 | Adopt | How are affected teams prepared and supported? | [Change and adoption plan](CHANGE_AND_ADOPTION_PLAN.md) |
 | Operate | How could the work be governed in Microsoft 365? | [Modern Workplace blueprint](MODERN_WORKPLACE_BLUEPRINT.md) |
 | Integrate | How should spatial and asset data connect safely? | [GIS integration requirements](GIS_INTEGRATION_REQUIREMENTS.md) |
+| Manage assets | How do condition, criticality, lifecycle, renewal need, inspections, data confidence, and affordability become a controlled work programme? | [Runnable asset-management evidence](../../examples/asset_management/README.md) |
+| Govern | How would a public body brief decision-makers, evaluate suppliers, and check policy impacts? | [Public-sector decision and procurement brief](PUBLIC_SECTOR_DECISION_AND_PROCUREMENT_BRIEF.md) |
 
 ## Scope Boundary
 
@@ -36,3 +38,13 @@ deployment claim.
 The GIS integration document is also a design artifact. It demonstrates
 requirements and control thinking around spatial data without claiming
 production GIS administration or municipal delivery experience.
+
+The asset-management extension is implemented against a 96-record synthetic
+portfolio and tested in CI. Its condition, criticality, renewal, risk, work
+programme, and capital-affordability outputs are scenario evidence—not an
+engineering condition assessment or an approved municipal capital plan.
+
+The public-sector decision and procurement brief is a jurisdiction-neutral
+portfolio scenario. It demonstrates decision writing, option and vendor
+evaluation, policy-impact analysis, and Council-style briefing structure; it
+does not claim a completed public procurement or municipal employment.

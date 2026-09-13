@@ -1,0 +1,67 @@
+{
+  "analysis_basis": "synthetic_asset_lifecycle_condition_criticality_and_data_confidence_scenario",
+  "as_of_date": "2026-08-31",
+  "seed": 20260914,
+  "evidence_boundary": "All assets, coordinates, costs, conditions, risks, and scenarios are synthetic.",
+  "portfolio": {
+    "source_records": 96,
+    "unique_asset_ids": 95,
+    "planning_ready_records": 87,
+    "data_remediation_records": 9,
+    "in_service_planning_ready": 78,
+    "replacement_value_usd": 110586000,
+    "annualized_renewal_need_usd": 2546670,
+    "poor_or_very_poor_condition": 44,
+    "overdue_or_missing_inspections": 35,
+    "risk_band_counts": {
+      "Low": 10,
+      "Moderate": 24,
+      "High": 28,
+      "Very High": 16
+    }
+  },
+  "capital_scenario": {
+    "budget_usd": 8000000,
+    "funded_assets": 13,
+    "funded_spend_usd": 7999000,
+    "unallocated_budget_usd": 1000,
+    "deferred_candidates": 42,
+    "deferred_annualized_risk_exposure_usd": 19301066,
+    "method_note": "Transparent priority-ordered affordability scenario; not portfolio optimisation or an approved capital plan."
+  },
+  "service_class_totals": {
+    "Facilities": {
+      "replacement_value_usd": 52931000,
+      "annualized_renewal_need_usd": 1058620
+    },
+    "Fleet": {
+      "replacement_value_usd": 1415000,
+      "annualized_renewal_need_usd": 117916
+    },
+    "Parks": {
+      "replacement_value_usd": 2238000,
+      "annualized_renewal_need_usd": 89520
+    },
+    "Roads": {
+      "replacement_value_usd": 35843000,
+      "annualized_renewal_need_usd": 1024086
+    },
+    "Stormwater": {
+      "replacement_value_usd": 4323000,
+      "annualized_renewal_need_usd": 72051
+    },
+    "Water": {
+      "replacement_value_usd": 13836000,
+      "annualized_renewal_need_usd": 184477
+    }
+  },
+  "methods": {
+    "condition_scale": "1 good to 5 very poor",
+    "criticality_scale": "1 low to 5 very high",
+    "risk_score": "condition_grade x criticality_grade (1 to 25)",
+    "risk_bands": "Low 1-4; Moderate 5-9; High 10-15; Very High 16-25",
+    "annualized_renewal_need": "replacement_cost / expected_life for in-service, planning-ready assets",
+    "annualized_risk_exposure": "replacement_cost x condition probability x criticality consequence multiplier",
+    "priority_score": "risk x 4 + capped life-consumed x 0.18 + inspection-recency penalty"
+  }
+}

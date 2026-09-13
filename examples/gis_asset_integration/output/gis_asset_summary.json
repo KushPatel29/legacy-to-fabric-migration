@@ -12,5 +12,5 @@
     "invalid_geometry_features": 1,
     "status_mismatches": 1
   },
-  "data_note": "All records and coordinates are synthetic and are not City of Fernie data."
+  "data_note": "All records and coordinates are synthetic and are not production municipal data."
 }

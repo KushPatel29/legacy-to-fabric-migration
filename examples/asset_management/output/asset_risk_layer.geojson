@@ -1,0 +1,1962 @@
+{
+  "type": "FeatureCollection",
+  "name": "synthetic_asset_management_risk_layer",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "WAT-001",
+      "properties": {
+        "asset_id": "WAT-001",
+        "asset_name": "Water Asset 01",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 611000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.113769,
+          49.445658
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-002",
+      "properties": {
+        "asset_id": "WAT-002",
+        "asset_name": "Water Asset 02",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 4,
+        "risk_score": 8,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 733000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.09889,
+          49.443315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-003",
+      "properties": {
+        "asset_id": "WAT-003",
+        "asset_name": "Water Asset 03",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 3,
+        "criticality_grade": 4,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 706000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.085276,
+          49.444817
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-004",
+      "properties": {
+        "asset_id": "WAT-004",
+        "asset_name": "Water Asset 04",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 2,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 934000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.067972,
+          49.44687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-005",
+      "properties": {
+        "asset_id": "WAT-005",
+        "asset_name": "Water Asset 05",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 1,
+        "criticality_grade": 1,
+        "risk_score": 1,
+        "risk_band": "Low",
+        "replacement_cost_usd": 1000000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.055162,
+          49.446517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-007",
+      "properties": {
+        "asset_id": "WAT-007",
+        "asset_name": "Water Asset 07",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 5,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 992000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.023594,
+          49.442566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-008",
+      "properties": {
+        "asset_id": "WAT-008",
+        "asset_name": "Water Asset 08",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 624000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.008446,
+          49.443821
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-009",
+      "properties": {
+        "asset_id": "WAT-009",
+        "asset_name": "Water Asset 09",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 2,
+        "risk_score": 8,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 424000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.995426,
+          49.445778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-010",
+      "properties": {
+        "asset_id": "WAT-010",
+        "asset_name": "Water Asset 10",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 781000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.97971,
+          49.443128
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-011",
+      "properties": {
+        "asset_id": "WAT-011",
+        "asset_name": "Water Asset 11",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 607000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.965731,
+          49.446178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-012",
+      "properties": {
+        "asset_id": "WAT-012",
+        "asset_name": "Water Asset 12",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 718000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.948219,
+          49.446664
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-013",
+      "properties": {
+        "asset_id": "WAT-013",
+        "asset_name": "Water Asset 13",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 4,
+        "risk_score": 8,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 598000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.113425,
+          49.456875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-014",
+      "properties": {
+        "asset_id": "WAT-014",
+        "asset_name": "Water Asset 14",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 628000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.102338,
+          49.457433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-015",
+      "properties": {
+        "asset_id": "WAT-015",
+        "asset_name": "Water Asset 15",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 743000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.083107,
+          49.458539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-016",
+      "properties": {
+        "asset_id": "WAT-016",
+        "asset_name": "Water Asset 16",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 694000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.069741,
+          49.458547
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-017",
+      "properties": {
+        "asset_id": "WAT-017",
+        "asset_name": "Water Asset 17",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 642000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.056853,
+          49.460796
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-020",
+      "properties": {
+        "asset_id": "WAT-020",
+        "asset_name": "Water Asset 20",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 640000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.009899,
+          49.458396
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-021",
+      "properties": {
+        "asset_id": "WAT-021",
+        "asset_name": "Water Asset 21",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 1,
+        "criticality_grade": 4,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 497000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.996834,
+          49.456683
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-022",
+      "properties": {
+        "asset_id": "WAT-022",
+        "asset_name": "Water Asset 22",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 718000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.981054,
+          49.459256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "WAT-024",
+      "properties": {
+        "asset_id": "WAT-024",
+        "asset_name": "Water Asset 24",
+        "asset_class": "Water",
+        "service_owner": "Utilities",
+        "condition_grade": 3,
+        "criticality_grade": 4,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 546000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.951005,
+          49.460282
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-001",
+      "properties": {
+        "asset_id": "STM-001",
+        "asset_name": "Stormwater Asset 01",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 2,
+        "criticality_grade": 2,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 351000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.115566,
+          49.474359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-002",
+      "properties": {
+        "asset_id": "STM-002",
+        "asset_name": "Stormwater Asset 02",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 4,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 295000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.10131,
+          49.47425
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-003",
+      "properties": {
+        "asset_id": "STM-003",
+        "asset_name": "Stormwater Asset 03",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 2,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 409000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.083228,
+          49.47382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-004",
+      "properties": {
+        "asset_id": "STM-004",
+        "asset_name": "Stormwater Asset 04",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 4,
+        "criticality_grade": 5,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 349000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.069538,
+          49.474161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-005",
+      "properties": {
+        "asset_id": "STM-005",
+        "asset_name": "Stormwater Asset 05",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 5,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 281000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.054409,
+          49.472227
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-006",
+      "properties": {
+        "asset_id": "STM-006",
+        "asset_name": "Stormwater Asset 06",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 219000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.042263,
+          49.475198
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-007",
+      "properties": {
+        "asset_id": "STM-007",
+        "asset_name": "Stormwater Asset 07",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 301000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.027356,
+          49.473537
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-009",
+      "properties": {
+        "asset_id": "STM-009",
+        "asset_name": "Stormwater Asset 09",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 418000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.994982,
+          49.475164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-010",
+      "properties": {
+        "asset_id": "STM-010",
+        "asset_name": "Stormwater Asset 10",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 2,
+        "criticality_grade": 5,
+        "risk_score": 10,
+        "risk_band": "High",
+        "replacement_cost_usd": 246000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.978317,
+          49.474721
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-011",
+      "properties": {
+        "asset_id": "STM-011",
+        "asset_name": "Stormwater Asset 11",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 264000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.965171,
+          49.470581
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-012",
+      "properties": {
+        "asset_id": "STM-012",
+        "asset_name": "Stormwater Asset 12",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 420000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.948094,
+          49.475217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-013",
+      "properties": {
+        "asset_id": "STM-013",
+        "asset_name": "Stormwater Asset 13",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 249000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.114649,
+          49.486611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-015",
+      "properties": {
+        "asset_id": "STM-015",
+        "asset_name": "Stormwater Asset 15",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 4,
+        "criticality_grade": 1,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 329000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.084212,
+          49.489281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "STM-016",
+      "properties": {
+        "asset_id": "STM-016",
+        "asset_name": "Stormwater Asset 16",
+        "asset_class": "Stormwater",
+        "service_owner": "Public Works",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 192000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.071786,
+          49.484862
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-001",
+      "properties": {
+        "asset_id": "RDS-001",
+        "asset_name": "Roads Asset 01",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 2355000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.055404,
+          49.488476
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-002",
+      "properties": {
+        "asset_id": "RDS-002",
+        "asset_name": "Roads Asset 02",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 2325000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.039571,
+          49.484503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-003",
+      "properties": {
+        "asset_id": "RDS-003",
+        "asset_name": "Roads Asset 03",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 1,
+        "risk_score": 5,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 2650000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.023243,
+          49.485278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-004",
+      "properties": {
+        "asset_id": "RDS-004",
+        "asset_name": "Roads Asset 04",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 2,
+        "risk_score": 10,
+        "risk_band": "High",
+        "replacement_cost_usd": 1456000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.010651,
+          49.488652
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-007",
+      "properties": {
+        "asset_id": "RDS-007",
+        "asset_name": "Roads Asset 07",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 1824000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.965886,
+          49.487928
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-008",
+      "properties": {
+        "asset_id": "RDS-008",
+        "asset_name": "Roads Asset 08",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 2063000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.949633,
+          49.487723
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-009",
+      "properties": {
+        "asset_id": "RDS-009",
+        "asset_name": "Roads Asset 09",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 2073000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.113975,
+          49.501154
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-010",
+      "properties": {
+        "asset_id": "RDS-010",
+        "asset_name": "Roads Asset 10",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 2638000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.097694,
+          49.498768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-011",
+      "properties": {
+        "asset_id": "RDS-011",
+        "asset_name": "Roads Asset 11",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 2641000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.087396,
+          49.50245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-012",
+      "properties": {
+        "asset_id": "RDS-012",
+        "asset_name": "Roads Asset 12",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 1,
+        "criticality_grade": 4,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 2113000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.06885,
+          49.499922
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-013",
+      "properties": {
+        "asset_id": "RDS-013",
+        "asset_name": "Roads Asset 13",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 2563000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.054222,
+          49.501318
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-014",
+      "properties": {
+        "asset_id": "RDS-014",
+        "asset_name": "Roads Asset 14",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 4,
+        "criticality_grade": 3,
+        "risk_score": 12,
+        "risk_band": "High",
+        "replacement_cost_usd": 2240000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.041602,
+          49.502463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-015",
+      "properties": {
+        "asset_id": "RDS-015",
+        "asset_name": "Roads Asset 15",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 1,
+        "risk_score": 5,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 1377000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0227,
+          49.50056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-016",
+      "properties": {
+        "asset_id": "RDS-016",
+        "asset_name": "Roads Asset 16",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 2654000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.011205,
+          49.501483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-018",
+      "properties": {
+        "asset_id": "RDS-018",
+        "asset_name": "Roads Asset 18",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 2,
+        "criticality_grade": 5,
+        "risk_score": 10,
+        "risk_band": "High",
+        "replacement_cost_usd": 2683000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.982276,
+          49.500134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RDS-019",
+      "properties": {
+        "asset_id": "RDS-019",
+        "asset_name": "Roads Asset 19",
+        "asset_class": "Roads",
+        "service_owner": "Transportation",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 2188000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.963816,
+          49.50016
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-001",
+      "properties": {
+        "asset_id": "FAC-001",
+        "asset_name": "Facilities Asset 01",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 3142000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.113221,
+          49.512603
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-002",
+      "properties": {
+        "asset_id": "FAC-002",
+        "asset_name": "Facilities Asset 02",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 1,
+        "criticality_grade": 4,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 4371000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.101159,
+          49.513105
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-003",
+      "properties": {
+        "asset_id": "FAC-003",
+        "asset_name": "Facilities Asset 03",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 4,
+        "criticality_grade": 4,
+        "risk_score": 16,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 5373000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.086128,
+          49.514005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-004",
+      "properties": {
+        "asset_id": "FAC-004",
+        "asset_name": "Facilities Asset 04",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 3,
+        "criticality_grade": 3,
+        "risk_score": 9,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 3639000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.068154,
+          49.513617
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-005",
+      "properties": {
+        "asset_id": "FAC-005",
+        "asset_name": "Facilities Asset 05",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 5374000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.055851,
+          49.516064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-006",
+      "properties": {
+        "asset_id": "FAC-006",
+        "asset_name": "Facilities Asset 06",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 3362000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.040389,
+          49.512747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-007",
+      "properties": {
+        "asset_id": "FAC-007",
+        "asset_name": "Facilities Asset 07",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 1,
+        "criticality_grade": 3,
+        "risk_score": 3,
+        "risk_band": "Low",
+        "replacement_cost_usd": 5984000,
+        "recommended_intervention": "Monitor",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.022558,
+          49.514184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-008",
+      "properties": {
+        "asset_id": "FAC-008",
+        "asset_name": "Facilities Asset 08",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 2,
+        "criticality_grade": 3,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 6358000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.010033,
+          49.51574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-010",
+      "properties": {
+        "asset_id": "FAC-010",
+        "asset_name": "Facilities Asset 10",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 2,
+        "criticality_grade": 2,
+        "risk_score": 4,
+        "risk_band": "Low",
+        "replacement_cost_usd": 5204000,
+        "recommended_intervention": "Inspect / condition assess",
+        "scenario_funding_status": "NOT_CAPITAL_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.977871,
+          49.513304
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-011",
+      "properties": {
+        "asset_id": "FAC-011",
+        "asset_name": "Facilities Asset 11",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 4411000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.967117,
+          49.514584
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FAC-012",
+      "properties": {
+        "asset_id": "FAC-012",
+        "asset_name": "Facilities Asset 12",
+        "asset_class": "Facilities",
+        "service_owner": "Facilities",
+        "condition_grade": 3,
+        "criticality_grade": 2,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 5713000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.952011,
+          49.514254
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-003",
+      "properties": {
+        "asset_id": "FLT-003",
+        "asset_name": "Fleet Asset 03",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 4,
+        "criticality_grade": 2,
+        "risk_score": 8,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 250000,
+        "recommended_intervention": "Rehabilitate",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.082572,
+          49.527498
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-005",
+      "properties": {
+        "asset_id": "FLT-005",
+        "asset_name": "Fleet Asset 05",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 178000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.053467,
+          49.530887
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-006",
+      "properties": {
+        "asset_id": "FLT-006",
+        "asset_name": "Fleet Asset 06",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 2,
+        "risk_score": 10,
+        "risk_band": "High",
+        "replacement_cost_usd": 207000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.040962,
+          49.527916
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-007",
+      "properties": {
+        "asset_id": "FLT-007",
+        "asset_name": "Fleet Asset 07",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 1,
+        "risk_score": 5,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 115000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.02399,
+          49.527132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-008",
+      "properties": {
+        "asset_id": "FLT-008",
+        "asset_name": "Fleet Asset 08",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 197000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.010517,
+          49.528312
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-009",
+      "properties": {
+        "asset_id": "FLT-009",
+        "asset_name": "Fleet Asset 09",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 2,
+        "risk_score": 10,
+        "risk_band": "High",
+        "replacement_cost_usd": 162000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.993209,
+          49.528697
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-010",
+      "properties": {
+        "asset_id": "FLT-010",
+        "asset_name": "Fleet Asset 10",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 144000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.98164,
+          49.52907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "FLT-012",
+      "properties": {
+        "asset_id": "FLT-012",
+        "asset_name": "Fleet Asset 12",
+        "asset_class": "Fleet",
+        "service_owner": "Fleet",
+        "condition_grade": 3,
+        "criticality_grade": 1,
+        "risk_score": 3,
+        "risk_band": "Low",
+        "replacement_cost_usd": 162000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#2a9d8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.949521,
+          49.529566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-001",
+      "properties": {
+        "asset_id": "PRK-001",
+        "asset_name": "Parks Asset 01",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 206000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.116369,
+          49.54453
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-002",
+      "properties": {
+        "asset_id": "PRK-002",
+        "asset_name": "Parks Asset 02",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 179000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.100388,
+          49.545018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-003",
+      "properties": {
+        "asset_id": "PRK-003",
+        "asset_name": "Parks Asset 03",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 3,
+        "criticality_grade": 2,
+        "risk_score": 6,
+        "risk_band": "Moderate",
+        "replacement_cost_usd": 146000,
+        "recommended_intervention": "Planned maintenance",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e9c46a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.085007,
+          49.543687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-004",
+      "properties": {
+        "asset_id": "PRK-004",
+        "asset_name": "Parks Asset 04",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 339000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.070962,
+          49.54205
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-005",
+      "properties": {
+        "asset_id": "PRK-005",
+        "asset_name": "Parks Asset 05",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 189000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.053208,
+          49.542679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-006",
+      "properties": {
+        "asset_id": "PRK-006",
+        "asset_name": "Parks Asset 06",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 295000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.039,
+          49.542886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-009",
+      "properties": {
+        "asset_id": "PRK-009",
+        "asset_name": "Parks Asset 09",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 5,
+        "risk_score": 25,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 292000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "FUNDED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.996846,
+          49.541671
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-010",
+      "properties": {
+        "asset_id": "PRK-010",
+        "asset_name": "Parks Asset 10",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 3,
+        "risk_score": 15,
+        "risk_band": "High",
+        "replacement_cost_usd": 333000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#f4a261"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.9782,
+          49.541305
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PRK-012",
+      "properties": {
+        "asset_id": "PRK-012",
+        "asset_name": "Parks Asset 12",
+        "asset_class": "Parks",
+        "service_owner": "Parks",
+        "condition_grade": 5,
+        "criticality_grade": 4,
+        "risk_score": 20,
+        "risk_band": "Very High",
+        "replacement_cost_usd": 259000,
+        "recommended_intervention": "Replace / major renewal",
+        "scenario_funding_status": "DEFERRED_SCENARIO",
+        "marker-color": "#e76f51"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.950282,
+          49.541172
+        ]
+      }
+    }
+  ]
+}

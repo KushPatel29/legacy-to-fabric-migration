@@ -141,7 +141,7 @@ def reconcile(assets: list[dict], collection: dict) -> tuple[list[dict], dict, d
                 "status_mismatches",
             )
         },
-        "data_note": "All records and coordinates are synthetic and are not City of Fernie data.",
+        "data_note": "All records and coordinates are synthetic and are not production municipal data.",
     }
     return rows, approved, summary
 

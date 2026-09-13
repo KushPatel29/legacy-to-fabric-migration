@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-211%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-228%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -34,7 +34,43 @@ claim. The design-only
 [`GIS integration requirements`](docs/business-analysis/GIS_INTEGRATION_REQUIREMENTS.md)
 are backed by a runnable, synthetic acceptance gate that tests spatial data
 ownership, coordinate-system decisions, governed asset joins, exception
-controls, and release criteria.
+controls, and release criteria. A jurisdiction-neutral
+[`public-sector decision and procurement brief`](docs/business-analysis/PUBLIC_SECTOR_DECISION_AND_PROCUREMENT_BRIEF.md)
+adds an executive/Council-style decision request, options analysis, a weighted
+vendor scorecard, controlled demonstration script, policy-impact register,
+stage gates, and measurable guardrails. It is explicitly a portfolio scenario,
+not a claim of municipal employment or a completed procurement.
+
+## Asset management decision proof
+
+The [`asset-management evidence pack`](examples/asset_management/README.md)
+turns a deterministic, synthetic 96-record cross-service asset register into a
+lifecycle assessment, condition × criticality risk model, inspection and
+source-data controls, annualized renewal need, prioritised work programme,
+governed GeoJSON risk layer, and transparent $8M capital affordability
+scenario.
+
+![Asset management decision board showing portfolio value, annual renewal need, condition-criticality risk matrix, service-level renewal need, prioritised actions, and explicit data/GIS/funding controls.](docs/business-analysis/asset-management-decision-board.png)
+
+The default evidence set makes the control boundaries visible:
+
+- **96 source records** across Water, Stormwater, Roads, Facilities, Fleet,
+  and Parks;
+- **87 planning-ready records** and **9 records routed to data remediation**
+  rather than imputed into a capital recommendation;
+- **$110.6M** of in-service, planning-ready replacement value and **$2.55M**
+  of annualized renewal need on the synthetic planning basis;
+- **44 high or very-high risk assets**, with condition, criticality,
+  inspection recency, life consumed, intervention, cost, priority, and owner
+  retained at row level; and
+- **13 modelled interventions funded for $7.999M** inside the illustrative $8M
+  ceiling, with 42 candidates explicitly deferred rather than hidden.
+
+The scenario is a transparent priority-ordered affordability screen, not an
+optimised or approved capital plan. The documentation identifies the
+engineering, service-level, accessibility, climate, equity, financing,
+procurement, project-bundling, and delivery-capacity decisions that require
+accountable local input before production use.
 
 ## GIS asset integration proof
 
@@ -58,8 +94,8 @@ The evidence is reviewable end to end:
   and [`approved GeoJSON`](examples/gis_asset_integration/output/approved_asset_layer.geojson)
 
 All names, asset records, and coordinates are synthetic. This demonstrates a
-transferable integration and control pattern; it does not claim City of Fernie
-systems access or municipal project experience.
+transferable integration and control pattern; it does not claim production
+municipal systems access or municipal project experience.
 
 ## Migration Command Center (Power BI)
 
@@ -138,6 +174,8 @@ fabric/notebooks/     the Fabric/PySpark refactor
 validation/           parallel-run validation: row counts, control totals, checksum
 examples/gis_asset_integration/
                       asset-register/GIS reconciliation + approved GeoJSON layer
+examples/asset_management/
+                      lifecycle/risk model + work program + governed risk layer
 powerbi/              Migration Command Center PBIP (TMDL model + PBIR report)
 data/migration/       generated program dataset: inventory, wave plan, run results
 tests/                pytest suite: corruption detection + false-positive guards
@@ -217,7 +255,8 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 211 tests: the clean GO, GIS acceptance controls, 8 corruption
+pytest tests/ -v    # 228 tests: the clean GO, GIS and asset-management controls,
+                    # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
                     # rule, 5 migration-program invariants, the semantic-model
