@@ -2,12 +2,22 @@
 
 This implemented portfolio case turns a deterministic, synthetic 96-record
 asset register into a lifecycle assessment, risk layer, annualized renewal-need
-view, prioritised work programme, and constrained capital scenario.
+view, prioritised work programme, and constrained capital business case.
 
 **[Launch the live decision board](https://kush-asset-management-decision-board.streamlit.app/)**
-to challenge the funding envelope, service scope and risk focus, inspect an
-asset-level decision sheet, review the GIS/data-assurance controls, and export
-the exact scenario evidence.
+to compare three investment postures; challenge the annual envelope, horizon,
+delivery capacity, escalation, contingency, discount rate, service/risk scope,
+and indicative grant/reserve/debt mix; inspect the asset-level decision sheet;
+review sensitivities, programme risks, benefits, delivery gates, and GIS/data
+assurance; and export the exact investment-committee evidence pack.
+
+The supporting
+[`asset capital programme business case`](../../docs/business-analysis/ASSET_CAPITAL_PROGRAM_BUSINESS_CASE.md)
+sets out the strategic, economic, commercial, financial, and management case,
+including stakeholders, approval conditions, decision triggers, records, and
+the evidence still required before authority to spend.
+
+![Live asset capital-programme business case comparing minimum, risk-based, and accelerated postures with a conditional recommendation, five-year affordability, delivery capacity, capital present value, and deferred risk exposure.](../../docs/business-analysis/asset-management-live-app.png)
 
 It is built to show the business-analysis work around asset information—not
 just a map. Every record keeps its service owner, lifecycle, age, expected life,
@@ -38,8 +48,11 @@ capital plan, an optimisation model, or evidence of municipal employment.
                 ├── inspection recency and life consumed
                 ├── annualized renewal need and risk exposure
                 ├── explainable intervention and priority score
-                ├── priority-ordered $8M affordability scenario
-                └── governed GeoJSON risk layer + work-program export
+                ├── three funding and delivery postures
+                ├── annual cash + delivery-capacity constrained multi-year plan
+                ├── cost/funding sensitivities + owned risks and benefits
+                ├── stage-gated delivery and approval conditions
+                └── governed GeoJSON risk layer + committee-pack export
 ```
 
 The source deliberately contains missing and invalid values, a duplicated
@@ -60,12 +73,17 @@ inspection action and recency penalty.
 | Annualized risk exposure | replacement cost × condition probability × criticality consequence factor |
 | Priority score | risk × 4 + capped life consumed × 0.18 + inspection-recency penalty |
 | Capital scenario | take planning-ready capital candidates in priority order while the next treatment fits within $8M |
+| Multi-year programme | preserve priority order while each year enforces the selected cash ceiling and delivery-capacity limit |
+| Screened project cost | source treatment screen × planning contingency × scheduled-year escalation |
+| Capital present value | screened project cost discounted to the planning decision date; capital costs only |
 
 The affordability scenario is intentionally simple and inspectable. It is not
-presented as an optimised capital programme: real prioritisation requires
-engineering assessments, service levels, statutory obligations, equity,
-climate resilience, project bundling, delivery capacity, funding restrictions,
-whole-life cost, and consultation with accountable owners.
+presented as an optimised capital programme or a whole-life economic appraisal:
+real prioritisation requires engineering assessments, service levels,
+statutory obligations, safety, accessibility, equity, climate resilience,
+environmental review, project bundling, delivery capacity, funding
+restrictions, operating impacts, residual value, benefits, and consultation
+with accountable owners.
 
 ## Outputs
 
@@ -89,7 +107,10 @@ python examples/asset_management/build_asset_management_case.py
 The tests prove the fixed portfolio shape, deliberate exception routes,
 condition-criticality logic, intervention rules, control-total reconciliation,
 budget ceiling, priority ordering, exclusion of invalid records from funding,
-GeoJSON validity, committed outputs, and both visuals' 1600×900 review size.
+GeoJSON validity, committed outputs, multi-year annual cash and delivery limits,
+option comparison, sensitivity cases, funding reconciliation, owned risk and
+benefit registers, evidence-pack completeness, live workspaces, and both
+visuals' 1600×900 review size.
 
 ## Business Questions Before Production Use
 

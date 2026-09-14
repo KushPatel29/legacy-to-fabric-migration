@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-232%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-238%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -40,6 +40,12 @@ adds an executive/Council-style decision request, options analysis, a weighted
 vendor scorecard, controlled demonstration script, policy-impact register,
 stage gates, and measurable guardrails. It is explicitly a portfolio scenario,
 not a claim of municipal employment or a completed procurement.
+The
+[`asset capital programme business case`](docs/business-analysis/ASSET_CAPITAL_PROGRAM_BUSINESS_CASE.md)
+adds a five-case decision structure around the runnable asset evidence: three
+funding/delivery postures, a constrained multi-year plan, assumption controls,
+sensitivity analysis, an indicative funding mix, owned risks and benefits,
+stage gates, and an exportable investment-committee pack.
 
 ## Asset management decision proof
 
@@ -56,12 +62,14 @@ governed GeoJSON risk layer, and transparent $8M capital affordability
 scenario.
 
 The live app makes the evidence challengeable rather than static: change the
-capital envelope, service scope and risk focus; inspect the resulting funded
-and deferred programme; review the condition-criticality matrix and WGS 84
-risk layer; trace blocked source exceptions; and download the exact governed
-scenario pack used in the review.
+annual capital envelope, planning horizon, service and risk scope, escalation,
+contingency, discount rate, delivery capacity, and indicative funding mix;
+compare minimum, risk-based, and accelerated postures; stress cost, envelope,
+and grant assumptions; inspect the multi-year programme; review owned risks,
+benefits, delivery gates, condition-criticality evidence, and the WGS 84 risk
+layer; then download the complete governed decision pack.
 
-![Live asset-management decision board with an eight-million-dollar funding envelope, funded and deferred candidates, accountable next decision, service and risk controls, and synthetic-data boundary.](docs/business-analysis/asset-management-live-app.png)
+![Live asset capital-programme business case comparing three funding and delivery postures, showing the conditional risk-based recommendation, five-year annual envelope, scheduled and deferred candidates, capital present value, and modelled deferred risk exposure.](docs/business-analysis/asset-management-live-app.png)
 
 ![Asset management decision board showing portfolio value, annual renewal need, condition-criticality risk matrix, service-level renewal need, prioritised actions, and explicit data/GIS/funding controls.](docs/business-analysis/asset-management-decision-board.png)
 
@@ -76,14 +84,20 @@ The default evidence set makes the control boundaries visible:
 - **44 high or very-high risk assets**, with condition, criticality,
   inspection recency, life consumed, intervention, cost, priority, and owner
   retained at row level; and
-- **13 modelled interventions funded for $7.999M** inside the illustrative $8M
-  ceiling, with 42 candidates explicitly deferred rather than hidden.
+- **13 modelled interventions funded for $7.999M** inside the first-year
+  illustrative $8M ceiling; and
+- **50 of 55 candidates screened across five years** under the default
+  escalation, contingency, and 14-project annual capacity assumptions, with
+  five candidates and $3.01M of modelled annualized risk exposure left visibly
+  beyond the horizon.
 
-The scenario is a transparent priority-ordered affordability screen, not an
-optimised or approved capital plan. The documentation identifies the
-engineering, service-level, accessibility, climate, equity, financing,
-procurement, project-bundling, and delivery-capacity decisions that require
-accountable local input before production use.
+The recommended risk-based posture is conditional: it authorizes validation,
+not spending. The scenario is a transparent priority-ordered affordability and
+capacity screen, not an optimised or approved capital plan or a whole-life
+economic appraisal. The documentation identifies the engineering,
+service-level, safety, accessibility, climate, environmental, equity,
+financing, procurement, consultation, project-bundling, and delivery-capacity
+decisions that require accountable local input before production use.
 
 ## GIS asset integration proof
 
@@ -268,7 +282,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 232 tests: the clean GO, GIS and asset-management controls,
+pytest tests/ -v    # 238 tests: the clean GO, GIS and asset-management controls,
                     # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per

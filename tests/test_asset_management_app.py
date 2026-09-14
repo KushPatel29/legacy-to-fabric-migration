@@ -10,10 +10,20 @@ from pathlib import Path
 from streamlit.testing.v1 import AppTest
 
 from asset_decision_support import (
+    benefits_register,
     capital_scenario,
+    decision_requirements,
+    delivery_roadmap,
     evidence_pack,
+    funding_sources,
     load_assessment,
+    multi_year_programme,
+    programme_assumptions,
+    programme_options,
+    programme_risk_register,
+    programme_summary,
     scenario_summary,
+    sensitivity_analysis,
 )
 
 
@@ -67,18 +77,144 @@ def test_evidence_pack_preserves_scope_programme_controls_and_boundary():
             "scenario_manifest.json",
             "assets_in_scope.csv",
             "prioritized_work_programme.csv",
+            "multi_year_capital_plan.csv",
+            "option_comparison.csv",
+            "sensitivity_analysis.csv",
+            "programme_risk_register.csv",
+            "benefits_register.csv",
+            "delivery_roadmap.csv",
+            "indicative_funding_sources.csv",
+            "business_case_requirements.csv",
+            "business_case_summary.md",
         }
         manifest = json.loads(archive.read("scenario_manifest.json"))
+        briefing = archive.read("business_case_summary.md").decode("utf-8")
     assert manifest["summary"]["funded_spend_usd"] == 7_999_000
     assert "not an engineering condition assessment" in manifest["evidence_boundary"]
     assert len(manifest["required_validation"]) == 5
+    assert manifest["decision_status"].startswith("CONDITIONAL")
+    assert "not authority to spend" in " ".join(briefing.split())
+
+
+def test_programme_assumptions_reconcile_the_indicative_funding_mix():
+    assumptions = programme_assumptions(
+        8_000_000, grant_share_pct=20, reserve_share_pct=50
+    )
+
+    assert assumptions["planning_years"] == 5
+    assert assumptions["debt_share_pct"] == 30
+    assert (
+        assumptions["grant_share_pct"]
+        + assumptions["reserve_share_pct"]
+        + assumptions["debt_share_pct"]
+        == 100
+    )
+
+
+def test_multi_year_programme_respects_each_year_budget_and_delivery_capacity():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    assumptions = programme_assumptions(8_000_000)
+    plan = multi_year_programme(scope, assumptions)
+    scheduled = plan[plan["programme_status"].eq("Scheduled in screen")]
+
+    annual = scheduled.groupby("programme_year").agg(
+        spend=("screened_programme_cost_usd", "sum"),
+        projects=("asset_id", "count"),
+    )
+    assert annual["spend"].le(8_000_000).all()
+    assert annual["projects"].le(14).all()
+    assert scheduled["decision_gate"].eq("Requires validation").all()
+    assert plan["asset_id"].is_unique
+    assert programme_summary(plan, assumptions) == {
+        "planning_years": 5,
+        "annual_budget_usd": 8_000_000,
+        "total_envelope_usd": 40_000_000,
+        "scheduled_assets": 50,
+        "scheduled_high_or_very_high": 38,
+        "planned_capital_usd": 39_723_156,
+        "capital_present_value_usd": 35_372_580,
+        "deferred_candidates": 5,
+        "deferred_treatment_cost_usd": 5_663_000,
+        "deferred_annualized_risk_exposure_usd": 3_006_601,
+    }
+
+
+def test_business_case_options_are_distinct_and_recommend_the_balanced_posture():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    options = programme_options(scope, programme_assumptions(8_000_000))
+
+    assert options["option_id"].tolist() == ["Option 1", "Option 2", "Option 3"]
+    assert options["annual_envelope_usd"].is_monotonic_increasing
+    assert options["scheduled_assets"].is_monotonic_increasing
+    assert options.loc[options["option_id"].eq("Option 2"), "screening_recommendation"].iloc[0].startswith(
+        "Recommended to validation"
+    )
+
+
+def test_sensitivity_analysis_exposes_cost_funding_and_combined_stresses():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    sensitivity = sensitivity_analysis(scope, programme_assumptions(8_000_000))
+
+    assert sensitivity["sensitivity"].tolist() == [
+        "Base screen",
+        "Construction costs +15%",
+        "Annual envelope -10%",
+        "Grant not confirmed",
+        "Combined stress",
+    ]
+    base = sensitivity.iloc[0]
+    stressed = sensitivity[sensitivity["sensitivity"].ne("Base screen")]
+    assert stressed["scheduled_assets"].le(base["scheduled_assets"]).all()
+    assert stressed["deferred_candidates"].ge(base["deferred_candidates"]).all()
+
+
+def test_risks_benefits_and_roadmap_have_named_owners_controls_and_gates():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    assumptions = programme_assumptions(8_000_000)
+    plan = multi_year_programme(scope, assumptions)
+    risks = programme_risk_register()
+    benefits = benefits_register(scope, plan)
+    roadmap = delivery_roadmap()
+    requirements = decision_requirements()
+
+    assert len(risks) == 9
+    assert risks[["description", "likelihood", "impact", "risk_level", "mitigation", "owner", "status", "trigger"]].notna().all().all()
+    assert risks["risk_id"].is_unique
+    assert benefits["benefit_id"].is_unique
+    assert benefits[["baseline", "target", "owner", "cadence", "evidence"]].notna().all().all()
+    assert roadmap["gate"].tolist() == ["0", "1", "2", "3", "4", "5"]
+    assert roadmap["accountable_role"].notna().all()
+    assert len(requirements) == 10
+    assert requirements["requirement_id"].is_unique
+    assert requirements[["acceptance_criteria", "owner", "decision_gate", "evidence_status"]].notna().all().all()
+
+
+def test_indicative_funding_sources_reconcile_to_screened_capital():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    assumptions = programme_assumptions(8_000_000)
+    plan = multi_year_programme(scope, assumptions)
+    sources = funding_sources(plan, assumptions)
+
+    scheduled = plan[plan["programme_status"].eq("Scheduled in screen")]
+    assert sources["indicative_share_pct"].sum() == 100
+    assert sources["indicative_amount_usd"].sum() == scheduled[
+        "screened_programme_cost_usd"
+    ].sum()
+    assert sources["validation_required"].str.len().gt(20).all()
 
 
 def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30).run()
 
     assert not app.exception
-    assert app.title[0].value.startswith(r"\$8.00M funds 13 assets")
+    assert app.title[0].value == (
+        "Build a five-year asset programme decision that survives challenge."
+    )
     assert app.multiselect[0].value == [
         "Facilities",
         "Fleet",
@@ -89,23 +225,37 @@ def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     ]
     workspace = app.get("button_group")[0]
     assert workspace.options == [
-        "Executive brief",
-        "Funding scenario",
+        "Decision brief",
+        "Business case",
+        "Funding plan",
         "Risk & lifecycle",
         "GIS & assurance",
     ]
-    assert workspace.value == "Executive brief"
+    assert workspace.value == "Decision brief"
     metrics = {metric.label: metric.value for metric in app.metric}
     assert metrics["Assets in scope"] == "78"
     assert metrics["High / very-high risk"] == "44"
 
-    workspace.set_value("Funding scenario").run(timeout=30)
-    funding_metrics = {metric.label: metric.value for metric in app.metric}
-    assert funding_metrics["Allocated"] == "$8.00M"
-    assert app.selectbox[0].value == "RDS-001"
-    assert [button.label for button in app.get("download_button")] == [
-        "Download governed scenario pack"
+    workspace.set_value("Business case").run(timeout=30)
+    assert [tab.label for tab in app.tabs] == [
+        "Options & affordability",
+        "Sensitivity",
+        "Risk & benefits",
+        "Delivery gates",
     ]
+    assert [button.label for button in app.get("download_button")] == [
+        "Download investment-committee evidence pack"
+    ]
+
+    app.get("button_group")[0].set_value("Funding plan").run(timeout=30)
+    funding_metrics = {metric.label: metric.value for metric in app.metric}
+    assert funding_metrics["Annual envelope"] == "$8.00M"
+    assert funding_metrics["Scheduled assets"] == "50"
+    assert app.selectbox[0].value == "RDS-001"
+
+    app.get("button_group")[0].set_value("Risk & lifecycle").run(timeout=30)
+    assert not app.exception
+    assert any("Asset risk matrix" in item.value for item in app.markdown)
 
     app.get("button_group")[0].set_value("GIS & assurance").run(timeout=30)
     assert [tab.label for tab in app.tabs] == [
@@ -113,4 +263,4 @@ def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
         "Source exceptions",
         "Acceptance controls",
     ]
-    assert any("7 of 7" in item.value for item in app.success)
+    assert any("8 of 8" in item.value for item in app.success)

@@ -24,6 +24,7 @@ and cutover runbook remain the implemented parts of the repository.
 | Operate | How could the work be governed in Microsoft 365? | [Modern Workplace blueprint](MODERN_WORKPLACE_BLUEPRINT.md) |
 | Integrate | How should spatial and asset data connect safely? | [GIS integration requirements](GIS_INTEGRATION_REQUIREMENTS.md) |
 | Manage assets | How do condition, criticality, lifecycle, renewal need, inspections, data confidence, and affordability become a controlled work programme? | [Runnable asset-management evidence](../../examples/asset_management/README.md) |
+| Build the capital case | Which funding posture should proceed, what can be delivered and afforded, what changes under stress, and which gates still block authority to spend? | [Asset capital programme business case](ASSET_CAPITAL_PROGRAM_BUSINESS_CASE.md) and [live decision board](https://kush-asset-management-decision-board.streamlit.app/) |
 | Govern | How would a public body brief decision-makers, evaluate suppliers, and check policy impacts? | [Public-sector decision and procurement brief](PUBLIC_SECTOR_DECISION_AND_PROCUREMENT_BRIEF.md) |
 
 ## Scope Boundary
@@ -43,6 +44,12 @@ The asset-management extension is implemented against a 96-record synthetic
 portfolio and tested in CI. Its condition, criticality, renewal, risk, work
 programme, and capital-affordability outputs are scenario evidence—not an
 engineering condition assessment or an approved municipal capital plan.
+
+The capital-programme business case adds three decision postures, a constrained
+multi-year plan, escalation/contingency/discount and funding assumptions,
+sensitivity analysis, owned programme risks, benefits measures, delivery gates,
+and an exportable committee pack. Its preferred posture is explicitly
+conditional and does not imply authority to spend.
 
 The public-sector decision and procurement brief is a jurisdiction-neutral
 portfolio scenario. It demonstrates decision writing, option and vendor
