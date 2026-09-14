@@ -43,6 +43,10 @@ not a claim of municipal employment or a completed procurement.
 
 ## Asset management decision proof
 
+**[View the portfolio decision board](https://kushpatel29.github.io/#asset-management-proof)** ·
+**[open the full-size board](docs/business-analysis/asset-management-decision-board.png)** ·
+**[review the runnable evidence pack](examples/asset_management/README.md)**
+
 The [`asset-management evidence pack`](examples/asset_management/README.md)
 turns a deterministic, synthetic 96-record cross-service asset register into a
 lifecycle assessment, condition × criticality risk model, inspection and
