@@ -44,7 +44,9 @@ jobs:
         run: python examples/asset_management/build_asset_management_case.py
 
       - name: Run validation framework tests (incl. corruption negative tests)
-        run: pytest tests/ -v
+        # Run through the selected interpreter so repository-root modules are
+        # importable consistently on Windows, macOS, and GitHub's Linux runner.
+        run: python -m pytest tests/ -v
 
       # The README badge is a claim about this suite, and nothing used to
       # compare the two. healthcare's badge sat at 182 while its suite had
