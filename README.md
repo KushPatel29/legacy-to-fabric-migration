@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-228%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-232%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -43,7 +43,8 @@ not a claim of municipal employment or a completed procurement.
 
 ## Asset management decision proof
 
-**[View the portfolio decision board](https://kushpatel29.github.io/#asset-management-proof)** ·
+**[Launch the live asset decision board](https://kush-asset-management-decision-board.streamlit.app/)** ·
+**[View the portfolio case](https://kushpatel29.github.io/#asset-management-proof)** ·
 **[open the full-size board](docs/business-analysis/asset-management-decision-board.png)** ·
 **[review the runnable evidence pack](examples/asset_management/README.md)**
 
@@ -53,6 +54,14 @@ lifecycle assessment, condition × criticality risk model, inspection and
 source-data controls, annualized renewal need, prioritised work programme,
 governed GeoJSON risk layer, and transparent $8M capital affordability
 scenario.
+
+The live app makes the evidence challengeable rather than static: change the
+capital envelope, service scope and risk focus; inspect the resulting funded
+and deferred programme; review the condition-criticality matrix and WGS 84
+risk layer; trace blocked source exceptions; and download the exact governed
+scenario pack used in the review.
+
+![Live asset-management decision board with an eight-million-dollar funding envelope, funded and deferred candidates, accountable next decision, service and risk controls, and synthetic-data boundary.](docs/business-analysis/asset-management-live-app.png)
 
 ![Asset management decision board showing portfolio value, annual renewal need, condition-criticality risk matrix, service-level renewal need, prioritised actions, and explicit data/GIS/funding controls.](docs/business-analysis/asset-management-decision-board.png)
 
@@ -259,7 +268,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 228 tests: the clean GO, GIS and asset-management controls,
+pytest tests/ -v    # 232 tests: the clean GO, GIS and asset-management controls,
                     # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per

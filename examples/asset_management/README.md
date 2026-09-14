@@ -4,6 +4,11 @@ This implemented portfolio case turns a deterministic, synthetic 96-record
 asset register into a lifecycle assessment, risk layer, annualized renewal-need
 view, prioritised work programme, and constrained capital scenario.
 
+**[Launch the live decision board](https://kush-asset-management-decision-board.streamlit.app/)**
+to challenge the funding envelope, service scope and risk focus, inspect an
+asset-level decision sheet, review the GIS/data-assurance controls, and export
+the exact scenario evidence.
+
 It is built to show the business-analysis work around asset information—not
 just a map. Every record keeps its service owner, lifecycle, age, expected life,
 replacement value, condition, criticality, inspection evidence, risk,
