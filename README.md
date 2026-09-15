@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-238%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-240%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -45,7 +45,9 @@ The
 adds a five-case decision structure around the runnable asset evidence: three
 funding/delivery postures, a constrained multi-year plan, assumption controls,
 sensitivity analysis, an indicative funding mix, owned risks and benefits,
-stage gates, and an exportable investment-committee pack.
+stage gates, technical and customer service-level evidence, four lifecycle
+strategy alternatives per service, asset-level decision records, and an
+exportable investment-committee pack.
 
 ## Asset management decision proof
 
@@ -65,9 +67,12 @@ The live app makes the evidence challengeable rather than static: change the
 annual capital envelope, planning horizon, service and risk scope, escalation,
 contingency, discount rate, delivery capacity, and indicative funding mix;
 compare minimum, risk-based, and accelerated postures; stress cost, envelope,
-and grant assumptions; inspect the multi-year programme; review owned risks,
-benefits, delivery gates, condition-criticality evidence, and the WGS 84 risk
-layer; then download the complete governed decision pack.
+and grant assumptions; inspect the ten-year programme; connect technical and
+customer service shortfalls to asset pressure; compare operate/maintain,
+rehabilitate, renew/replace, and non-infrastructure strategies; review owned
+risks, benefits, asset-level decision records, delivery gates,
+condition-criticality evidence, and the WGS 84 risk layer; then download the
+complete governed decision pack.
 
 ![Live asset capital-programme business case comparing three funding and delivery postures, showing the conditional risk-based recommendation, five-year annual envelope, scheduled and deferred candidates, capital present value, and modelled deferred risk exposure.](docs/business-analysis/asset-management-live-app.png)
 
@@ -86,10 +91,11 @@ The default evidence set makes the control boundaries visible:
   retained at row level; and
 - **13 modelled interventions funded for $7.999M** inside the first-year
   illustrative $8M ceiling; and
-- **50 of 55 candidates screened across five years** under the default
+- **55 of 55 candidates screened across ten years** under the default
   escalation, contingency, and 14-project annual capacity assumptions, with
-  five candidates and $3.01M of modelled annualized risk exposure left visibly
-  beyond the horizon.
+  no candidate forced beyond the horizon in the base case. The minimum-response
+  posture still leaves one material candidate and $3.01M of modelled annualized
+  risk exposure beyond the horizon.
 
 The recommended risk-based posture is conditional: it authorizes validation,
 not spending. The scenario is a transparent priority-ordered affordability and
@@ -282,7 +288,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 238 tests: the clean GO, GIS and asset-management controls,
+pytest tests/ -v    # 240 tests: the clean GO, GIS and asset-management controls,
                     # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per

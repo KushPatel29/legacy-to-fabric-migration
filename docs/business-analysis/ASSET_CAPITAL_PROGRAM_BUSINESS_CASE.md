@@ -62,19 +62,41 @@ The live board recalculates these results when the service scope, risk focus,
 annual envelope, horizon, escalation, contingency, discount rate, delivery
 capacity, or funding mix changes.
 
-Default basis: five years from 2027; $8.0M annual envelope; 3.5% annual cost
+Default basis: ten years from 2027; $8.0M annual envelope; 3.5% annual cost
 escalation; 15% planning contingency; 4% capital discount rate; and capacity
 for 14 projects per year.
 
 | Option | Decision posture | Annual envelope | Capacity / year | Assets scheduled | High / very-high scheduled | Nominal capital | Capital PV | Candidates beyond horizon | Deferred annualized risk exposure |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 — Minimum response | Constrain new commitments and validate only the highest priorities | $5.2M | 8 | 34 | 30 | $24.632M | $21.908M | 21 | $11.639M |
-| 2 — Risk-based renewal | Use the selected envelope and a governed, risk-ordered delivery plan | $8.0M | 14 | 50 | 38 | $39.723M | $35.373M | 5 | $3.007M |
+| 1 — Minimum response | Constrain new commitments and validate only the highest priorities | $5.2M | 8 | 54 | 38 | $44.604M | $36.833M | 1 | $3.009M |
+| 2 — Risk-based renewal | Use the selected envelope and a governed, risk-ordered delivery plan | $8.0M | 14 | 55 | 39 | $47.458M | $41.485M | 0 | $0 |
 | 3 — Accelerated resilience | Increase funding and capacity to advance more work | $10.0M | 18 | 55 | 39 | $46.460M | $41.605M | 0 | $0 |
 
 **Screening recommendation:** take Option 2 to validation. It materially reduces
 the deferred portfolio compared with Option 1 without assuming the larger
 funding and delivery expansion required by Option 3.
+
+## Service outcomes and lifecycle choices
+
+The app now carries one synthetic technical and one synthetic customer service
+measure for Water, Stormwater, Roads, Facilities, Fleet, and Parks. Each record
+states the outcome, target direction, current planning result, target,
+consequence of shortfall, and accountable role. The view joins those service
+gaps to the selected assets, high/very-high risk count, replacement value, and
+annual renewal pressure. These values demonstrate the governance structure;
+they are not adopted municipal standards or City of Fernie results.
+
+Every service must compare four strategies before Gate 2 selects a preferred
+asset solution:
+
+1. operate and maintain;
+2. rehabilitate;
+3. renew or replace; and
+4. a service-specific non-infrastructure solution.
+
+The catalogue states the service response, cost/risk question, and evidence
+required for each strategy. It intentionally does not manufacture a preferred
+option or whole-life cost before engineering and service evidence exists.
 
 This is not yet a whole-life economic appraisal. The capital PV discounts
 screened project costs only. Operating costs, residual values, service
@@ -197,6 +219,9 @@ The live app's downloadable evidence pack contains:
 - the multi-year capital screen and explicit assumptions;
 - three option postures and five sensitivity cases;
 - the indicative funding-source reconciliation;
+- the technical/customer service-level catalogue and asset-pressure position;
+- four lifecycle strategies for every service in scope;
+- one non-approval decision record per capital candidate;
 - risk and benefits registers;
 - the delivery roadmap;
 - a machine-readable scenario manifest; and
@@ -223,4 +248,3 @@ The live app's downloadable evidence pack contains:
 - [Review the asset evidence and methods](../../examples/asset_management/README.md)
 - [Inspect the app and business-case tests](../../tests/test_asset_management_app.py)
 - Run `pytest tests/test_asset_management_app.py -q`
-

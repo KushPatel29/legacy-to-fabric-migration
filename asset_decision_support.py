@@ -466,6 +466,209 @@ def programme_risk_register() -> pd.DataFrame:
     )
 
 
+def service_level_catalogue() -> pd.DataFrame:
+    """Return synthetic technical and customer service planning measures.
+
+    These are transparent scenario inputs, not adopted municipal standards.
+    Keeping the target direction and numeric basis explicit lets the app show
+    a real service gap without hiding unlike measures inside a composite score.
+    """
+
+    rows = [
+        (
+            "LOS-WAT", "Water", "Reliable drinking-water service",
+            "Unplanned interruption hours per 1,000 accounts", "maximum", 4.0, 6.2, "hours / year",
+            "Customers restored inside 8 hours", "minimum", 95.0, 89.0, "%",
+            "Longer interruptions, public-health concern, and emergency response pressure",
+            "Utilities service owner",
+        ),
+        (
+            "LOS-STM", "Stormwater", "Safe drainage and flood resilience",
+            "Critical inlets inspected before wet season", "minimum", 100.0, 82.0, "%",
+            "Priority drainage complaints resolved inside target", "minimum", 90.0, 76.0, "%",
+            "Localized flooding, property exposure, access disruption, and emergency work",
+            "Public Works service owner",
+        ),
+        (
+            "LOS-RDS", "Roads", "Safe and reliable movement",
+            "Network lane-kilometres in fair or better condition", "minimum", 70.0, 63.0, "%",
+            "Priority road defects closed inside service target", "minimum", 90.0, 78.0, "%",
+            "Safety exposure, travel disruption, accessibility barriers, and higher reactive cost",
+            "Transportation service owner",
+        ),
+        (
+            "LOS-FAC", "Facilities", "Safe and available civic facilities",
+            "Critical facilities passing annual life-safety inspection", "minimum", 100.0, 94.0, "%",
+            "Public opening hours delivered as planned", "minimum", 98.0, 91.0, "%",
+            "Facility closure, service relocation, safety exposure, and accessibility loss",
+            "Facilities service owner",
+        ),
+        (
+            "LOS-FLT", "Fleet", "Available fleet for priority services",
+            "Priority fleet mechanical availability", "minimum", 95.0, 92.0, "%",
+            "Service requests supplied with an available vehicle", "minimum", 95.0, 88.0, "%",
+            "Delayed field response, rental pressure, overtime, and reduced service capacity",
+            "Fleet service owner",
+        ),
+        (
+            "LOS-PRK", "Parks", "Safe and accessible public recreation",
+            "Scheduled safety inspections completed on time", "minimum", 100.0, 91.0, "%",
+            "Priority closures resolved inside three days", "minimum", 90.0, 82.0, "%",
+            "Reduced access, recreation interruption, safety concern, and public dissatisfaction",
+            "Parks service owner",
+        ),
+    ]
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "service_level_id", "asset_class", "service_outcome",
+            "technical_measure", "technical_direction", "technical_target",
+            "technical_actual", "technical_unit", "customer_measure",
+            "customer_direction", "customer_target", "customer_actual",
+            "customer_unit", "consequence_of_shortfall", "accountable_role",
+        ],
+    )
+
+
+def service_level_position(
+    scope: pd.DataFrame,
+    catalogue: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Connect service performance to the asset portfolio pressure behind it."""
+
+    catalogue = service_level_catalogue() if catalogue is None else catalogue.copy()
+    portfolio = (
+        scope.groupby("asset_class", observed=True)
+        .agg(
+            assets_in_scope=("asset_id", "count"),
+            high_or_very_high_risk=(
+                "risk_band", lambda values: values.isin(["High", "Very High"]).sum()
+            ),
+            replacement_value_usd=("replacement_cost_usd", "sum"),
+            annualized_renewal_need_usd=("annualized_renewal_need_usd", "sum"),
+        )
+        .reset_index()
+    )
+    result = catalogue.merge(portfolio, on="asset_class", how="inner", validate="one_to_one")
+
+    def gap(actual: float, target: float, direction: str) -> float:
+        return max(0.0, target - actual) if direction == "minimum" else max(0.0, actual - target)
+
+    result["technical_gap"] = result.apply(
+        lambda row: gap(row["technical_actual"], row["technical_target"], row["technical_direction"]),
+        axis=1,
+    )
+    result["customer_gap"] = result.apply(
+        lambda row: gap(row["customer_actual"], row["customer_target"], row["customer_direction"]),
+        axis=1,
+    )
+    result["service_status"] = result.apply(
+        lambda row: "BELOW TARGET"
+        if row["technical_gap"] > 0 or row["customer_gap"] > 0
+        else "AT TARGET",
+        axis=1,
+    )
+    return result.sort_values(
+        ["service_status", "high_or_very_high_risk", "annualized_renewal_need_usd"],
+        ascending=[False, False, False],
+        kind="stable",
+    ).reset_index(drop=True)
+
+
+def lifecycle_strategy_catalogue() -> pd.DataFrame:
+    """Define four options every material asset case must compare."""
+
+    non_asset = {
+        "Water": "Demand management, leak reduction, operating change, or service partnership",
+        "Stormwater": "Source control, inspection/cleaning, development control, or natural asset",
+        "Roads": "Demand, traffic, access, winter-service, or active-transport intervention",
+        "Facilities": "Service consolidation, space sharing, lease, or operating-hours change",
+        "Fleet": "Route/utilization change, shared fleet, lease, or contracted service",
+        "Parks": "Service reconfiguration, partnership, stewardship, or demand management",
+    }
+    rows: list[tuple[str, str, str, str, str, str]] = []
+    for asset_class, alternative in non_asset.items():
+        rows.extend(
+            [
+                (
+                    asset_class, "Operate and maintain",
+                    "Accept and monitor current risk with targeted preventive/reactive work",
+                    "Usually lowest near-term capital; may retain service and failure exposure",
+                    "Maintenance history, safe operating limit, residual risk, operating cost",
+                    "REQUIRES EVIDENCE",
+                ),
+                (
+                    asset_class, "Rehabilitate",
+                    "Restore performance or extend useful life without full replacement",
+                    "Compare scope, extension period, repeat intervention, and whole-life cost",
+                    "Condition investigation, constructability, extension life, service impact",
+                    "REQUIRES EVIDENCE",
+                ),
+                (
+                    asset_class, "Renew or replace",
+                    "Reset condition and capacity where the service case justifies investment",
+                    "Highest capital screen; test residual value, operating change, and resilience",
+                    "Design basis, capacity need, climate/safety/accessibility screen, cost class",
+                    "REQUIRES EVIDENCE",
+                ),
+                (
+                    asset_class, "Non-infrastructure solution", alternative,
+                    "Test whether service outcomes can improve without equivalent new capital",
+                    "Demand evidence, policy authority, stakeholder effect, operating model",
+                    "REQUIRES EVIDENCE",
+                ),
+            ]
+        )
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "asset_class", "lifecycle_strategy", "service_response",
+            "cost_and_risk_question", "evidence_required", "decision_status",
+        ],
+    )
+
+
+def programme_decision_register(
+    programme: pd.DataFrame,
+    assumptions: dict,
+) -> pd.DataFrame:
+    """Return one controlled, non-approval decision record per candidate."""
+
+    rows: list[dict] = []
+    for record in programme.to_dict(orient="records"):
+        scheduled = record["programme_status"] == "Scheduled in screen"
+        year = record["programme_year"]
+        rows.append(
+            {
+                "decision_id": f"AM-DR-{record['asset_id']}-{assumptions['planning_start_year']}",
+                "asset_id": record["asset_id"],
+                "evidence_date": "2026-08-31",
+                "decision_status": "SCREENED FOR VALIDATION"
+                if scheduled
+                else "DEFERRED — OWNER DECISION REQUIRED",
+                "screened_year": int(year) if pd.notna(year) else None,
+                "recommended_action": record["recommended_intervention"],
+                "decision_basis": (
+                    f"{record['risk_band']} risk; priority {float(record['priority_score']):.1f}; "
+                    f"condition {int(record['condition_grade'])}/5; "
+                    f"criticality {int(record['criticality_grade'])}/5"
+                ),
+                "accountable_role": record["service_owner"],
+                "required_approvers": "Service owner + engineering + finance",
+                "next_gate": "Gate 1 — evidence validation",
+                "conditions": (
+                    "Validate service consequence, condition, four lifecycle options, whole-life cost, "
+                    "public-value impacts, funding, delivery, procurement, and residual risk."
+                ),
+                "expected_benefit": (
+                    "Protect or restore the documented service outcome; quantify after option validation."
+                ),
+                "supersedes_decision_id": "",
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 def decision_requirements() -> pd.DataFrame:
     """Define the minimum traceable requirements for an approvable programme."""
 
@@ -614,6 +817,10 @@ def evidence_pack(
     roadmap = delivery_roadmap()
     sources = funding_sources(capital_plan, assumptions)
     requirements = decision_requirements()
+    service_levels = service_level_catalogue()
+    service_position = service_level_position(scope, service_levels)
+    lifecycle_strategies = lifecycle_strategy_catalogue()
+    decision_register = programme_decision_register(capital_plan, assumptions)
 
     manifest = {
         "title": "Synthetic asset-management decision evidence",
@@ -639,6 +846,13 @@ def evidence_pack(
             "project bundling, delivery capacity and procurement route",
             "funding eligibility and accountable approval",
         ],
+        "service_level_status": {
+            "services_in_scope": int(len(service_position)),
+            "services_below_target": int(
+                service_position["service_status"].eq("BELOW TARGET").sum()
+            ),
+            "basis": "Synthetic planning measures; not adopted municipal service standards.",
+        },
     }
     briefing = business_case_markdown(summary, capital_summary, assumptions, options)
     payload = io.BytesIO()
@@ -655,6 +869,18 @@ def evidence_pack(
         archive.writestr("indicative_funding_sources.csv", sources.to_csv(index=False))
         archive.writestr(
             "business_case_requirements.csv", requirements.to_csv(index=False)
+        )
+        archive.writestr(
+            "service_level_catalogue.csv", service_levels.to_csv(index=False)
+        )
+        archive.writestr(
+            "service_level_asset_position.csv", service_position.to_csv(index=False)
+        )
+        archive.writestr(
+            "lifecycle_strategy_catalogue.csv", lifecycle_strategies.to_csv(index=False)
+        )
+        archive.writestr(
+            "programme_decision_register.csv", decision_register.to_csv(index=False)
         )
         archive.writestr("business_case_summary.md", briefing)
     return payload.getvalue()

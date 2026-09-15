@@ -18,14 +18,18 @@ from asset_decision_support import (
     delivery_roadmap,
     evidence_pack,
     funding_sources,
+    lifecycle_strategy_catalogue,
     load_assessment,
     multi_year_programme,
+    programme_decision_register,
     programme_assumptions,
     programme_options,
     programme_risk_register,
     programme_summary,
     scenario_summary,
     sensitivity_analysis,
+    service_level_catalogue,
+    service_level_position,
     short_money,
 )
 
@@ -333,7 +337,7 @@ st.markdown(
     '<span>Versioned + CI tested</span></p>',
     unsafe_allow_html=True,
 )
-st.title("Build a five-year asset programme decision that survives challenge.")
+st.title("Build a ten-year asset programme decision that survives challenge.")
 st.markdown(
     '<p class="plan-lede">Move from condition and GIS evidence to options, '
     "affordability, sensitivities, delivery gates, owned risks, measurable benefits, "
@@ -376,7 +380,7 @@ with st.expander("Planning, delivery, and funding assumptions"):
         planning_years = st.select_slider(
             "Planning horizon (years)",
             options=[3, 5, 7, 10],
-            value=5,
+            value=10,
             key="asset_planning_years",
         )
         delivery_capacity = st.slider(
@@ -459,6 +463,10 @@ benefits = benefits_register(scope, capital_plan)
 roadmap = delivery_roadmap()
 sources = funding_sources(capital_plan, assumptions)
 requirements = decision_requirements()
+service_levels = service_level_catalogue()
+service_position = service_level_position(scope, service_levels)
+lifecycle_strategies = lifecycle_strategy_catalogue()
+decision_register = programme_decision_register(capital_plan, assumptions)
 
 st.markdown(
     f"""
@@ -483,6 +491,7 @@ workspace = st.segmented_control(
     [
         "Decision brief",
         "Business case",
+        "Service levels",
         "Funding plan",
         "Risk & lifecycle",
         "GIS & assurance",
@@ -569,6 +578,109 @@ if workspace == "Decision brief":
             "priority_score": st.column_config.NumberColumn("Priority", format="%.1f"),
             "programme_year": st.column_config.NumberColumn("Screened year", format="%d"),
         },
+    )
+
+if workspace == "Service levels":
+    below_target = int(service_position["service_status"].eq("BELOW TARGET").sum())
+    high_risk_assets = int(service_position["high_or_very_high_risk"].sum())
+    level_1, level_2, level_3, level_4 = st.columns(4)
+    level_1.metric("Services assessed", f"{len(service_position)}")
+    level_2.metric(
+        "Below target",
+        f"{below_target}",
+        "synthetic planning basis",
+        delta_color="off",
+    )
+    level_3.metric(
+        "High / very-high assets",
+        f"{high_risk_assets}",
+        "inside selected services",
+        delta_color="off",
+    )
+    level_4.metric(
+        "Annual renewal pressure",
+        short_money(service_position["annualized_renewal_need_usd"].sum()),
+        "replacement value ÷ expected life",
+        delta_color="off",
+    )
+    st.markdown("## Service outcomes before asset solutions")
+    st.dataframe(
+        service_position[
+            [
+                "asset_class",
+                "service_outcome",
+                "technical_measure",
+                "technical_actual",
+                "technical_target",
+                "technical_unit",
+                "customer_measure",
+                "customer_actual",
+                "customer_target",
+                "customer_unit",
+                "service_status",
+                "high_or_very_high_risk",
+                "annualized_renewal_need_usd",
+                "consequence_of_shortfall",
+                "accountable_role",
+            ]
+        ],
+        hide_index=True,
+        width="stretch",
+        height=430,
+        column_config={
+            "asset_class": "Service",
+            "service_outcome": "Outcome",
+            "technical_measure": "Technical measure",
+            "technical_actual": st.column_config.NumberColumn("Current", format="%.1f"),
+            "technical_target": st.column_config.NumberColumn("Target", format="%.1f"),
+            "technical_unit": "Technical unit",
+            "customer_measure": "Customer measure",
+            "customer_actual": st.column_config.NumberColumn("Current", format="%.1f"),
+            "customer_target": st.column_config.NumberColumn("Target", format="%.1f"),
+            "customer_unit": "Customer unit",
+            "service_status": "Status",
+            "high_or_very_high_risk": "High / very-high assets",
+            "annualized_renewal_need_usd": st.column_config.NumberColumn(
+                "Annual renewal pressure", format="$%,.0f"
+            ),
+            "consequence_of_shortfall": "Consequence of shortfall",
+            "accountable_role": "Accountable role",
+        },
+    )
+    st.warning(
+        "Every service-level value on this page is a transparent synthetic scenario input. "
+        "It demonstrates the decision structure; it is not an adopted municipal standard "
+        "or a measured City of Fernie result."
+    )
+    lifecycle_service = st.selectbox(
+        "Compare lifecycle strategies for a service",
+        service_position["asset_class"].tolist(),
+        key="asset_lifecycle_service",
+    )
+    st.markdown(f"## Four options required for {lifecycle_service}")
+    st.dataframe(
+        lifecycle_strategies[lifecycle_strategies["asset_class"].eq(lifecycle_service)][
+            [
+                "lifecycle_strategy",
+                "service_response",
+                "cost_and_risk_question",
+                "evidence_required",
+                "decision_status",
+            ]
+        ],
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "lifecycle_strategy": "Lifecycle strategy",
+            "service_response": "Service response",
+            "cost_and_risk_question": "Cost and risk question",
+            "evidence_required": "Evidence required",
+            "decision_status": "Status",
+        },
+    )
+    st.caption(
+        "No preferred asset solution is selected here. Gate 2 requires comparable scope, "
+        "whole-life cost, service effect, public-value impact, uncertainty, and rejection rationale."
     )
 
 if workspace == "Business case":
@@ -883,6 +995,34 @@ if workspace == "Funding plan":
                     "Escalated + contingent cost", format="$%,.0f"
                 ),
             },
+        )
+        st.markdown("## Controlled decision record")
+        selected_decision = decision_register[
+            decision_register["asset_id"].eq(selected_asset_id)
+        ]
+        st.dataframe(
+            selected_decision,
+            hide_index=True,
+            width="stretch",
+            column_config={
+                "decision_id": "Decision ID",
+                "asset_id": "Asset",
+                "evidence_date": "Evidence date",
+                "decision_status": "Status",
+                "screened_year": st.column_config.NumberColumn("Screened year", format="%d"),
+                "recommended_action": "Screened action",
+                "decision_basis": "Decision basis",
+                "accountable_role": "Accountable role",
+                "required_approvers": "Required approvers",
+                "next_gate": "Next gate",
+                "conditions": "Conditions",
+                "expected_benefit": "Expected benefit",
+                "supersedes_decision_id": "Supersedes",
+            },
+        )
+        st.caption(
+            "The record preserves the analytical recommendation and its conditions; "
+            "it is intentionally not an approval or authority to spend."
         )
 
 if workspace == "Risk & lifecycle":

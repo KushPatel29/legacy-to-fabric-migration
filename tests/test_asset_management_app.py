@@ -16,14 +16,18 @@ from asset_decision_support import (
     delivery_roadmap,
     evidence_pack,
     funding_sources,
+    lifecycle_strategy_catalogue,
     load_assessment,
     multi_year_programme,
+    programme_decision_register,
     programme_assumptions,
     programme_options,
     programme_risk_register,
     programme_summary,
     scenario_summary,
     sensitivity_analysis,
+    service_level_catalogue,
+    service_level_position,
 )
 
 
@@ -85,6 +89,10 @@ def test_evidence_pack_preserves_scope_programme_controls_and_boundary():
             "delivery_roadmap.csv",
             "indicative_funding_sources.csv",
             "business_case_requirements.csv",
+            "service_level_catalogue.csv",
+            "service_level_asset_position.csv",
+            "lifecycle_strategy_catalogue.csv",
+            "programme_decision_register.csv",
             "business_case_summary.md",
         }
         manifest = json.loads(archive.read("scenario_manifest.json"))
@@ -93,6 +101,11 @@ def test_evidence_pack_preserves_scope_programme_controls_and_boundary():
     assert "not an engineering condition assessment" in manifest["evidence_boundary"]
     assert len(manifest["required_validation"]) == 5
     assert manifest["decision_status"].startswith("CONDITIONAL")
+    assert manifest["service_level_status"] == {
+        "services_in_scope": 6,
+        "services_below_target": 6,
+        "basis": "Synthetic planning measures; not adopted municipal service standards.",
+    }
     assert "not authority to spend" in " ".join(briefing.split())
 
 
@@ -208,12 +221,48 @@ def test_indicative_funding_sources_reconcile_to_screened_capital():
     assert sources["validation_required"].str.len().gt(20).all()
 
 
+def test_service_levels_connect_outcomes_targets_and_asset_pressure():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    catalogue = service_level_catalogue()
+    position = service_level_position(scope, catalogue)
+
+    assert len(catalogue) == len(position) == 6
+    assert set(catalogue["technical_direction"]) == {"minimum", "maximum"}
+    assert position["service_level_id"].is_unique
+    assert position["service_status"].eq("BELOW TARGET").all()
+    assert position["technical_gap"].gt(0).all()
+    assert position["customer_gap"].gt(0).all()
+    assert position["high_or_very_high_risk"].sum() == 44
+    assert position["annualized_renewal_need_usd"].sum() == 2_546_670
+
+
+def test_lifecycle_options_and_decision_records_preserve_approval_boundary():
+    assessment = load_assessment()
+    scope, _ = capital_scenario(assessment, 8_000_000)
+    assumptions = programme_assumptions(8_000_000, planning_years=10)
+    plan = multi_year_programme(scope, assumptions)
+    strategies = lifecycle_strategy_catalogue()
+    decisions = programme_decision_register(plan, assumptions)
+
+    assert len(strategies) == 24
+    assert strategies.groupby("asset_class")["lifecycle_strategy"].nunique().eq(4).all()
+    assert "Non-infrastructure solution" in set(strategies["lifecycle_strategy"])
+    assert decisions["decision_id"].is_unique
+    assert len(decisions) == len(plan) == 55
+    assert decisions["decision_status"].eq("SCREENED FOR VALIDATION").all()
+    assert decisions["required_approvers"].eq(
+        "Service owner + engineering + finance"
+    ).all()
+    assert decisions["conditions"].str.contains("four lifecycle options").all()
+
+
 def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=30).run()
 
     assert not app.exception
     assert app.title[0].value == (
-        "Build a five-year asset programme decision that survives challenge."
+        "Build a ten-year asset programme decision that survives challenge."
     )
     assert app.multiselect[0].value == [
         "Facilities",
@@ -227,6 +276,7 @@ def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     assert workspace.options == [
         "Decision brief",
         "Business case",
+        "Service levels",
         "Funding plan",
         "Risk & lifecycle",
         "GIS & assurance",
@@ -235,6 +285,12 @@ def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     metrics = {metric.label: metric.value for metric in app.metric}
     assert metrics["Assets in scope"] == "78"
     assert metrics["High / very-high risk"] == "44"
+
+    workspace.set_value("Service levels").run(timeout=30)
+    service_metrics = {metric.label: metric.value for metric in app.metric}
+    assert service_metrics["Services assessed"] == "6"
+    assert service_metrics["Below target"] == "6"
+    assert app.selectbox[0].value == "Roads"
 
     workspace.set_value("Business case").run(timeout=30)
     assert [tab.label for tab in app.tabs] == [
@@ -250,7 +306,7 @@ def test_streamlit_app_runs_and_exposes_all_decision_workspaces():
     app.get("button_group")[0].set_value("Funding plan").run(timeout=30)
     funding_metrics = {metric.label: metric.value for metric in app.metric}
     assert funding_metrics["Annual envelope"] == "$8.00M"
-    assert funding_metrics["Scheduled assets"] == "50"
+    assert funding_metrics["Scheduled assets"] == "55"
     assert app.selectbox[0].value == "RDS-001"
 
     app.get("button_group")[0].set_value("Risk & lifecycle").run(timeout=30)

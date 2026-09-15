@@ -8,7 +8,9 @@ view, prioritised work programme, and constrained capital business case.
 to compare three investment postures; challenge the annual envelope, horizon,
 delivery capacity, escalation, contingency, discount rate, service/risk scope,
 and indicative grant/reserve/debt mix; inspect the asset-level decision sheet;
-review sensitivities, programme risks, benefits, delivery gates, and GIS/data
+review technical and customer service outcomes; compare four lifecycle
+strategies per service; inspect the controlled decision record; review
+sensitivities, programme risks, benefits, delivery gates, and GIS/data
 assurance; and export the exact investment-committee evidence pack.
 
 The supporting
@@ -49,7 +51,10 @@ capital plan, an optimisation model, or evidence of municipal employment.
                 ├── annualized renewal need and risk exposure
                 ├── explainable intervention and priority score
                 ├── three funding and delivery postures
-                ├── annual cash + delivery-capacity constrained multi-year plan
+                ├── annual cash + delivery-capacity constrained ten-year plan
+                ├── technical + customer service-level gaps
+                ├── four lifecycle strategies per service
+                ├── one controlled decision record per candidate
                 ├── cost/funding sensitivities + owned risks and benefits
                 ├── stage-gated delivery and approval conditions
                 └── governed GeoJSON risk layer + committee-pack export
@@ -98,6 +103,12 @@ with accountable owners.
 - [`asset_risk_layer.geojson`](output/asset_risk_layer.geojson) — governed WGS
   84 points for planning-ready, in-service assets only.
 
+The downloadable app evidence pack additionally contains the service-level
+catalogue and asset-pressure position, lifecycle-strategy catalogue, and one
+controlled decision record for every screened capital candidate. Those records
+preserve the analytical basis and required approval conditions; none is an
+approval or authority to spend.
+
 Rebuild them with:
 
 ```bash
@@ -109,8 +120,9 @@ condition-criticality logic, intervention rules, control-total reconciliation,
 budget ceiling, priority ordering, exclusion of invalid records from funding,
 GeoJSON validity, committed outputs, multi-year annual cash and delivery limits,
 option comparison, sensitivity cases, funding reconciliation, owned risk and
-benefit registers, evidence-pack completeness, live workspaces, and both
-visuals' 1600×900 review size.
+benefit registers, service-level targets and direction, four lifecycle
+strategies per service, decision-record controls, evidence-pack completeness,
+live workspaces, and both visuals' 1600×900 review size.
 
 ## Business Questions Before Production Use
 
