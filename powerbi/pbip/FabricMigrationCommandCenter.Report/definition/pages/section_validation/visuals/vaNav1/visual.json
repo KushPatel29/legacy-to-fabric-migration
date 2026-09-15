@@ -253,6 +253,13 @@
                   "Value": "'section_command_center'"
                 }
               }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Go to Migration Command Center. Ctrl+click in Power BI Desktop \u00b7 click in the Power BI service'"
+                }
+              }
             }
           }
         }
