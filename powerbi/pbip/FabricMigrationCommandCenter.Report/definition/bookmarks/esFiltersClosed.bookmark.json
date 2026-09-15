@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Estate & Effort \u00b7 filters closed",
+  "name": "esFiltersClosed",
+  "options": {
+    "targetVisualNames": [
+      "esFilterPanel",
+      "esPanelBg",
+      "esPanelTitle",
+      "esPanelClose",
+      "esSlicerDomain",
+      "esSlicerSource",
+      "esSlicerTier",
+      "esPanelClear"
+    ],
+    "applyOnlyToTargetVisuals": true,
+    "suppressData": true,
+    "suppressActiveSection": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "section_estate",
+    "sections": {
+      "section_estate": {
+        "visualContainers": {
+          "esPanelBg": {},
+          "esPanelTitle": {},
+          "esPanelClose": {},
+          "esSlicerDomain": {},
+          "esSlicerSource": {},
+          "esSlicerTier": {},
+          "esPanelClear": {}
+        },
+        "visualContainerGroups": {
+          "esFilterPanel": {
+            "isHidden": true
+          }
+        }
+      }
+    }
+  }
+}

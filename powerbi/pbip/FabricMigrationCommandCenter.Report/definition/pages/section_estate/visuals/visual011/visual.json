@@ -2,38 +2,49 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual011",
   "position": {
-    "x": 340,
-    "y": 20,
-    "z": 11000,
-    "height": 110,
-    "width": 300,
-    "tabOrder": 11000
+    "x": 336,
+    "y": 88,
+    "z": 1336,
+    "height": 112,
+    "width": 296,
+    "tabOrder": 1336
   },
   "visual": {
-    "visualType": "card",
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageUrl'"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Actual Effort (days)"
+                  "Property": "KPI SVG Actual Effort"
                 }
-              },
-              "queryRef": "_Measures.Actual Effort (days)",
-              "nativeQueryRef": "Actual Effort (days)"
+              }
+            },
+            "fit": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fit'"
+                }
+              }
             }
-          ]
+          }
         }
-      }
+      ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -41,7 +52,54 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card. Shows Actual Effort (days).'"
+                  "Value": "'KPI tile: Actual Effort (days), with the share on completed work.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

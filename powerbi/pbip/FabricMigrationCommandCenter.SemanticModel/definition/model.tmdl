@@ -16,4 +16,5 @@ ref table migration_artifacts
 ref table validation_runs
 ref table dim_month
 ref table _Measures
+ref table 'Chart Metric'
 

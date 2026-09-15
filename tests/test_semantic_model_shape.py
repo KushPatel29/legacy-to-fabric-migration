@@ -34,10 +34,11 @@ TABLES = next(ROOT.glob("powerbi/pbip/*.SemanticModel/definition/tables"))
 
 # The properties Desktop writes under a measure. Anything else at this indent
 # directly under a single-line measure is a continuation that should not be
-# there.
+# there. dataCategory is how an SVG measure tells a visual to draw its string as
+# an image (ImageUrl); without it the image visual renders blank.
 PROPERTY = re.compile(
     r"^\t\t(lineageTag|formatString|displayFolder|description|isHidden"
-    r"|formatStringDefinition|annotation|changedProperty|dataType"
+    r"|formatStringDefinition|annotation|changedProperty|dataType|dataCategory"
     r"|isDataTypeInferred|detailRowsDefinition|kpi)\b")
 HEADER = re.compile(r"^\tmeasure ('[^']+'|\S+)\s*=\s*(.*)$")
 

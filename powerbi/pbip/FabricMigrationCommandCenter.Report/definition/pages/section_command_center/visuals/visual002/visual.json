@@ -2,71 +2,104 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual002",
   "position": {
-    "x": 340,
-    "y": 20,
-    "z": 2000,
-    "height": 118,
-    "width": 300,
-    "tabOrder": 2000
+    "x": 336,
+    "y": 88,
+    "z": 1336,
+    "height": 112,
+    "width": 296,
+    "tabOrder": 1336
   },
   "visual": {
-    "visualType": "card",
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "% Migrated"
-                }
-              },
-              "queryRef": "_Measures.% Migrated",
-              "nativeQueryRef": "% Migrated"
-            }
-          ]
-        }
-      }
-    },
-    "drillFilterOtherVisuals": true,
-    "visualContainerObjects": {
-      "subTitle": [
+    "visualType": "image",
+    "objects": {
+      "image": [
         {
           "properties": {
-            "text": {
+            "sourceType": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Migration Reference"
+                "Literal": {
+                  "Value": "'imageUrl'"
                 }
               }
             },
-            "show": {
+            "sourceUrl": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "KPI SVG Migrated"
+                }
+              }
+            },
+            "fit": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "'Fit'"
                 }
               }
             }
           }
         }
-      ],
+      ]
+    },
+    "visualContainerObjects": {
       "general": [
         {
           "properties": {
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card. Shows % Migrated.'"
+                  "Value": "'KPI tile: % Migrated, with Migrated Artifacts of Total Artifacts.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

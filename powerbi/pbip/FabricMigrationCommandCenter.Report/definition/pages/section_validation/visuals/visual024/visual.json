@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual024",
   "position": {
-    "x": 20,
-    "y": 440,
+    "x": 24,
+    "y": 468,
     "z": 24000,
-    "height": 260,
-    "width": 940,
+    "height": 236,
+    "width": 1232,
     "tabOrder": 24000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "migration_artifacts.artifact_name",
-              "nativeQueryRef": "artifact_name"
+              "nativeQueryRef": "artifact_name",
+              "displayName": "Artifact"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "migration_artifacts.wave",
-              "nativeQueryRef": "wave"
+              "nativeQueryRef": "wave",
+              "displayName": "Wave"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "validation_runs.attempt",
-              "nativeQueryRef": "attempt"
+              "nativeQueryRef": "attempt",
+              "displayName": "Attempt"
             },
             {
               "field": {
@@ -69,21 +72,23 @@
                 }
               },
               "queryRef": "validation_runs.run_date",
-              "nativeQueryRef": "run_date"
+              "nativeQueryRef": "run_date",
+              "displayName": "Run date"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "validation_runs"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "verdict"
+                  "Property": "Verdict Pill SVG"
                 }
               },
-              "queryRef": "validation_runs.verdict",
-              "nativeQueryRef": "verdict"
+              "queryRef": "_Measures.Verdict Pill SVG",
+              "nativeQueryRef": "Verdict Pill SVG",
+              "displayName": "Verdict"
             },
             {
               "field": {
@@ -97,7 +102,8 @@
                 }
               },
               "queryRef": "validation_runs.mismatch_reason",
-              "nativeQueryRef": "mismatch_reason"
+              "nativeQueryRef": "mismatch_reason",
+              "displayName": "Mismatch reason"
             }
           ]
         }
@@ -131,7 +137,62 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Table titled Validation Log. Shows artifact name, wave, attempt, run date, verdict and mismatch reason.'"
+                  "Value": "'Table. Validation Log: artifact_name, wave, attempt, run_date, a verdict pill and mismatch_reason for every run.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "imageWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "64D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

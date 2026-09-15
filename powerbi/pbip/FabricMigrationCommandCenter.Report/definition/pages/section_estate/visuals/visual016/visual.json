@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual016",
   "position": {
-    "x": 20,
-    "y": 440,
+    "x": 24,
+    "y": 468,
     "z": 16000,
-    "height": 260,
-    "width": 940,
+    "height": 236,
+    "width": 1232,
     "tabOrder": 16000
   },
   "visual": {
@@ -28,7 +28,8 @@
               },
               "queryRef": "migration_artifacts.wave",
               "nativeQueryRef": "wave",
-              "active": true
+              "active": true,
+              "displayName": "Wave"
             }
           ]
         },
@@ -46,7 +47,8 @@
                 }
               },
               "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              "nativeQueryRef": "Total Artifacts",
+              "displayName": "Artifacts"
             },
             {
               "field": {
@@ -60,7 +62,23 @@
                 }
               },
               "queryRef": "_Measures.Migrated Artifacts",
-              "nativeQueryRef": "Migrated Artifacts"
+              "nativeQueryRef": "Migrated Artifacts",
+              "displayName": "Migrated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Wave Progress SVG"
+                }
+              },
+              "queryRef": "_Measures.Wave Progress SVG",
+              "nativeQueryRef": "Wave Progress SVG",
+              "displayName": "Progress"
             },
             {
               "field": {
@@ -74,7 +92,8 @@
                 }
               },
               "queryRef": "_Measures.Planned Effort (days)",
-              "nativeQueryRef": "Planned Effort (days)"
+              "nativeQueryRef": "Planned Effort (days)",
+              "displayName": "Planned days"
             },
             {
               "field": {
@@ -88,7 +107,8 @@
                 }
               },
               "queryRef": "_Measures.Actual Effort (days)",
-              "nativeQueryRef": "Actual Effort (days)"
+              "nativeQueryRef": "Actual Effort (days)",
+              "displayName": "Actual days"
             },
             {
               "field": {
@@ -102,7 +122,23 @@
                 }
               },
               "queryRef": "_Measures.Effort Variance %",
-              "nativeQueryRef": "Effort Variance %"
+              "nativeQueryRef": "Effort Variance %",
+              "displayName": "Effort vs plan"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Effort Variance SVG"
+                }
+              },
+              "queryRef": "_Measures.Effort Variance SVG",
+              "nativeQueryRef": "Effort Variance SVG",
+              "displayName": "Status"
             }
           ]
         }
@@ -143,6 +179,55 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "imageWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "150D"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   }
 }

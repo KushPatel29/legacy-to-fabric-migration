@@ -2,38 +2,49 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual001",
   "position": {
-    "x": 20,
-    "y": 20,
-    "z": 1000,
-    "height": 110,
-    "width": 300,
-    "tabOrder": 1000
+    "x": 24,
+    "y": 88,
+    "z": 1024,
+    "height": 112,
+    "width": 296,
+    "tabOrder": 1024
   },
   "visual": {
-    "visualType": "card",
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageUrl'"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Artifacts"
+                  "Property": "KPI SVG Artifacts"
                 }
-              },
-              "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              }
+            },
+            "fit": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fit'"
+                }
+              }
             }
-          ]
+          }
         }
-      }
+      ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -41,7 +52,54 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card. Shows Total Artifacts.'"
+                  "Value": "'KPI tile: Total Artifacts, split into migrated, in flight, blocked and not started.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

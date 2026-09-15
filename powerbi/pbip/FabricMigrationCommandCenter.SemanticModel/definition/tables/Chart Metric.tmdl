@@ -1,0 +1,24 @@
+table 'Chart Metric'
+	lineageTag: f83fe484-78be-525d-8ce0-5d16936f4a9e
+
+	column Metric
+		dataType: string
+		lineageTag: 5b7ee9f0-6425-5f70-80bc-3f14a80fbbb3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+		sortByColumn: Ord
+
+	column Ord
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eeb8006c-de09-571d-b75a-8c0529703510
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ord]
+
+	partition 'Chart Metric' = calculated
+		mode: import
+		source = DATATABLE("Metric", STRING, "Ord", INTEGER, {{"Artifacts", 1}, {"Planned days", 2}, {"Actual days", 3}})
+

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual026",
   "position": {
-    "x": 20,
-    "y": 20,
+    "x": 24,
+    "y": 88,
     "z": 26000,
     "height": 300,
-    "width": 620,
+    "width": 608,
     "tabOrder": 26000
   },
   "visual": {
@@ -41,14 +41,32 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Artifacts"
+                  "Property": "Selected Metric"
                 }
               },
-              "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              "queryRef": "_Measures.Selected Metric",
+              "nativeQueryRef": "Selected Metric"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Selected Metric"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
@@ -56,17 +74,22 @@
       "title": [
         {
           "properties": {
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Migration Pipeline by Status'"
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Pipeline Chart Title"
                 }
               }
             }
@@ -101,10 +124,10 @@
           }
         }
       ],
-      "categoryAxis": [
+      "percentBarLabel": [
         {
           "properties": {
-            "showAxisTitle": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -114,16 +137,251 @@
           }
         }
       ],
-      "valueAxis": [
+      "dataPoint": [
         {
           "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2DD4C4'"
+                    }
+                  }
                 }
               }
             }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Retired'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#6FE3A0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Cutover'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#56C7F5'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Parallel Run'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#8B8BFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'In Progress'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF5C7A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Blocked'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#454A82'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "migration_artifacts"
+                          }
+                        },
+                        "Property": "status"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Not Started'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       ]

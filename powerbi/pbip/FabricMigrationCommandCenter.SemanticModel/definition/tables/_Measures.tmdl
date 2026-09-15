@@ -166,6 +166,447 @@ table _Measures
 		lineageTag: 2d7d4582-253c-58b6-a3f0-17fea1881141
 		displayFolder: Verdict
 
+	measure 'Selected Metric Label' = SELECTEDVALUE('Chart Metric'[Metric], "Artifacts")
+		lineageTag: 28fad75e-5845-5bc6-8a22-4334992dd7e4
+		displayFolder: Report UI
+
+	measure 'Selected Metric' =
+			SWITCH(
+			    [Selected Metric Label],
+			    "Planned days", [Planned Effort (days)],
+			    "Actual days", [Actual Effort (days)],
+			    [Total Artifacts]
+			)
+		formatString: #,0
+		lineageTag: 1af8df72-a7bd-55a2-8f56-0d81a1cb1db4
+		displayFolder: Report UI
+
+	measure 'Wave Chart Title' = "Wave progress by status · " & [Selected Metric Label]
+		lineageTag: 7b385c77-a269-54f0-b8d4-6114c8ddd0c6
+		displayFolder: Report UI
+
+	measure 'Landing Chart Title' = "Landing zone by target platform · " & [Selected Metric Label]
+		lineageTag: 1acd886d-0b75-596c-81b5-4ae3c8f43968
+		displayFolder: Report UI
+
+	measure 'Pipeline Chart Title' = "Migration pipeline by status · " & [Selected Metric Label]
+		lineageTag: c4f64e98-4ace-5496-9d9c-461ec8c3fd3a
+		displayFolder: Report UI
+
+	measure 'Criticality Chart Title' = "Estate by criticality · " & [Selected Metric Label]
+		lineageTag: e6cf821c-9236-587c-b013-8c95aba8bf09
+		displayFolder: Report UI
+
+	measure 'Concentration Chart Title' = "Estate concentration by domain · " & [Selected Metric Label]
+		lineageTag: a2d85fbf-c3a2-5d0e-b4ef-8366f557443e
+		displayFolder: Report UI
+
+	measure 'Not Started Artifacts' = CALCULATE(COUNTROWS(migration_artifacts), migration_artifacts[status] = "Not Started")
+		formatString: #,0
+		lineageTag: 74f5b2a0-0ea3-5a2b-b298-b4a00230a001
+		displayFolder: Report UI
+
+	measure 'Planned Effort Delivered' = CALCULATE([Planned Effort (days)], migration_artifacts[status] IN {"Cutover", "Retired"})
+		formatString: #,0.0
+		lineageTag: 082f70fe-1d96-5aac-b896-6a2122dc8e5e
+		displayFolder: Report UI
+
+	measure 'Planned Effort Remaining' = [Planned Effort (days)] - [Planned Effort Delivered]
+		formatString: #,0.0
+		lineageTag: 4f3cbb8d-a9f5-53db-8d2d-78043e5b71bf
+		displayFolder: Report UI
+
+	measure 'Actual Effort Completed' = CALCULATE([Actual Effort (days)], migration_artifacts[status] IN {"Cutover", "Retired"})
+		formatString: #,0.0
+		lineageTag: 7d4adb17-7dba-50ed-9e60-2afac3a6bca5
+		displayFolder: Report UI
+
+	measure 'Validated Artifacts' = DISTINCTCOUNT(validation_runs[artifact_id])
+		formatString: #,0
+		lineageTag: 8cafcb43-b64b-571f-b059-6fa0a01c7443
+		displayFolder: Report UI
+
+	measure 'First-Attempt GO Rate' = CALCULATE([GO Rate], validation_runs[attempt] = 1)
+		formatString: 0.0%
+		lineageTag: ad3352bb-fcb8-5859-8713-cd1fff6381e4
+		displayFolder: Report UI
+
+	measure 'Top NO-GO Reason' =
+			VAR vTop = TOPN(1, FILTER(VALUES(validation_runs[mismatch_reason]), NOT ISBLANK(validation_runs[mismatch_reason])), [NO-GO Runs], DESC)
+			RETURN MAXX(vTop, validation_runs[mismatch_reason])
+		lineageTag: 238d0eaf-ab05-5190-afaa-940a41141bd1
+		displayFolder: Report UI
+
+	measure 'Filter Context' =
+			VAR vDomain = IF(ISFILTERED(migration_artifacts[domain]), CONCATENATEX(VALUES(migration_artifacts[domain]), migration_artifacts[domain], ", "), "All domains")
+			VAR vSource = IF(ISFILTERED(migration_artifacts[source_type]), CONCATENATEX(VALUES(migration_artifacts[source_type]), migration_artifacts[source_type], ", "), "all source types")
+			VAR vTier = IF(ISFILTERED(migration_artifacts[criticality]), CONCATENATEX(VALUES(migration_artifacts[criticality]), migration_artifacts[criticality], ", "), "all tiers")
+			VAR vVerdict = IF(ISFILTERED(validation_runs[verdict]), " · " & CONCATENATEX(VALUES(validation_runs[verdict]), validation_runs[verdict], ", ") & " runs", "")
+			VAR vText = vDomain & " · " & vSource & " · " & vTier & vVerdict
+			RETURN IF(LEN(vText) > 54, LEFT(vText, 52) & "…", vText)
+		lineageTag: 333f65df-335d-5a01-8efc-96e0ec038b9a
+		displayFolder: Report UI
+
+	measure 'Filter Button Label' =
+			VAR vOn = INT(ISFILTERED(migration_artifacts[domain])) + INT(ISFILTERED(migration_artifacts[source_type])) + INT(ISFILTERED(migration_artifacts[criticality]))
+			RETURN IF(vOn = 0, "Filters", "Filters · " & vOn)
+		lineageTag: 3dbb9bbd-ca68-5377-b2bf-cff1cfe11a30
+		displayFolder: Report UI
+
+	measure 'Header SVG Migration Command Center' =
+			VAR vContext = [Filter Context]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='336' height='56' viewBox='0 0 336 56'>"
+			        & "<text x='0' y='24' font-family='Segoe UI Semibold' font-size='18' fill='#EDEFFA'>Migration Command Center</text>"
+			        & "<text x='0' y='46' font-family='Segoe UI' font-size='11' fill='#8B90B8'>" & vContext & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 4b576bdf-c568-5406-8683-ef6a1abccd1a
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Header SVG Estate & Effort' =
+			VAR vContext = [Filter Context]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='336' height='56' viewBox='0 0 336 56'>"
+			        & "<text x='0' y='24' font-family='Segoe UI Semibold' font-size='18' fill='#EDEFFA'>Estate &amp; Effort</text>"
+			        & "<text x='0' y='46' font-family='Segoe UI' font-size='11' fill='#8B90B8'>" & vContext & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: f65e12a2-a2e1-541a-9993-a84d783bdb0f
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Header SVG Parallel-Run Validation' =
+			VAR vContext = [Filter Context]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='336' height='56' viewBox='0 0 336 56'>"
+			        & "<text x='0' y='24' font-family='Segoe UI Semibold' font-size='18' fill='#EDEFFA'>Parallel-Run Validation</text>"
+			        & "<text x='0' y='46' font-family='Segoe UI' font-size='11' fill='#8B90B8'>" & vContext & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 5480bc33-9b79-5e2e-b8bf-11df85f1d4f0
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Header SVG Program Insights' =
+			VAR vContext = [Filter Context]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='336' height='56' viewBox='0 0 336 56'>"
+			        & "<text x='0' y='24' font-family='Segoe UI Semibold' font-size='18' fill='#EDEFFA'>Program Insights</text>"
+			        & "<text x='0' y='46' font-family='Segoe UI' font-size='11' fill='#8B90B8'>" & vContext & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: c1ecf349-312d-5cf8-b30b-9725dd9c7b37
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Artifacts' =
+			VAR vValue = [Total Artifacts]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT([Migrated Artifacts], "#,0") & " migrated · " & FORMAT([In-Flight Artifacts], "#,0") & " in flight · " & FORMAT([Blocked Artifacts], "#,0") & " blocked"
+			VAR vRailTotal = COALESCE([Migrated Artifacts], 0) + COALESCE([In-Flight Artifacts], 0) + COALESCE([Blocked Artifacts], 0) + COALESCE([Not Started Artifacts], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Migrated Artifacts], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([In-Flight Artifacts], 0), vRailTotal), 0)
+			VAR vW2 = ROUND(264 * DIVIDE(COALESCE([Blocked Artifacts], 0), vRailTotal), 0)
+			VAR vW3 = ROUND(264 * DIVIDE(COALESCE([Not Started Artifacts], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Artifacts in scope</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#2DD4C4'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#8B8BFF'/>" & "<rect x='" & ((16 + vW0) + vW1) & "' y='76' width='" & vW2 & "' height='6' fill='#FF5C7A'/>" & "<rect x='" & (((16 + vW0) + vW1) + vW2) & "' y='76' width='" & vW3 & "' height='6' fill='#454A82'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 70560d21-6cee-5ccc-9fa2-4b6282920c8c
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Migrated' =
+			VAR vValue = [% Migrated]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "0.0%"))
+			VAR vCaption = FORMAT([Migrated Artifacts], "#,0") & " of " & FORMAT([Total Artifacts], "#,0") & " cut over or retired"
+			VAR vRailTotal = COALESCE([Migrated Artifacts], 0) + COALESCE([Total Artifacts] - [Migrated Artifacts], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Migrated Artifacts], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([Total Artifacts] - [Migrated Artifacts], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Migrated</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#2DD4C4'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: df90d152-3cbb-5db0-905a-a440f8431153
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG GO Rate' =
+			VAR vValue = [GO Rate]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "0.0%"))
+			VAR vCaption = FORMAT([GO Runs], "#,0") & " GO · " & FORMAT([NO-GO Runs], "#,0") & " NO-GO of " & FORMAT([Validation Runs], "#,0") & " runs"
+			VAR vRailTotal = COALESCE([GO Runs], 0) + COALESCE([NO-GO Runs], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([GO Runs], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([NO-GO Runs], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Parallel-run GO rate</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#3DD68C'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#FF5C7A'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 50422758-d482-5a99-8bbe-3490ac2fb597
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Effort Variance' =
+			VAR vValue = [Effort Variance %]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "+0.0%;-0.0%;0.0%"))
+			VAR vCaption = FORMAT([Actual Effort Completed], "#,0") & " d actual vs " & FORMAT([Planned Effort Delivered], "#,0") & " d planned"
+			VAR vRailTotal = COALESCE([Planned Effort Delivered], 0) + COALESCE(MAX([Actual Effort Completed] - [Planned Effort Delivered], 0), 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Planned Effort Delivered], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE(MAX([Actual Effort Completed] - [Planned Effort Delivered], 0), 0), vRailTotal), 0)
+			VAR vChipText = [Effort Status]
+			VAR vChipColour = [Effort Colour]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Effort vs plan, completed work</text>"
+			        & "<rect x='196' y='12' width='84' height='20' rx='10' fill='" & vChipColour & "' fill-opacity='0.18'/>" & "<text x='238' y='26' text-anchor='middle' font-family='Segoe UI Semibold' font-size='10' fill='" & vChipColour & "'>" & vChipText & "</text>"
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#8B8BFF'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#F5A524'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 1b6a55fa-5418-5063-8337-5c3b09aef69f
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Planned Effort' =
+			VAR vValue = [Planned Effort (days)]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT([Planned Effort Delivered], "#,0") & " d delivered · " & FORMAT([Planned Effort Remaining], "#,0") & " d to go"
+			VAR vRailTotal = COALESCE([Planned Effort Delivered], 0) + COALESCE([Planned Effort Remaining], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Planned Effort Delivered], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([Planned Effort Remaining], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Planned effort (days)</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#2DD4C4'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 7fd0a21e-0ec8-58a0-9b02-5e9cfb321949
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Actual Effort' =
+			VAR vValue = [Actual Effort (days)]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT([Actual Effort Completed], "#,0") & " d on completed work"
+			VAR vRailTotal = COALESCE([Actual Effort Completed], 0) + COALESCE([Actual Effort (days)] - [Actual Effort Completed], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Actual Effort Completed], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([Actual Effort (days)] - [Actual Effort Completed], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Actual effort (days)</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#F5A524'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 2064c257-72f2-5c64-8597-e7cdd7d15a13
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Estate Variance' =
+			VAR vValue = [Effort Variance %]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "+0.0%;-0.0%;0.0%"))
+			VAR vCaption = FORMAT([Actual Effort Completed], "#,0") & " d actual vs " & FORMAT([Planned Effort Delivered], "#,0") & " d planned"
+			VAR vRailTotal = COALESCE([Planned Effort Delivered], 0) + COALESCE(MAX([Actual Effort Completed] - [Planned Effort Delivered], 0), 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([Planned Effort Delivered], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE(MAX([Actual Effort Completed] - [Planned Effort Delivered], 0), 0), vRailTotal), 0)
+			VAR vChipText = [Effort Status]
+			VAR vChipColour = [Effort Colour]
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Effort variance, completed work</text>"
+			        & "<rect x='196' y='12' width='84' height='20' rx='10' fill='" & vChipColour & "' fill-opacity='0.18'/>" & "<text x='238' y='26' text-anchor='middle' font-family='Segoe UI Semibold' font-size='10' fill='" & vChipColour & "'>" & vChipText & "</text>"
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#8B8BFF'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#F5A524'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 6d07c3ee-d3d2-57cc-9731-77fb4bf574a3
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG In Flight' =
+			VAR vValue = [In-Flight Artifacts]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT(DIVIDE([In-Flight Artifacts], [Total Artifacts]), "0%") & " of the estate in progress or parallel run"
+			VAR vRailTotal = COALESCE([In-Flight Artifacts], 0) + COALESCE([Total Artifacts] - [In-Flight Artifacts], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([In-Flight Artifacts], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([Total Artifacts] - [In-Flight Artifacts], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>In flight</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#8B8BFF'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 5fba5065-9660-57b9-b798-62ae355b4288
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Validation Runs' =
+			VAR vValue = [Validation Runs]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT([Validated Artifacts], "#,0") & " artifacts validated"
+			VAR vRailTotal = COALESCE([GO Runs], 0) + COALESCE([NO-GO Runs], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([GO Runs], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([NO-GO Runs], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>Validation runs</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#3DD68C'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#FF5C7A'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: f3b92c3d-1941-5504-b50c-bf7386bce18e
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG GO Runs' =
+			VAR vValue = [GO Runs]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = FORMAT([First-Attempt GO Rate], "0.0%") & " GO on first attempt"
+			VAR vRailTotal = COALESCE([GO Runs], 0) + COALESCE([NO-GO Runs], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([GO Runs], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([NO-GO Runs], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>GO runs</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#3DD68C'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: a6a8053a-1369-570b-821e-e403114be14c
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG NO-GO Runs' =
+			VAR vValue = [NO-GO Runs]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "#,0"))
+			VAR vCaption = "Top cause: " & COALESCE([Top NO-GO Reason], "none")
+			VAR vRailTotal = COALESCE([NO-GO Runs], 0) + COALESCE([GO Runs], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([NO-GO Runs], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([GO Runs], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>NO-GO runs</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#FF5C7A'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#2C2F55'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 53212a09-7af9-53ec-86c1-8525ebc2ae64
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'KPI SVG Validation GO Rate' =
+			VAR vValue = [GO Rate]
+			VAR vShown = IF(ISBLANK(vValue), "—", FORMAT(vValue, "0.0%"))
+			VAR vCaption = FORMAT([GO Runs], "#,0") & " of " & FORMAT([Validation Runs], "#,0") & " runs passed"
+			VAR vRailTotal = COALESCE([GO Runs], 0) + COALESCE([NO-GO Runs], 0)
+			VAR vW0 = ROUND(264 * DIVIDE(COALESCE([GO Runs], 0), vRailTotal), 0)
+			VAR vW1 = ROUND(264 * DIVIDE(COALESCE([NO-GO Runs], 0), vRailTotal), 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='296' height='112' viewBox='0 0 296 112'>"
+			        & "<text x='16' y='26' font-family='Segoe UI' font-size='11' fill='#A6ABD1'>GO rate</text>"
+			        & ""
+			        & "<text x='16' y='64' font-family='Segoe UI Light' font-size='30' fill='#FFFFFF'>" & vShown & "</text>"
+			        & "<clipPath id='r'><rect x='16' y='76' width='264' height='6' rx='3'/></clipPath>" & "<rect x='16' y='76' width='264' height='6' rx='3' fill='#2C2F55'/>" & "<g clip-path='url(#r)'>" & "<rect x='" & 16 & "' y='76' width='" & vW0 & "' height='6' fill='#3DD68C'/>" & "<rect x='" & (16 + vW0) & "' y='76' width='" & vW1 & "' height='6' fill='#FF5C7A'/>" & "</g>"
+			        & "<text x='16' y='100' font-family='Segoe UI' font-size='10' fill='#8B90B8'>" & vCaption & "</text>"
+			        & "</svg>"
+			RETURN
+			    "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23")
+		lineageTag: 25709134-552a-5942-8c58-155badfc48d1
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Wave Progress SVG' =
+			VAR vPct = COALESCE([% Migrated], 0)
+			VAR vW = ROUND(96 * vPct, 0)
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='140' height='16' viewBox='0 0 140 16'>"
+			        & "<rect x='0' y='5' width='96' height='6' rx='3' fill='#2C2F55'/>"
+			        & "<rect x='0' y='5' width='" & vW & "' height='6' rx='3' fill='#2DD4C4'/>"
+			        & "<text x='104' y='13' font-family='Segoe UI' font-size='10' fill='#EDEFFA'>" & FORMAT(vPct, "0%") & "</text>"
+			        & "</svg>"
+			RETURN
+			    IF(ISBLANK([Total Artifacts]), BLANK(), "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23"))
+		lineageTag: 20acdeb0-bc0f-51bb-a317-dfd8b3ca4b72
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Effort Variance SVG' =
+			VAR vGap = [Effort Variance %]
+			VAR vColour = [Effort Colour]
+			VAR vText = IF(ISBLANK(vGap), "no completed work", FORMAT(vGap, "+0%;-0%;0%") & "  " & [Effort Status])
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='150' height='18' viewBox='0 0 150 18'>"
+			        & "<rect x='0' y='1' width='148' height='16' rx='8' fill='" & vColour & "' fill-opacity='0.18'/>"
+			        & "<text x='74' y='13' text-anchor='middle' font-family='Segoe UI Semibold' font-size='10' fill='" & IF(ISBLANK(vGap), "#8B90B8", vColour) & "'>" & vText & "</text>"
+			        & "</svg>"
+			RETURN
+			    IF(ISBLANK([Total Artifacts]), BLANK(), "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23"))
+		lineageTag: 3ae7130e-4873-54d8-a142-57cf7edcc2cd
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
+	measure 'Verdict Pill SVG' =
+			VAR vVerdict = SELECTEDVALUE(validation_runs[verdict])
+			VAR vColour = IF(vVerdict = "GO", "#3DD68C", "#FF5C7A")
+			VAR vSvg =
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='64' height='18' viewBox='0 0 64 18'>"
+			        & "<rect x='0' y='1' width='62' height='16' rx='8' fill='" & vColour & "' fill-opacity='0.18'/>"
+			        & "<text x='31' y='13' text-anchor='middle' font-family='Segoe UI Semibold' font-size='10' fill='" & vColour & "'>" & vVerdict & "</text>"
+			        & "</svg>"
+			RETURN
+			    IF(ISBLANK(vVerdict), BLANK(), "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(vSvg, "%", "%25"), "#", "%23"))
+		lineageTag: 9057acc0-e953-57c1-bae2-e1f3dc1632df
+		dataCategory: ImageUrl
+		displayFolder: Report UI
+
 	column Value
 		dataType: int64
 		isHidden

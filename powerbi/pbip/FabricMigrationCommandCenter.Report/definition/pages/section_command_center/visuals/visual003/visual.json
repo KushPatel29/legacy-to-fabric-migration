@@ -2,71 +2,104 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual003",
   "position": {
-    "x": 660,
-    "y": 20,
-    "z": 3000,
-    "height": 118,
-    "width": 300,
-    "tabOrder": 3000
+    "x": 648,
+    "y": 88,
+    "z": 1648,
+    "height": 112,
+    "width": 296,
+    "tabOrder": 1648
   },
   "visual": {
-    "visualType": "card",
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "GO Rate"
-                }
-              },
-              "queryRef": "_Measures.GO Rate",
-              "nativeQueryRef": "GO Rate"
-            }
-          ]
-        }
-      }
-    },
-    "drillFilterOtherVisuals": true,
-    "visualContainerObjects": {
-      "subTitle": [
+    "visualType": "image",
+    "objects": {
+      "image": [
         {
           "properties": {
-            "text": {
+            "sourceType": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "GO Rate Reference"
+                "Literal": {
+                  "Value": "'imageUrl'"
                 }
               }
             },
-            "show": {
+            "sourceUrl": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "KPI SVG GO Rate"
+                }
+              }
+            },
+            "fit": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "'Fit'"
                 }
               }
             }
           }
         }
-      ],
+      ]
+    },
+    "visualContainerObjects": {
       "general": [
         {
           "properties": {
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card. Shows GO Rate.'"
+                  "Value": "'KPI tile: GO Rate, split into GO Runs and NO-GO Runs.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

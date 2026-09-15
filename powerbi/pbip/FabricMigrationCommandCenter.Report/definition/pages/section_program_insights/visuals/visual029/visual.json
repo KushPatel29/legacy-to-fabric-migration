@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual029",
   "position": {
-    "x": 660,
-    "y": 340,
+    "x": 648,
+    "y": 404,
     "z": 29000,
-    "height": 360,
-    "width": 600,
+    "height": 300,
+    "width": 608,
     "tabOrder": 29000
   },
   "visual": {
@@ -41,11 +41,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Artifacts"
+                  "Property": "Selected Metric"
                 }
               },
-              "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              "queryRef": "_Measures.Selected Metric",
+              "nativeQueryRef": "Selected Metric"
             }
           ]
         }
@@ -56,17 +56,22 @@
       "title": [
         {
           "properties": {
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Estate Concentration by Domain'"
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Concentration Chart Title"
                 }
               }
             }
@@ -95,32 +100,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "valueAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
                 }
               }
             }

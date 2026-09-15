@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual007",
   "position": {
-    "x": 20,
-    "y": 450,
+    "x": 24,
+    "y": 468,
     "z": 7000,
-    "height": 250,
-    "width": 620,
+    "height": 236,
+    "width": 608,
     "tabOrder": 7000
   },
   "visual": {
@@ -42,11 +42,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Artifacts"
+                  "Property": "Selected Metric"
                 }
               },
-              "queryRef": "_Measures.Total Artifacts",
-              "nativeQueryRef": "Total Artifacts"
+              "queryRef": "_Measures.Selected Metric",
+              "nativeQueryRef": "Selected Metric"
             }
           ]
         }
@@ -56,17 +56,22 @@
       "title": [
         {
           "properties": {
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Landing Zone: Artifacts by Target Platform'"
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Landing Chart Title"
                 }
               }
             }
@@ -122,6 +127,23 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#8B8BFF'"
+                    }
+                  }
                 }
               }
             }
