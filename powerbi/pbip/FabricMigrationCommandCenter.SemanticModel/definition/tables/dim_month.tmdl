@@ -21,8 +21,19 @@ table dim_month
 		mode: import
 		source =
 				let
-				    // Program calendar: fixed 18-month window covering all six waves.
-				    Months = List.Transform({0..17}, each Date.AddMonths(#date(2025, 7, 1), _)),
+				    // The programme calendar is derived from the dates it has to hold, never
+				    // typed in. It used to be eighteen months from 2025-07, and the parallel
+				    // runs start in 2025-05 - so three validation runs matched no month and sat
+				    // in a blank row on every month-sliced visual, with the totals still right.
+				    Plan = Table.PromoteHeaders(Csv.Document(File.Contents(DataPath & "\data\migration\migration_plan.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]), [PromoteAllScalars = true]),
+				    Runs = Table.PromoteHeaders(Csv.Document(File.Contents(DataPath & "\data\migration\parallel_run_results.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]), [PromoteAllScalars = true]),
+				    Dated = List.RemoveNulls(List.Transform(
+				        List.Combine({Table.Column(Plan, "planned_cutover"), Table.Column(Plan, "actual_cutover"), Table.Column(Runs, "run_date")}),
+				        each try Date.From(_) otherwise null)),
+				    First = Date.StartOfMonth(List.Min(Dated)),
+				    Last = Date.StartOfMonth(List.Max(Dated)),
+				    Span = (Date.Year(Last) - Date.Year(First)) * 12 + Date.Month(Last) - Date.Month(First),
+				    Months = List.Transform({0..Span}, each Date.AddMonths(First, _)),
 				    ToTable = Table.FromList(Months, Splitter.SplitByNothing(), {"month_start"}),
 				    Typed = Table.TransformColumnTypes(ToTable, {{"month_start", type date}}),
 				    AddedLabel = Table.AddColumn(Typed, "month", each Date.ToText([month_start], "yyyy-MM"), type text),
