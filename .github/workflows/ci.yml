@@ -43,6 +43,9 @@ jobs:
       - name: Build the asset lifecycle, risk, and capital-scenario evidence
         run: python examples/asset_management/build_asset_management_case.py
 
+      - name: Build and gate the public-demo production evidence
+        run: python governance/build_production_evidence.py
+
       - name: Run validation framework tests (incl. corruption negative tests)
         # Run through the selected interpreter so repository-root modules are
         # importable consistently on Windows, macOS, and GitHub's Linux runner.

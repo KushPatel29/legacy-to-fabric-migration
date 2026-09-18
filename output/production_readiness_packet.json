@@ -1,0 +1,196 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-09-18T08:19:58.313524+00:00",
+  "public_demo_decision": "APPROVE PUBLIC DEMONSTRATION",
+  "production_decision": "NOT AUTHORIZED",
+  "status_counts": {
+    "PASS": 8,
+    "REVIEW": 3,
+    "BLOCK": 0
+  },
+  "scope": "Public, read-only portfolio demonstration using deterministic synthetic data",
+  "boundaries": [
+    "No claim of City of Fernie, municipal, employer or client deployment.",
+    "No authentication or production authorization workflow is implemented.",
+    "External uptime and concurrent-user performance are targets, not observed SLO attainment.",
+    "The SBOM covers direct pinned Python dependencies, not the resolved transitive environment.",
+    "Fabric control-plane deployment is not executed; offline migration validation is."
+  ],
+  "gates": [
+    {
+      "control": "PRD-01",
+      "name": "direct dependencies pinned",
+      "status": "PASS",
+      "evidence": [
+        {
+          "name": "faker",
+          "version": "40.28.1"
+        },
+        {
+          "name": "numpy",
+          "version": "2.5.3"
+        },
+        {
+          "name": "pandas",
+          "version": "3.0.3"
+        },
+        {
+          "name": "plotly",
+          "version": "6.3.1"
+        },
+        {
+          "name": "streamlit",
+          "version": "1.63.0"
+        }
+      ]
+    },
+    {
+      "control": "PRD-02",
+      "name": "direct-dependency SBOM generated",
+      "status": "PASS",
+      "evidence": "output/sbom.cdx.json"
+    },
+    {
+      "control": "PRD-03",
+      "name": "application sources compile",
+      "status": "PASS",
+      "evidence": [
+        "streamlit_app.py",
+        "asset_decision_support.py"
+      ]
+    },
+    {
+      "control": "PRD-04",
+      "name": "asset and GIS release evidence present",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "examples/asset_management/output/asset_management_summary.json",
+          "sha256": "04c03be7d0ad3ec58f0f341af328024f1cf9f5a75e0e9f7dd84fc0cd13096cd0"
+        },
+        {
+          "path": "examples/gis_asset_integration/output/gis_asset_summary.json",
+          "sha256": "2424d942ba4ddb4fa710f27761bc2c455ea42e8e37302b52ddf26c9caf678dfe"
+        }
+      ]
+    },
+    {
+      "control": "PRD-05",
+      "name": "security and recovery procedures present",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "docs/security/THREAT_MODEL.md",
+          "sha256": "00bac0c417d8d90077209134b111f635c127747c1b5597047bb474f281b3d0ad"
+        },
+        {
+          "path": "docs/cutover_runbook.md",
+          "sha256": "1aeaa1a075905c7a9cae3ee8efea87fe09b6aeaec9517eaae265430097a079a7"
+        },
+        {
+          "path": "docs/operations/DEMO_OPERATIONS_RUNBOOK.md",
+          "sha256": "b79121db6ea5bc8257b2a5d62e4624dacaa13ebcd04579283e866cd49cdad12a"
+        }
+      ]
+    },
+    {
+      "control": "PRD-06",
+      "name": "static fallback evidence present",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "docs/business-analysis/asset-management-decision-board.png",
+          "sha256": "b2f98d1b2bec4a6e47e3bbf6afe2b2f0c7a20f9be167847bac40e8fb853dc926"
+        },
+        {
+          "path": "docs/business-analysis/gis-asset-reconciliation.png",
+          "sha256": "84e95bb043e8b03df91567909cbbdaa6bc5ca0a01875e8d01fe7672200394bc1"
+        }
+      ]
+    },
+    {
+      "control": "PRD-07",
+      "name": "decision-engine latency target",
+      "status": "PASS",
+      "evidence": {
+        "environment": "local in-process, warm Python 3.12 benchmark",
+        "iterations": 20,
+        "median_ms": 7.717,
+        "p95_ms": 8.021,
+        "target_p95_ms": 2000,
+        "passed": true,
+        "scheduled_assets": 50,
+        "boundary": "This is decision-engine latency, not browser, network, host wake-up or concurrent-user performance."
+      }
+    },
+    {
+      "control": "PRD-08",
+      "name": "public surface contains synthetic read-only evidence",
+      "status": "PASS",
+      "evidence": "docs/security/THREAT_MODEL.md"
+    },
+    {
+      "control": "PRD-09",
+      "name": "external uptime and host latency observed",
+      "status": "REVIEW",
+      "evidence": "Targets declared; no production telemetry store is claimed."
+    },
+    {
+      "control": "PRD-10",
+      "name": "authenticated municipal roles and approvals",
+      "status": "REVIEW",
+      "evidence": "Not implemented; public demo must never process production or personal data."
+    },
+    {
+      "control": "PRD-11",
+      "name": "live Fabric control-plane validation",
+      "status": "REVIEW",
+      "evidence": "Offline validation executes; credentialed Fabric deployment is not exercised."
+    }
+  ],
+  "benchmark": {
+    "environment": "local in-process, warm Python 3.12 benchmark",
+    "iterations": 20,
+    "median_ms": 7.717,
+    "p95_ms": 8.021,
+    "target_p95_ms": 2000,
+    "passed": true,
+    "scheduled_assets": 50,
+    "boundary": "This is decision-engine latency, not browser, network, host wake-up or concurrent-user performance."
+  },
+  "evidence_hashes": {
+    "security_boundary": {
+      "path": "docs/security/THREAT_MODEL.md",
+      "sha256": "00bac0c417d8d90077209134b111f635c127747c1b5597047bb474f281b3d0ad"
+    },
+    "demo_operations": {
+      "path": "docs/operations/DEMO_OPERATIONS_RUNBOOK.md",
+      "sha256": "b79121db6ea5bc8257b2a5d62e4624dacaa13ebcd04579283e866cd49cdad12a"
+    },
+    "service_targets": {
+      "path": "docs/operations/SLO.md",
+      "sha256": "082ba61b44b621221069e0ee888d2d116796680948487178e89f73b04082abff"
+    },
+    "cutover_recovery": {
+      "path": "docs/cutover_runbook.md",
+      "sha256": "1aeaa1a075905c7a9cae3ee8efea87fe09b6aeaec9517eaae265430097a079a7"
+    },
+    "asset_decision_packet": {
+      "path": "examples/asset_management/output/asset_management_summary.json",
+      "sha256": "04c03be7d0ad3ec58f0f341af328024f1cf9f5a75e0e9f7dd84fc0cd13096cd0"
+    },
+    "gis_release_packet": {
+      "path": "examples/gis_asset_integration/output/gis_asset_summary.json",
+      "sha256": "2424d942ba4ddb4fa710f27761bc2c455ea42e8e37302b52ddf26c9caf678dfe"
+    },
+    "asset_static_fallback": {
+      "path": "docs/business-analysis/asset-management-decision-board.png",
+      "sha256": "b2f98d1b2bec4a6e47e3bbf6afe2b2f0c7a20f9be167847bac40e8fb853dc926"
+    },
+    "gis_static_fallback": {
+      "path": "docs/business-analysis/gis-asset-reconciliation.png",
+      "sha256": "84e95bb043e8b03df91567909cbbdaa6bc5ca0a01875e8d01fe7672200394bc1"
+    }
+  },
+  "packet_sha256": "154717f6a871caf9cfb713c7af5140d25d7837bcbbdbbb1c0252e1792aa6ee98"
+}

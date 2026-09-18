@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-431%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-440%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -104,6 +104,32 @@ economic appraisal. The documentation identifies the engineering,
 service-level, safety, accessibility, climate, environmental, equity,
 financing, procurement, consultation, project-bundling, and delivery-capacity
 decisions that require accountable local input before production use.
+
+### Production-readiness evidence
+
+**[Read the release decision memo](output/production_readiness_memo.md)** ·
+**[inspect the machine-readable packet](output/production_readiness_packet.json)** ·
+**[review the operations runbook](docs/operations/DEMO_OPERATIONS_RUNBOOK.md)** ·
+**[review the threat model](docs/security/THREAT_MODEL.md)** ·
+**[inspect the CycloneDX SBOM](output/sbom.cdx.json)**
+
+The release gate makes the public-demo boundary testable instead of implying
+production maturity. It currently reports **8 PASS / 3 REVIEW / 0 BLOCK** and
+approves only the deterministic, synthetic, read-only demonstration. The same
+packet states **production not authorized** until independent telemetry,
+authenticated roles and approvals, and a credentialed Fabric control-plane
+validation exist. It integrity-hashes the asset, GIS, security, recovery and
+static-fallback evidence; inventories five exactly pinned direct Python
+dependencies; compiles the application sources; and benchmarks 20 warm
+decision-engine runs. The packet records the measured p95 against a
+**2,000 ms** demo target; this is not browser, network, cold-start or
+concurrent-user performance.
+
+CI rebuilds this packet on every release and fails closed for missing evidence,
+an unpinned or conflicting direct dependency, a compile error, a latency breach,
+or any other executable BLOCK. The SBOM is deliberately labelled as a
+direct-dependency inventory, not a resolved transitive software bill of
+materials.
 
 ## GIS asset integration proof
 
@@ -316,7 +342,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 240 tests: the clean GO, GIS and asset-management controls,
+pytest tests/ -v    # 440 tests: the clean GO, GIS and asset-management controls,
                     # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
