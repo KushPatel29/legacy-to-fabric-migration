@@ -1,0 +1,101 @@
+"""
+The backlog's acceptance criteria are only as good as the tests they name.
+
+BACKLOG_AND_ACCEPTANCE.md says a story is accepted when its criteria pass, and
+names the test that executes each one. A renamed or deleted test would leave the
+page claiming coverage that no longer exists, and nobody reads a backlog closely
+enough to notice. So: every cited test must exist, every Must requirement in the
+register must have a story, every story must cite a requirement the register
+defines (or say it is proposed), and the Jira import file must match the page.
+"""
+from __future__ import annotations
+
+import ast
+import importlib.util
+import re
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parent.parent
+PACK = ROOT / "docs" / "business-analysis"
+BACKLOG = PACK / "BACKLOG_AND_ACCEPTANCE.md"
+REGISTER = PACK / "PROCESS_AND_REQUIREMENTS.md"
+
+spec = importlib.util.spec_from_file_location("backlog_csv", PACK / "backlog_csv.py")
+backlog_csv = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(backlog_csv)
+
+TEXT = BACKLOG.read_text(encoding="utf-8")
+EPICS, STORIES = backlog_csv.parse(TEXT)
+REQ = re.compile(r"\b(?:BR|FR|NFR|CHG)-\d+\b")
+
+
+def register() -> dict[str, str]:
+    """Requirement ID -> MoSCoW priority, from the register table."""
+    rows = re.findall(r"^\| ((?:BR|FR|NFR|CHG)-\d+) \| .+? \| (\w+) \|", REGISTER.read_text(encoding="utf-8"), re.M)
+    return dict(rows)
+
+
+def test_the_page_parses_into_epics_and_stories():
+    assert len(EPICS) >= 4 and len(STORIES) >= 12
+    assert all(s["criteria"] for s in STORIES), "a story with no acceptance criteria"
+    assert len({s["id"] for s in STORIES}) == len(STORIES)
+
+
+CITED = sorted({ref for s in STORIES for c in s["criteria"]
+                for ref in re.findall(r"`(tests/[\w/]+\.py::\w+)`", c["status"])})
+
+
+def test_most_acceptance_criteria_run_in_ci():
+    criteria = [c for s in STORIES for c in s["criteria"]]
+    running = [c for c in criteria if c["status"].startswith("runs:")]
+    assert len(CITED) >= 25
+    assert len(running) / len(criteria) > 0.75
+
+
+@pytest.mark.parametrize("ref", CITED)
+def test_every_cited_test_exists(ref):
+    path, name = ref.split("::")
+    tree = ast.parse((ROOT / path).read_text(encoding="utf-8"))
+    names = {node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)}
+    assert name in names, f"{ref} is cited as acceptance but does not exist"
+
+
+def test_every_criterion_says_whether_it_runs_or_is_manual():
+    for s in STORIES:
+        for c in s["criteria"]:
+            assert c["status"].startswith(("runs: `tests/", "manual: ")), (s["id"], c["n"])
+
+
+def test_every_must_requirement_has_a_story():
+    musts = {rid for rid, prio in register().items() if prio == "Must"}
+    covered = {r for s in STORIES for r in REQ.findall(s["requirement"])}
+    assert musts - covered == set(), f"Must requirements with no story: {sorted(musts - covered)}"
+
+
+def test_every_story_cites_a_real_requirement_or_says_it_is_proposed():
+    known = set(register())
+    for s in STORIES:
+        cited = set(REQ.findall(s["requirement"]))
+        proposed = "proposed" in s["requirement"]
+        assert cited or proposed, s["id"]
+        assert proposed or cited <= known, f"{s['id']} cites {sorted(cited - known)}, not in the register"
+
+
+RANK = {"Must": 3, "Should": 2, "Could": 1, "Won't": 0}
+
+
+def test_no_story_outranks_its_requirement():
+    """A Should refinement of a Must requirement is normal; a Must story under a
+    Should requirement would be priority inflation."""
+    reg = register()
+    for s in STORIES:
+        for rid in REQ.findall(s["requirement"]):
+            if rid in reg:
+                assert RANK[s["priority"]] <= RANK[reg[rid]], f"{s['id']} is {s['priority']} but {rid} is {reg[rid]}"
+
+
+def test_the_jira_import_file_matches_the_page():
+    committed = (PACK / "backlog.csv").read_text(encoding="utf-8")
+    assert committed == backlog_csv.render(TEXT), "run: python docs/business-analysis/backlog_csv.py"

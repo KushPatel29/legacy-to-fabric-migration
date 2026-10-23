@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-440%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-477%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -26,7 +26,12 @@ The technical build is paired with a
 synthetic 140-artifact programme. It includes a project charter, stakeholder
 map and RACI, current- and future-state process maps, a requirements register
 with acceptance criteria, a RAID register, an executive status report, and a
-change and adoption plan. A separate
+change and adoption plan. The requirements are broken into a
+[`product backlog`](docs/business-analysis/BACKLOG_AND_ACCEPTANCE.md) of 16 user
+stories whose Given/When/Then criteria each name the CI test that executes them
+(or say they are a manual UAT scenario), with a Jira CSV import generated from the
+same page; a test fails the build if a cited test disappears or a Must
+requirement has no story. A separate
 [`Microsoft Modern Workplace blueprint`](docs/business-analysis/MODERN_WORKPLACE_BLUEPRINT.md)
 shows how Teams, SharePoint, and Power Automate could govern those records and
 approvals; it is explicitly a design artifact, not a production deployment

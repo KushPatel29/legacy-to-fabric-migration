@@ -17,7 +17,7 @@ and cutover runbook remain the implemented parts of the repository.
 | Stage | Question answered | Evidence |
 |---|---|---|
 | Discover | What is changing, why, and for whom? | [Project charter](PROJECT_CHARTER.md) and [stakeholder map](STAKEHOLDER_AND_RACI.md) |
-| Define | What must the future service do? | [Process and requirements](PROCESS_AND_REQUIREMENTS.md) |
+| Define | What must the future service do? | [Process and requirements](PROCESS_AND_REQUIREMENTS.md), and the [backlog](BACKLOG_AND_ACCEPTANCE.md): 16 user stories whose Given/When/Then criteria name the CI test that executes them, also as a [Jira CSV import](backlog.csv) |
 | Decide | Who owns decisions, risks, and exceptions? | [RACI](STAKEHOLDER_AND_RACI.md) and [RAID register](RAID_REGISTER.md) |
 | Deliver | How is the work sequenced and controlled? | [Project charter](PROJECT_CHARTER.md), [status report](STATUS_REPORT.md), and the existing [cutover runbook](../cutover_runbook.md) |
 | Adopt | How are affected teams prepared and supported? | [Change and adoption plan](CHANGE_AND_ADOPTION_PLAN.md) |
