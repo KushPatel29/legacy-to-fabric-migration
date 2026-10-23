@@ -1,0 +1,102 @@
+{
+ "loaded_on": "2026-10-23",
+ "site": "kush29.atlassian.net (Confluence Cloud, private; same site as the LFM Jira project)",
+ "how": "confluence_payloads.json sent through the Confluence REST API (v1 content API) and the Jira REST API (remote links), from the signed-in browser session; no API token was created",
+ "payloads_commit": "fcb9bb5cead9dac8f7c1ad5c737a1ff46db5fe70",
+ "space": {
+  "key": "LFM",
+  "id": 196753,
+  "name": "Legacy-to-Fabric Migration"
+ },
+ "home": {
+  "id": "196861",
+  "title": "Legacy-to-Fabric Migration",
+  "version": 2,
+  "source": "docs/business-analysis/README.md"
+ },
+ "pages": [
+  {
+   "title": "Project charter",
+   "id": "458753",
+   "source": "docs/business-analysis/PROJECT_CHARTER.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/458753/Project+charter"
+  },
+  {
+   "title": "Stakeholders and RACI",
+   "id": "491521",
+   "source": "docs/business-analysis/STAKEHOLDER_AND_RACI.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/491521/Stakeholders+and+RACI"
+  },
+  {
+   "title": "Process and requirements",
+   "id": "524289",
+   "source": "docs/business-analysis/PROCESS_AND_REQUIREMENTS.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/524289/Process+and+requirements"
+  },
+  {
+   "title": "Backlog and acceptance criteria",
+   "id": "557057",
+   "source": "docs/business-analysis/BACKLOG_AND_ACCEPTANCE.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/557057/Backlog+and+acceptance+criteria"
+  },
+  {
+   "title": "RAID register",
+   "id": "589825",
+   "source": "docs/business-analysis/RAID_REGISTER.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/589825/RAID+register"
+  },
+  {
+   "title": "Status report",
+   "id": "458771",
+   "source": "docs/business-analysis/STATUS_REPORT.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/458771/Status+report"
+  },
+  {
+   "title": "Change and adoption plan",
+   "id": "196946",
+   "source": "docs/business-analysis/CHANGE_AND_ADOPTION_PLAN.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/196946/Change+and+adoption+plan"
+  },
+  {
+   "title": "Cutover runbook",
+   "id": "98314",
+   "source": "docs/cutover_runbook.md",
+   "version": 1,
+   "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/98314/Cutover+runbook"
+  }
+ ],
+ "jira_remote_links": {
+  "page": "Backlog and acceptance criteria",
+  "issues": [
+   "LFM-1",
+   "LFM-2",
+   "LFM-3",
+   "LFM-4",
+   "LFM-5",
+   "LFM-6",
+   "LFM-7",
+   "LFM-8",
+   "LFM-9",
+   "LFM-10",
+   "LFM-11",
+   "LFM-12",
+   "LFM-13",
+   "LFM-14",
+   "LFM-15",
+   "LFM-16",
+   "LFM-17",
+   "LFM-18",
+   "LFM-19",
+   "LFM-20",
+   "LFM-21"
+  ],
+  "http_status": "201 for all 21"
+ }
+}

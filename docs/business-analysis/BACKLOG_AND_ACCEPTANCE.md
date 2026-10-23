@@ -21,8 +21,19 @@ Each story carries its user story, its requirement and MoSCoW labels, and its
 acceptance criteria as a numbered list that links the CI test executing each one.
 Ten stories, every criterion of which runs in CI, were moved to Done under the
 Definition of Done below; the six with a manual criterion stay in To Do, because no
-UAT has been run. The Jira site is private; this page and the script are the public
-record of what is in it.
+UAT has been run.
+
+**And published to Confluence, linked both ways.** The same day this pack became a
+Confluence space (key `LFM`) on the same Atlassian site: the charter, stakeholders
+and RACI, process and requirements, this backlog, the RAID register, the status
+report, the change plan and the cutover runbook, one page each, converted from these
+Markdown files by [`confluence_rest.py`](confluence_rest.py). The backlog page opens
+with a traceability table (story, Jira issue, epic, requirement, MoSCoW, criteria
+running in CI, status), every epic and story heading links to its Jira issue, and
+each of the 21 Jira issues carries a link back to the page
+([load record](confluence_load.json)). The site is private, so this page and the two
+scripts are the public record of what is in it, and a test fails if the committed
+Confluence payloads drift from these files.
 
 Priorities are MoSCoW, taken from the register. The programme and its people are
 the synthetic simulation described in the [pack README](README.md).
