@@ -125,3 +125,31 @@ def test_the_jira_payloads_carry_the_whole_backlog():
     assert sum(s["done"] for s in p["stories"]) == 10
     page = (ROOT / "docs" / "business-analysis" / "BACKLOG_AND_ACCEPTANCE.md").read_text(encoding="utf-8")
     assert "5 epics and 16 stories" in page and "Ten stories" in page and "six with a manual" in page
+
+
+def test_the_confluence_pages_are_the_repository_documents():
+    """confluence_rest.py publishes the pack to Confluence. What was sent is
+    committed; regenerate it from the Markdown and require the same bytes, and
+    require every page to be well-formed storage XHTML with every epic and story
+    linked to its Jira issue."""
+    import json as _json
+    import sys as _sys
+    import xml.dom.minidom
+
+    _sys.path.insert(0, str(PACK))
+    import confluence_rest
+
+    committed = (PACK / "confluence_payloads.json").read_text(encoding="utf-8")
+    assert committed == confluence_rest.render(), "run: python docs/business-analysis/confluence_rest.py --json"
+    p = _json.loads(committed)
+    for page in [p["home"], *p["pages"]]:
+        xml.dom.minidom.parseString(
+            '<r xmlns:ac="http://atlassian.com/content">' + page["storage"] + "</r>")
+        assert "](" not in page["storage"], f"a markdown link leaked into {page['title']}"
+    backlog = next(pg["storage"] for pg in p["pages"] if pg["source"].endswith("BACKLOG_AND_ACCEPTANCE.md"))
+    keys = _json.loads((PACK / "jira_issue_keys.json").read_text(encoding="utf-8"))
+    assert set(keys) == {e["id"] for e in EPICS} | {s["id"] for s in STORIES}
+    for item, key in keys.items():
+        assert f"/browse/{key}\">{key}</a>" in backlog, item
+    assert backlog.count("<td>Done</td>") == 10 and backlog.count("<td>To Do</td>") == 6
+    assert len(p["remote_links"]) == len(keys)
