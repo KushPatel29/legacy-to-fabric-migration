@@ -12,8 +12,17 @@ targets and say so; none of them is claimed as achieved.
 fails the build if a cited test is renamed or deleted, if a *Must* requirement in
 the register has no story, or if the Jira import file drifts from this page.
 [`backlog.csv`](backlog.csv) is the same backlog in Jira's CSV import format
-(Issue Type, Summary, Epic, Priority, Labels, Acceptance Criteria). It has not been
-loaded into a Jira instance.
+(Issue Type, Summary, Epic, Priority, Labels, Acceptance Criteria).
+
+**It is also loaded into Jira.** On 23 October 2026 the backlog went into a Jira
+Cloud team-managed Scrum project (key `LFM`) as 5 epics and 16 stories, through the
+REST API, from the payloads [`jira_rest.py`](jira_rest.py) builds from this page.
+Each story carries its user story, its requirement and MoSCoW labels, and its
+acceptance criteria as a numbered list that links the CI test executing each one.
+Ten stories, every criterion of which runs in CI, were moved to Done under the
+Definition of Done below; the six with a manual criterion stay in To Do, because no
+UAT has been run. The Jira site is private; this page and the script are the public
+record of what is in it.
 
 Priorities are MoSCoW, taken from the register. The programme and its people are
 the synthetic simulation described in the [pack README](README.md).

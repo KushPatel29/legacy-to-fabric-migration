@@ -99,3 +99,29 @@ def test_no_story_outranks_its_requirement():
 def test_the_jira_import_file_matches_the_page():
     committed = (PACK / "backlog.csv").read_text(encoding="utf-8")
     assert committed == backlog_csv.render(TEXT), "run: python docs/business-analysis/backlog_csv.py"
+
+
+def test_the_jira_payloads_carry_the_whole_backlog():
+    """jira_rest.py turns the page into Jira REST payloads. Hold it to the page:
+    every story under its epic, every criterion in its description, Done only
+    where every criterion runs in CI, and labels Jira will accept."""
+    import json as _json
+    import sys as _sys
+
+    _sys.path.insert(0, str(ROOT / "docs" / "business-analysis"))
+    import jira_rest
+
+    p = jira_rest.payloads("LFM")
+    assert len(p["epics"]) == 5 and len(p["stories"]) == 16
+    epics = {e["id"] for e in p["epics"]}
+    for s in p["stories"]:
+        assert s["epic"] in epics
+        doc = _json.dumps(s["fields"]["description"])
+        items = s["fields"]["description"]["content"][3]["content"]
+        assert len(items) == s["criteria"]
+        assert s["done"] == ("Manual:" not in doc)
+        assert all(" " not in label for label in s["fields"]["labels"])
+        assert "](" not in doc, "a markdown link leaked into Jira text"
+    assert sum(s["done"] for s in p["stories"]) == 10
+    page = (ROOT / "docs" / "business-analysis" / "BACKLOG_AND_ACCEPTANCE.md").read_text(encoding="utf-8")
+    assert "5 epics and 16 stories" in page and "Ten stories" in page and "six with a manual" in page
