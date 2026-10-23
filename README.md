@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-478%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-480%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -32,8 +32,11 @@ stories whose Given/When/Then criteria each name the CI test that executes them
 (or say they are a manual UAT scenario). The same backlog is loaded into a Jira
 Cloud Scrum project, 5 epics and 16 stories through the REST API, with the ten
 stories whose criteria all run in CI moved to Done and the six with a manual UAT
-criterion left in To Do; a test fails the build if a cited test disappears or a
-Must requirement has no story. A separate
+criterion left in To Do. The whole pack is also published as a Confluence space
+on the same site, eight pages converted from these Markdown files, with the
+backlog page and the 21 Jira issues linked to each other; a test fails the build
+if a cited test disappears, a Must requirement has no story, or the Confluence
+payloads drift from the Markdown. A separate
 [`Microsoft Modern Workplace blueprint`](docs/business-analysis/MODERN_WORKPLACE_BLUEPRINT.md)
 shows how Teams, SharePoint, and Power Automate could govern those records and
 approvals; it is explicitly a design artifact, not a production deployment
