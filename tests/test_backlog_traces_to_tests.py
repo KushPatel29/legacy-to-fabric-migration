@@ -153,3 +153,13 @@ def test_the_confluence_pages_are_the_repository_documents():
         assert f"/browse/{key}\">{key}</a>" in backlog, item
     assert backlog.count("<td>Done</td>") == 10 and backlog.count("<td>To Do</td>") == 6
     assert len(p["remote_links"]) == len(keys)
+
+
+def test_the_confluence_load_record_matches_the_pages():
+    import json as _json
+
+    load = _json.loads((PACK / "confluence_load.json").read_text(encoding="utf-8"))
+    sent = _json.loads((PACK / "confluence_payloads.json").read_text(encoding="utf-8"))
+    assert [p["title"] for p in load["pages"]] == [p["title"] for p in sent["pages"]]
+    assert [p["source"] for p in load["pages"]] == [p["source"] for p in sent["pages"]]
+    assert len(load["jira_remote_links"]["issues"]) == len(sent["remote_links"]) == 21

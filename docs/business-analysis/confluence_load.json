@@ -2,7 +2,7 @@
  "loaded_on": "2026-10-23",
  "site": "kush29.atlassian.net (Confluence Cloud, private; same site as the LFM Jira project)",
  "how": "confluence_payloads.json sent through the Confluence REST API (v1 content API) and the Jira REST API (remote links), from the signed-in browser session; no API token was created",
- "payloads_commit": "fcb9bb5cead9dac8f7c1ad5c737a1ff46db5fe70",
+ "payloads_commit": "c14c7df8007778396eb7ca6dc133ed4234caa786",
  "space": {
   "key": "LFM",
   "id": 196753,
@@ -11,7 +11,7 @@
  "home": {
   "id": "196861",
   "title": "Legacy-to-Fabric Migration",
-  "version": 2,
+  "version": 3,
   "source": "docs/business-analysis/README.md"
  },
  "pages": [
@@ -40,7 +40,7 @@
    "title": "Backlog and acceptance criteria",
    "id": "557057",
    "source": "docs/business-analysis/BACKLOG_AND_ACCEPTANCE.md",
-   "version": 1,
+   "version": 2,
    "url": "https://kush29.atlassian.net/wiki/spaces/LFM/pages/557057/Backlog+and+acceptance+criteria"
   },
   {
@@ -98,5 +98,6 @@
    "LFM-21"
   ],
   "http_status": "201 for all 21"
- }
+ },
+ "updates": "first load from fcb9bb5; the home and backlog pages were then republished from c14c7df, after the backlog page and pack index were edited to describe this space. The other seven pages are byte-identical in both commits."
 }
