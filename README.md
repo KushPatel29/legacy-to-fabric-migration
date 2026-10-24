@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-480%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-485%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Modernizes a SQL Server stored-procedure ETL feeding an SSRS paginated
@@ -18,6 +18,8 @@ realistic ways and assert the validator catches every one.
 Most portfolios show either "legacy SQL Server BI" or "modern Fabric" skills.
 This project shows both, side by side, plus the part that's usually skipped
 entirely: how you'd actually prove the migration is safe to cut over.
+
+**Manual acceptance and release recovery:** [candidate-bound UAT packet and local rollback rehearsal](docs/business-analysis/MANUAL_UAT_EXECUTION.md). Six manual scenarios are extracted from the current backlog; stale reviews, missing evidence and high defects block readiness. The packet records no human acceptance or Service publication. Existing Jira/Confluence story states remain unchanged.
 
 ## Business analysis and change delivery
 
