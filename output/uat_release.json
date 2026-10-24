@@ -3,8 +3,10 @@
   "candidate": {
     "schema_version": 1,
     "files": {
-      "FabricMigrationCommandCenter.pbip": "806122621613f1f723e8795f8028650937bd9f6f42e51f3cb3196cf3ee9e9cfd",
-      "FabricMigrationCommandCenter.Report/.platform": "f31456c148794ef0d8debaa6f078a9979808b6af4cf154eb68c97b1f43eced82",
+      "FabricMigrationCommandCenter.Report/.platform": "d93f31158057fc59bc344b5bba0fa0e810df2d291d088979112118dbe6c64d1a",
+      "FabricMigrationCommandCenter.Report/StaticResources/RegisteredResources/MeridianNocturne.json": "f4d5280c2b073e88043ee173a50a6d7114a08a6e6cf2a92e9e461e5775ea6079",
+      "FabricMigrationCommandCenter.Report/StaticResources/RegisteredResources/MeridianTheme.json": "87632ba48c44b783afa48d9f6352586f4c6c59e97fae3a7178bfb766fb73e0e8",
+      "FabricMigrationCommandCenter.Report/definition.pbir": "195036a766beec4ba104aa087bc9f5ffbfe0f643a30a5dc80a9452a8507dac8b",
       "FabricMigrationCommandCenter.Report/definition/bookmarks/bookmarks.json": "cc83ad1ce0887b06dcb32fc0f7b27f4e2cedebd79d9db977e91c8adbea398295",
       "FabricMigrationCommandCenter.Report/definition/bookmarks/ccFiltersClosed.bookmark.json": "eee3c2deade80b1f9cbe40300d18d6f1b9ccfdf6d472e8cd9847e8e5d67f88e9",
       "FabricMigrationCommandCenter.Report/definition/bookmarks/ccFiltersOpen.bookmark.json": "8939d9986f410bae44ee3a7412cc7ebbea781a191fe5f7decff9555ab019a0c7",
@@ -106,24 +108,22 @@
       "FabricMigrationCommandCenter.Report/definition/pages/section_validation/visuals/visual025/visual.json": "88a78b605c4100716b2dc124f3d676e77ab851fa24f33c6ce4356c0338de017d",
       "FabricMigrationCommandCenter.Report/definition/report.json": "22acd3c358a58bd5f88e1357abcaf3e697b87ac800296cbd2cb849dc170559a4",
       "FabricMigrationCommandCenter.Report/definition/version.json": "32bc72b8e7996a054f96e655c8dd8fda82e5f502532610b45bc21a18cffe30b6",
-      "FabricMigrationCommandCenter.Report/definition.pbir": "195036a766beec4ba104aa087bc9f5ffbfe0f643a30a5dc80a9452a8507dac8b",
-      "FabricMigrationCommandCenter.Report/StaticResources/RegisteredResources/MeridianNocturne.json": "f4d5280c2b073e88043ee173a50a6d7114a08a6e6cf2a92e9e461e5775ea6079",
-      "FabricMigrationCommandCenter.Report/StaticResources/RegisteredResources/MeridianTheme.json": "87632ba48c44b783afa48d9f6352586f4c6c59e97fae3a7178bfb766fb73e0e8",
-      "FabricMigrationCommandCenter.SemanticModel/.platform": "245cadf62a8f1520dc520c09527f0ea3773daa594cae558c203211c8c8483488",
+      "FabricMigrationCommandCenter.SemanticModel/.platform": "cab2ebd6df8f2c2e340fcd2b4a5f0594bf6047921849628fdee54accd18358b1",
+      "FabricMigrationCommandCenter.SemanticModel/definition.pbism": "e761066d848bfaec8496b03ec887aa0a158a8c14a2b359240fc43ca46bb54fcf",
       "FabricMigrationCommandCenter.SemanticModel/definition/database.tmdl": "05e6e4d3963c40921d429c883e83714a9dd42aeadbb8470e671a6b38dbb34872",
       "FabricMigrationCommandCenter.SemanticModel/definition/expressions.tmdl": "07441d4738f2e6594cc15d32fadec043ee47a470ab5f3d7c88f4653505f14f7e",
       "FabricMigrationCommandCenter.SemanticModel/definition/model.tmdl": "05552f21c5cd229cf7046aef74ef16b68b6e7e290a51dbce8181d61c86aeb32c",
       "FabricMigrationCommandCenter.SemanticModel/definition/relationships.tmdl": "f5a4af20dfa92e00e2fffba4aedac6295160cad8af07a544f4591d8f723ebbfb",
-      "FabricMigrationCommandCenter.SemanticModel/definition/tables/_Measures.tmdl": "be670c1ea8be6679e78373a87ddbb4e34b01a0563e798fa2b558ce21e7ab8ab2",
       "FabricMigrationCommandCenter.SemanticModel/definition/tables/Chart Metric.tmdl": "6886e6f4e73078c3e0bbbbe3bf49f5c09affd985cbcdeb448bf9abb2df849693",
+      "FabricMigrationCommandCenter.SemanticModel/definition/tables/_Measures.tmdl": "be670c1ea8be6679e78373a87ddbb4e34b01a0563e798fa2b558ce21e7ab8ab2",
       "FabricMigrationCommandCenter.SemanticModel/definition/tables/dim_month.tmdl": "40933193b67bd58511140de82147a95370fbfddf890b6ebfa8a98502f2e9c9e3",
       "FabricMigrationCommandCenter.SemanticModel/definition/tables/migration_artifacts.tmdl": "9c206a9b1016e7a449f8f3fffcfb250081178378c77dc7c5c4f19905266c2700",
       "FabricMigrationCommandCenter.SemanticModel/definition/tables/validation_runs.tmdl": "74a9846ef25239304fc7ccab490e58213667351a4178176b8d444e1548ea5f66",
-      "FabricMigrationCommandCenter.SemanticModel/definition.pbism": "e761066d848bfaec8496b03ec887aa0a158a8c14a2b359240fc43ca46bb54fcf",
-      "OPEN_ME_FIRST.md": "42c6413dd3aeb84d753d81475dd93e2f12633f2a677c963dae5afb475e82ce57"
+      "FabricMigrationCommandCenter.pbip": "806122621613f1f723e8795f8028650937bd9f6f42e51f3cb3196cf3ee9e9cfd",
+      "OPEN_ME_FIRST.md": "8819afde1adad77c29401e8f94f0b0b631f96e2395b918cd689345de52f2880c"
     },
     "hash_basis": "PBIP text normalized to LF; other file bytes unchanged",
-    "candidate_sha256": "42b4824cfaa0721e33d21bd09577ba9332a929a52f50cc9ecf7eadb02106ae49"
+    "candidate_sha256": "a05b856c5da6181fbcfee3ee813d06d78328f63393de1b62fa128161b9ea17cc"
   },
   "manual_scenarios": [
     {

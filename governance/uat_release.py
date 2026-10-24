@@ -25,13 +25,13 @@ def digest(value):
 def candidate(source=PBIP):
     files = {}
     source = source.resolve()
-    for path in sorted(source.rglob("*")):
+    for path in sorted(source.rglob("*"), key=lambda item: item.relative_to(source).as_posix()):
         if not path.is_file() or ".pbi" in path.parts:
             continue
         if not path.resolve().is_relative_to(source):
             raise ValueError("Candidate must not follow links outside its source")
         payload = path.read_bytes()
-        if path.suffix in {".json", ".tmdl", ".pbir", ".pbism", ".pbip"}:
+        if path.suffix in {".json", ".tmdl", ".pbir", ".pbism", ".pbip", ".md"} or path.name == ".platform":
             payload = payload.replace(b"\r\n", b"\n")
         files[path.relative_to(source).as_posix()] = hashlib.sha256(payload).hexdigest()
     if not files:

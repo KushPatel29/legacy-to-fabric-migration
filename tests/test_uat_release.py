@@ -49,3 +49,10 @@ def test_empty_release_and_missing_rollback_are_rejected(tmp_path):
         release.candidate(tmp_path)
     with pytest.raises(ValueError):
         release.OfflineSlots(tmp_path).rollback()
+    for name in (".platform", "OPEN_ME_FIRST.md"):
+        file = tmp_path / name
+        file.write_bytes(b"test\r\ntext\r\n")
+    windows = release.candidate(tmp_path)
+    for file in tmp_path.iterdir():
+        file.write_bytes(file.read_bytes().replace(b"\r\n", b"\n"))
+    assert release.candidate(tmp_path) == windows
