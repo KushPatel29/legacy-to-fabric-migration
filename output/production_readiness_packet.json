@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-09-18T08:19:58.313524+00:00",
+  "generated_at_utc": "2026-10-25T19:11:02.832279+00:00",
   "public_demo_decision": "APPROVE PUBLIC DEMONSTRATION",
   "production_decision": "NOT AUTHORIZED",
   "status_counts": {
@@ -35,12 +35,16 @@
           "version": "3.0.3"
         },
         {
+          "name": "pillow",
+          "version": "13.0.0"
+        },
+        {
           "name": "plotly",
           "version": "6.3.1"
         },
         {
           "name": "streamlit",
-          "version": "1.63.0"
+          "version": "1.66.1"
         }
       ]
     },
@@ -81,15 +85,15 @@
       "evidence": [
         {
           "path": "docs/security/THREAT_MODEL.md",
-          "sha256": "00bac0c417d8d90077209134b111f635c127747c1b5597047bb474f281b3d0ad"
+          "sha256": "4048d20bddb4eab0b65ee2f8fd52e416fbb4443b792d99ef741cdab98b191da8"
         },
         {
           "path": "docs/cutover_runbook.md",
-          "sha256": "1aeaa1a075905c7a9cae3ee8efea87fe09b6aeaec9517eaae265430097a079a7"
+          "sha256": "3a013aaa95554fabcc98762fc90ae5a75740e4f6b2c795a507a228c8ec2c5358"
         },
         {
           "path": "docs/operations/DEMO_OPERATIONS_RUNBOOK.md",
-          "sha256": "b79121db6ea5bc8257b2a5d62e4624dacaa13ebcd04579283e866cd49cdad12a"
+          "sha256": "cf0ea274afb08409131e72578c68b5b40fed8af6b0815da6f6deff3ac39ea792"
         }
       ]
     },
@@ -115,8 +119,8 @@
       "evidence": {
         "environment": "local in-process, warm Python 3.12 benchmark",
         "iterations": 20,
-        "median_ms": 7.717,
-        "p95_ms": 8.021,
+        "median_ms": 7.729,
+        "p95_ms": 8.847,
         "target_p95_ms": 2000,
         "passed": true,
         "scheduled_assets": 50,
@@ -151,8 +155,8 @@
   "benchmark": {
     "environment": "local in-process, warm Python 3.12 benchmark",
     "iterations": 20,
-    "median_ms": 7.717,
-    "p95_ms": 8.021,
+    "median_ms": 7.729,
+    "p95_ms": 8.847,
     "target_p95_ms": 2000,
     "passed": true,
     "scheduled_assets": 50,
@@ -161,19 +165,19 @@
   "evidence_hashes": {
     "security_boundary": {
       "path": "docs/security/THREAT_MODEL.md",
-      "sha256": "00bac0c417d8d90077209134b111f635c127747c1b5597047bb474f281b3d0ad"
+      "sha256": "4048d20bddb4eab0b65ee2f8fd52e416fbb4443b792d99ef741cdab98b191da8"
     },
     "demo_operations": {
       "path": "docs/operations/DEMO_OPERATIONS_RUNBOOK.md",
-      "sha256": "b79121db6ea5bc8257b2a5d62e4624dacaa13ebcd04579283e866cd49cdad12a"
+      "sha256": "cf0ea274afb08409131e72578c68b5b40fed8af6b0815da6f6deff3ac39ea792"
     },
     "service_targets": {
       "path": "docs/operations/SLO.md",
-      "sha256": "082ba61b44b621221069e0ee888d2d116796680948487178e89f73b04082abff"
+      "sha256": "0653477cf79c8a8675d07cd08e284fa526c4a1e129a9e78cbd90b12730cdc55b"
     },
     "cutover_recovery": {
       "path": "docs/cutover_runbook.md",
-      "sha256": "1aeaa1a075905c7a9cae3ee8efea87fe09b6aeaec9517eaae265430097a079a7"
+      "sha256": "3a013aaa95554fabcc98762fc90ae5a75740e4f6b2c795a507a228c8ec2c5358"
     },
     "asset_decision_packet": {
       "path": "examples/asset_management/output/asset_management_summary.json",
@@ -192,5 +196,5 @@
       "sha256": "84e95bb043e8b03df91567909cbbdaa6bc5ca0a01875e8d01fe7672200394bc1"
     }
   },
-  "packet_sha256": "154717f6a871caf9cfb713c7af5140d25d7837bcbbdbbb1c0252e1792aa6ee98"
+  "packet_sha256": "aba578db81c941f21768a942ab0e059c92b0144e508be3f234a99d2d919ca9d0"
 }

@@ -133,7 +133,7 @@ approves only the deterministic, synthetic, read-only demonstration. The same
 packet states **production not authorized** until independent telemetry,
 authenticated roles and approvals, and a credentialed Fabric control-plane
 validation exist. It integrity-hashes the asset, GIS, security, recovery and
-static-fallback evidence; inventories five exactly pinned direct Python
+static-fallback evidence; inventories six exactly pinned direct Python
 dependencies; compiles the application sources; and benchmarks 20 warm
 decision-engine runs. The packet records the measured p95 against a
 **2,000 ms** demo target; this is not browser, network, cold-start or
