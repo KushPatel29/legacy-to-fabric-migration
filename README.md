@@ -286,10 +286,11 @@ docs/                 cutover runbook
 
 ## How to reproduce
 
+Run these commands from the repository root:
+
 ```bash
-cd data_generator
-pip install -r requirements.txt
-python generate_source_data.py
+pip install -r data_generator/requirements.txt -r requirements.txt
+python data_generator/generate_source_data.py
 ```
 
 Then either:
