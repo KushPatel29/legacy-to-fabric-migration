@@ -37,6 +37,12 @@
     },
     {
       "type": "library",
+      "name": "pillow",
+      "version": "13.0.0",
+      "purl": "pkg:pypi/pillow@13.0.0"
+    },
+    {
+      "type": "library",
       "name": "plotly",
       "version": "6.3.1",
       "purl": "pkg:pypi/plotly@6.3.1"
@@ -44,8 +50,8 @@
     {
       "type": "library",
       "name": "streamlit",
-      "version": "1.63.0",
-      "purl": "pkg:pypi/streamlit@1.63.0"
+      "version": "1.66.1",
+      "purl": "pkg:pypi/streamlit@1.66.1"
     }
   ]
 }

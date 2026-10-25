@@ -23,6 +23,7 @@ def test_every_direct_dependency_is_exactly_pinned_and_conflict_free():
         "faker",
         "numpy",
         "pandas",
+        "pillow",
         "plotly",
         "streamlit",
     }
@@ -44,7 +45,7 @@ def test_sbom_is_cyclonedx_and_labels_its_direct_dependency_boundary():
     assert sbom["bomFormat"] == "CycloneDX"
     assert sbom["specVersion"] == "1.5"
     assert UUID(sbom["serialNumber"].removeprefix("urn:uuid:"))
-    assert len(sbom["components"]) == 5
+    assert len(sbom["components"]) == 6
     assert all(component["purl"].startswith("pkg:pypi/") for component in sbom["components"])
     assert "Direct Python dependencies only" in sbom["metadata"]["properties"][0]["value"]
 

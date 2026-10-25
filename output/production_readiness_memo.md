@@ -3,7 +3,7 @@
 **Public-demo decision:** APPROVE PUBLIC DEMONSTRATION  
 **Production decision:** NOT AUTHORIZED  
 **Control posture:** 8 PASS / 3 REVIEW / 0 BLOCK  
-**Packet digest:** `154717f6a871caf9cfb713c7af5140d25d7837bcbbdbbb1c0252e1792aa6ee98`
+**Packet digest:** `aba578db81c941f21768a942ab0e059c92b0144e508be3f234a99d2d919ca9d0`
 
 The portfolio surface is suitable for a public synthetic demonstration: direct
 dependencies are pinned and inventoried, application sources compile, asset and
