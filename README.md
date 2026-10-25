@@ -356,7 +356,7 @@ million — but it is now written down instead of being a surprise.
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 440 tests: the clean GO, GIS and asset-management controls,
+pytest tests/ -v    # full suite: the clean GO, GIS and asset-management controls,
                     # 8 corruption
                     # classes, 4 false-positive
                     # guards, the empty-run gate, a conjunctive-verdict check per
