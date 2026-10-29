@@ -116,7 +116,10 @@ st.markdown(
   .gate-sheet p { color:var(--muted); margin:.4rem 0 0; }
   .assumption-note { border-left:3px solid var(--funding); padding:.55rem .8rem; color:var(--muted); background:rgba(217,146,46,.07); margin:.35rem 0 1rem; }
   div[data-testid="stMetric"] { border-top:3px solid var(--survey); padding-top:.65rem; }
-  [data-testid="stMetricValue"] { color:var(--blueprint); }
+  [data-testid="stMetricValue"] { color:var(--blueprint); font-size:clamp(1.3rem,2.3vw,2.25rem); }
+  [data-testid="stMetricValue"] > div, [data-testid="stMetricLabel"] p, [data-testid="stMetricDelta"] p { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.25; }
+  div[data-testid="stMetric"] div:has(> [data-testid="stMetricDelta"]) { overflow:visible; height:auto; }
+  [data-testid="stMetricDelta"] { border-radius:.45rem; }
   [data-testid="stDataFrame"] { border:1px solid var(--line); background:var(--panel); }
   .stButton > button, .stDownloadButton > button { border-radius:2px; min-height:2.8rem; border:1px solid var(--blueprint); color:var(--blueprint); background:rgba(248,251,252,.75); font-weight:650; }
   .stButton > button:hover, .stDownloadButton > button:hover { border-color:var(--survey); color:var(--survey); }
@@ -515,24 +518,28 @@ if workspace == "Decision brief":
         f"{summary['assets_in_scope']}",
         f"{96 - summary['assets_in_scope']} outside current scope",
         delta_color="off",
+        delta_arrow="off",
     )
     metric_2.metric(
         "Replacement value",
         short_money(summary["replacement_value_usd"]),
         "planning-ready, in-service basis",
         delta_color="off",
+        delta_arrow="off",
     )
     metric_3.metric(
         "Annual renewal need",
         short_money(summary["annualized_renewal_need_usd"]),
         "replacement value ÷ expected life",
         delta_color="off",
+        delta_arrow="off",
     )
     metric_4.metric(
         "High / very-high risk",
         f"{summary['high_or_very_high_risk']}",
         "condition × criticality",
         delta_color="off",
+        delta_arrow="off",
     )
     st.markdown(
         """
@@ -590,18 +597,21 @@ if workspace == "Service levels":
         f"{below_target}",
         "synthetic planning basis",
         delta_color="off",
+        delta_arrow="off",
     )
     level_3.metric(
         "High / very-high assets",
         f"{high_risk_assets}",
         "inside selected services",
         delta_color="off",
+        delta_arrow="off",
     )
     level_4.metric(
-        "Annual renewal pressure",
+        "Annual renewal need",
         short_money(service_position["annualized_renewal_need_usd"].sum()),
         "replacement value ÷ expected life",
         delta_color="off",
+        delta_arrow="off",
     )
     st.markdown("## Service outcomes before asset solutions")
     st.dataframe(
@@ -641,7 +651,7 @@ if workspace == "Service levels":
             "service_status": "Status",
             "high_or_very_high_risk": "High / very-high assets",
             "annualized_renewal_need_usd": st.column_config.NumberColumn(
-                "Annual renewal pressure", format="$%,.0f"
+                "Annual renewal need", format="$%,.0f"
             ),
             "consequence_of_shortfall": "Consequence of shortfall",
             "accountable_role": "Accountable role",
@@ -914,12 +924,14 @@ if workspace == "Funding plan":
         short_money(capital_summary["planned_capital_usd"]),
         "escalated + contingent",
         delta_color="off",
+        delta_arrow="off",
     )
     metric_3.metric(
         "Scheduled assets",
         f"{capital_summary['scheduled_assets']}",
         f"{capital_summary['scheduled_high_or_very_high']} high / very-high",
         delta_color="off",
+        delta_arrow="off",
     )
     metric_4.metric(
         "Beyond horizon",
@@ -927,6 +939,7 @@ if workspace == "Funding plan":
         short_money(capital_summary["deferred_annualized_risk_exposure_usd"])
         + " annualized risk",
         delta_color="off",
+        delta_arrow="off",
     )
     st.markdown("## Annual affordability and throughput")
     st.plotly_chart(
