@@ -21,6 +21,8 @@ Most portfolios show either "legacy SQL Server BI" or "modern Fabric" skills.
 This project shows both, side by side, plus the part that's usually skipped
 entirely: how you'd actually prove the migration is safe to cut over.
 
+**▶ Live demo: [kush-asset-management-decision-board.streamlit.app](https://kush-asset-management-decision-board.streamlit.app/)** (the asset decision board built on this repo's evidence; [details below](#asset-management-decision-proof)).
+
 **Manual acceptance and release recovery:** [candidate-bound UAT packet and local rollback rehearsal](docs/business-analysis/MANUAL_UAT_EXECUTION.md). Six manual scenarios are extracted from the current backlog; stale reviews, missing evidence and high defects block readiness. The packet records no human acceptance or Service publication. Existing Jira/Confluence story states remain unchanged.
 
 ## Business analysis and change delivery
