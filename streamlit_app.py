@@ -117,7 +117,8 @@ st.markdown(
   .assumption-note { border-left:3px solid var(--funding); padding:.55rem .8rem; color:var(--muted); background:rgba(217,146,46,.07); margin:.35rem 0 1rem; }
   div[data-testid="stMetric"] { border-top:3px solid var(--survey); padding-top:.65rem; }
   [data-testid="stMetricValue"] { color:var(--blueprint); font-size:clamp(1.3rem,2.3vw,2.25rem); }
-  [data-testid="stMetricValue"] > div, [data-testid="stMetricValue"] p, [data-testid="stMetricLabel"] p, [data-testid="stMetricDelta"] p { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.25; }
+  :is([data-testid="stMetricLabel"], [data-testid="stMetricValue"], [data-testid="stMetricDelta"]),
+  :is([data-testid="stMetricLabel"], [data-testid="stMetricValue"], [data-testid="stMetricDelta"]) :is(div, p, span, label) { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; overflow-wrap: anywhere; height: auto !important; max-height: none !important; -webkit-line-clamp: unset !important; line-height: 1.25; }
   div[data-testid="stMetric"] div:has(> [data-testid="stMetricDelta"]) { overflow:visible; height:auto; }
   [data-testid="stMetricDelta"] { border-radius:.45rem; }
   [data-testid="stDataFrame"] { border:1px solid var(--line); background:var(--panel); }
