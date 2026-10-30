@@ -4,7 +4,7 @@
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-SSIS%20%2B%20SSRS-CC2927)
 ![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Delta%20MERGE-0078D4)
 ![PySpark](https://img.shields.io/badge/PySpark-Notebook%20Refactor-E25A1C?logo=apachespark&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-485%20collected-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-486%20collected-3B8C6E)
 
 The count is collected tests; CI reports executed passes and optional environment-dependent skips.
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
