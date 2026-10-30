@@ -211,6 +211,13 @@ def main():
                         "verdict": "GO" if go else "NO-GO",
                         "mismatch_reason": reason,
                     })
+                # Each attempt's date carries its own 10-80 day jitter, which can
+                # outweigh the 25-day spacing and date attempt 2 before attempt 1.
+                # Re-pair this artifact's dates with its attempts in order. Same
+                # random draws, so every other generated value is unchanged.
+                mine = runs[-n_runs:]
+                for run, date in zip(mine, sorted(r["run_date"] for r in mine)):
+                    run["run_date"] = date
 
     for fname, rows in [("migration_inventory.csv", inventory),
                         ("migration_plan.csv", plan),
